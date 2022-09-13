@@ -37,6 +37,17 @@ export interface MsgWithdrawHashlock {
 
 export interface MsgWithdrawHashlockResponse {}
 
+export interface MsgCloseChannel {
+  creator: string;
+  from: string;
+  toA: string;
+  coinA: Coin | undefined;
+  toB: string;
+  coinB: Coin | undefined;
+}
+
+export interface MsgCloseChannelResponse {}
+
 const baseMsgCommitment: object = {
   creator: "",
   from: "",
@@ -595,16 +606,205 @@ export const MsgWithdrawHashlockResponse = {
   },
 };
 
+const baseMsgCloseChannel: object = { creator: "", from: "", toA: "", toB: "" };
+
+export const MsgCloseChannel = {
+  encode(message: MsgCloseChannel, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.from !== "") {
+      writer.uint32(18).string(message.from);
+    }
+    if (message.toA !== "") {
+      writer.uint32(26).string(message.toA);
+    }
+    if (message.coinA !== undefined) {
+      Coin.encode(message.coinA, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.toB !== "") {
+      writer.uint32(42).string(message.toB);
+    }
+    if (message.coinB !== undefined) {
+      Coin.encode(message.coinB, writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCloseChannel {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCloseChannel } as MsgCloseChannel;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.from = reader.string();
+          break;
+        case 3:
+          message.toA = reader.string();
+          break;
+        case 4:
+          message.coinA = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.toB = reader.string();
+          break;
+        case 6:
+          message.coinB = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCloseChannel {
+    const message = { ...baseMsgCloseChannel } as MsgCloseChannel;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = String(object.from);
+    } else {
+      message.from = "";
+    }
+    if (object.toA !== undefined && object.toA !== null) {
+      message.toA = String(object.toA);
+    } else {
+      message.toA = "";
+    }
+    if (object.coinA !== undefined && object.coinA !== null) {
+      message.coinA = Coin.fromJSON(object.coinA);
+    } else {
+      message.coinA = undefined;
+    }
+    if (object.toB !== undefined && object.toB !== null) {
+      message.toB = String(object.toB);
+    } else {
+      message.toB = "";
+    }
+    if (object.coinB !== undefined && object.coinB !== null) {
+      message.coinB = Coin.fromJSON(object.coinB);
+    } else {
+      message.coinB = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCloseChannel): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.from !== undefined && (obj.from = message.from);
+    message.toA !== undefined && (obj.toA = message.toA);
+    message.coinA !== undefined &&
+      (obj.coinA = message.coinA ? Coin.toJSON(message.coinA) : undefined);
+    message.toB !== undefined && (obj.toB = message.toB);
+    message.coinB !== undefined &&
+      (obj.coinB = message.coinB ? Coin.toJSON(message.coinB) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCloseChannel>): MsgCloseChannel {
+    const message = { ...baseMsgCloseChannel } as MsgCloseChannel;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    } else {
+      message.from = "";
+    }
+    if (object.toA !== undefined && object.toA !== null) {
+      message.toA = object.toA;
+    } else {
+      message.toA = "";
+    }
+    if (object.coinA !== undefined && object.coinA !== null) {
+      message.coinA = Coin.fromPartial(object.coinA);
+    } else {
+      message.coinA = undefined;
+    }
+    if (object.toB !== undefined && object.toB !== null) {
+      message.toB = object.toB;
+    } else {
+      message.toB = "";
+    }
+    if (object.coinB !== undefined && object.coinB !== null) {
+      message.coinB = Coin.fromPartial(object.coinB);
+    } else {
+      message.coinB = undefined;
+    }
+    return message;
+  },
+};
+
+const baseMsgCloseChannelResponse: object = {};
+
+export const MsgCloseChannelResponse = {
+  encode(_: MsgCloseChannelResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCloseChannelResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCloseChannelResponse,
+    } as MsgCloseChannelResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCloseChannelResponse {
+    const message = {
+      ...baseMsgCloseChannelResponse,
+    } as MsgCloseChannelResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCloseChannelResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCloseChannelResponse>
+  ): MsgCloseChannelResponse {
+    const message = {
+      ...baseMsgCloseChannelResponse,
+    } as MsgCloseChannelResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Commitment(request: MsgCommitment): Promise<MsgCommitmentResponse>;
   WithdrawTimelock(
     request: MsgWithdrawTimelock
   ): Promise<MsgWithdrawTimelockResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   WithdrawHashlock(
     request: MsgWithdrawHashlock
   ): Promise<MsgWithdrawHashlockResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CloseChannel(request: MsgCloseChannel): Promise<MsgCloseChannelResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -645,6 +845,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgWithdrawHashlockResponse.decode(new Reader(data))
+    );
+  }
+
+  CloseChannel(request: MsgCloseChannel): Promise<MsgCloseChannelResponse> {
+    const data = MsgCloseChannel.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Msg",
+      "CloseChannel",
+      data
+    );
+    return promise.then((data) =>
+      MsgCloseChannelResponse.decode(new Reader(data))
     );
   }
 }
