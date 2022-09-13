@@ -10,6 +10,7 @@ option go_package = "channel/x/channel/types";
 service Msg {
       rpc Commitment(MsgCommitment) returns (MsgCommitmentResponse);
   rpc WithdrawTimelock(MsgWithdrawTimelock) returns (MsgWithdrawTimelockResponse);
+  rpc WithdrawHashlock(MsgWithdrawHashlock) returns (MsgWithdrawHashlockResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -35,6 +36,16 @@ message MsgWithdrawTimelock {
 }
 
 message MsgWithdrawTimelockResponse {
+}
+
+message MsgWithdrawHashlock {
+  string creator = 1;
+  string to = 2;
+  string index = 3;
+  string secret = 4;
+}
+
+message MsgWithdrawHashlockResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

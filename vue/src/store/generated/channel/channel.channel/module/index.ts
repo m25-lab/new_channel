@@ -4,13 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCommitment } from "./types/channel/tx";
 import { MsgWithdrawTimelock } from "./types/channel/tx";
+import { MsgWithdrawHashlock } from "./types/channel/tx";
+import { MsgCommitment } from "./types/channel/tx";
 
 
 const types = [
-  ["/channel.channel.MsgCommitment", MsgCommitment],
   ["/channel.channel.MsgWithdrawTimelock", MsgWithdrawTimelock],
+  ["/channel.channel.MsgWithdrawHashlock", MsgWithdrawHashlock],
+  ["/channel.channel.MsgCommitment", MsgCommitment],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -43,8 +45,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCommitment: (data: MsgCommitment): EncodeObject => ({ typeUrl: "/channel.channel.MsgCommitment", value: MsgCommitment.fromPartial( data ) }),
     msgWithdrawTimelock: (data: MsgWithdrawTimelock): EncodeObject => ({ typeUrl: "/channel.channel.MsgWithdrawTimelock", value: MsgWithdrawTimelock.fromPartial( data ) }),
+    msgWithdrawHashlock: (data: MsgWithdrawHashlock): EncodeObject => ({ typeUrl: "/channel.channel.MsgWithdrawHashlock", value: MsgWithdrawHashlock.fromPartial( data ) }),
+    msgCommitment: (data: MsgCommitment): EncodeObject => ({ typeUrl: "/channel.channel.MsgCommitment", value: MsgCommitment.fromPartial( data ) }),
     
   };
 };

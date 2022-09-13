@@ -44447,6 +44447,8 @@ definitions:
     properties:
       index:
         type: string
+  channel.channel.MsgWithdrawHashlockResponse:
+    type: object
   channel.channel.MsgWithdrawTimelockResponse:
     type: object
   channel.channel.Params:

@@ -40,6 +40,8 @@ export interface ChannelMsgCommitmentResponse {
   index?: string;
 }
 
+export type ChannelMsgWithdrawHashlockResponse = object;
+
 export type ChannelMsgWithdrawTimelockResponse = object;
 
 /**
