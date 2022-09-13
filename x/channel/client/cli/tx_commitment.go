@@ -15,14 +15,14 @@ var _ = strconv.Itoa(0)
 
 func CmdCommitment() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "commitment [from] [coin-a] [to-a-timelock] [blockheight] [to-b-hashlock] [hashcode] [coinlock]",
+		Use:   "commitment [from] [coin-a] [to-a-hashlock] [hashcode] [to-b-timelock] [blockheight] [coinlock]",
 		Short: "Broadcast message commitment",
 		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argFrom := args[0]
-			argToATimelock := args[2]
-			argToBHashlock := args[4]
-			argHashcode := args[5]
+			argToBHashlock := args[2]
+			argToATimelock := args[4]
+			argHashcode := args[3]
 
 			cmd.Flags().Set(flags.FlagFrom, args[0])
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -30,7 +30,7 @@ func CmdCommitment() *cobra.Command {
 				return err
 			}
 
-			argBlockheight, err := strconv.Atoi(args[3])
+			argBlockheight, err := strconv.Atoi(args[5])
 			if err != nil {
 				return err
 			}

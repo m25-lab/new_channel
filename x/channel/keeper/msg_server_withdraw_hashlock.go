@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"errors"
+	"fmt"
 
 	"channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -20,7 +21,8 @@ func (k msgServer) WithdrawHashlock(goCtx context.Context, msg *types.MsgWithdra
 	}
 
 	if val.ToBHashlock != msg.To {
-		return nil, errors.New("not matching receiver address!")
+		return nil, fmt.Errorf("not matching receiver address! expected:", val.ToBHashlock)
+		//return nil, errors.New("not matching receiver address!")
 	}
 
 	hash := sha256.Sum256([]byte(msg.Secret))

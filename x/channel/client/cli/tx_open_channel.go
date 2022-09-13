@@ -22,7 +22,7 @@ func CmdOpenChannel() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argPartA := args[0]
 			argPartB := args[1]
-
+			multisig_addr := args[4]
 			_, err = sdk.AccAddressFromBech32(argPartA)
 			if err != nil {
 				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid partA address (%s)", err)
@@ -33,9 +33,12 @@ func CmdOpenChannel() *cobra.Command {
 				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid partB address (%s)", err)
 			}
 
-			argName := args[4]
+			_, err = sdk.AccAddressFromBech32(multisig_addr)
+			if err != nil {
+				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid partB address (%s)", err)
+			}
 
-			cmd.Flags().Set(flags.FlagFrom, args[0])
+			cmd.Flags().Set(flags.FlagFrom, multisig_addr)
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -54,12 +57,12 @@ func CmdOpenChannel() *cobra.Command {
 			coinB, _ := sdk.NormalizeDecCoin(decCoin).TruncateDecimal()
 
 			msg := types.NewMsgOpenChannel(
-				argName,
+				clientCtx.GetFromAddress().String(),
 				argPartA,
 				argPartB,
 				&coinA,
 				&coinB,
-				argName,
+				multisig_addr,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
