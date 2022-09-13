@@ -46,6 +46,6 @@ func (k msgServer) CloseChannel(goCtx context.Context, msg *types.MsgCloseChanne
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return &types.MsgCloseChannelResponse{}, nil
 }

@@ -12,6 +12,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgWithdrawTimelock{}, "channel/WithdrawTimelock", nil)
 	cdc.RegisterConcrete(&MsgWithdrawHashlock{}, "channel/WithdrawHashlock", nil)
 	cdc.RegisterConcrete(&MsgCloseChannel{}, "channel/CloseChannel", nil)
+	cdc.RegisterConcrete(&MsgOpenChannel{}, "channel/OpenChannel", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -27,6 +28,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCloseChannel{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgOpenChannel{},
 	)
 	// this line is used by starport scaffolding # 3
 

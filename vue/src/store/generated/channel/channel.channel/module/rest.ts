@@ -42,6 +42,8 @@ export interface ChannelMsgCommitmentResponse {
   index?: string;
 }
 
+export type ChannelMsgOpenChannelResponse = object;
+
 export type ChannelMsgWithdrawHashlockResponse = object;
 
 export type ChannelMsgWithdrawTimelockResponse = object;

@@ -48,6 +48,17 @@ export interface MsgCloseChannel {
 
 export interface MsgCloseChannelResponse {}
 
+export interface MsgOpenChannel {
+  creator: string;
+  partA: string;
+  partB: string;
+  coinA: Coin | undefined;
+  coinB: Coin | undefined;
+  multisigAddr: string;
+}
+
+export interface MsgOpenChannelResponse {}
+
 const baseMsgCommitment: object = {
   creator: "",
   from: "",
@@ -794,6 +805,192 @@ export const MsgCloseChannelResponse = {
   },
 };
 
+const baseMsgOpenChannel: object = {
+  creator: "",
+  partA: "",
+  partB: "",
+  multisigAddr: "",
+};
+
+export const MsgOpenChannel = {
+  encode(message: MsgOpenChannel, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.partA !== "") {
+      writer.uint32(18).string(message.partA);
+    }
+    if (message.partB !== "") {
+      writer.uint32(26).string(message.partB);
+    }
+    if (message.coinA !== undefined) {
+      Coin.encode(message.coinA, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.coinB !== undefined) {
+      Coin.encode(message.coinB, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.multisigAddr !== "") {
+      writer.uint32(50).string(message.multisigAddr);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgOpenChannel {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgOpenChannel } as MsgOpenChannel;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.partA = reader.string();
+          break;
+        case 3:
+          message.partB = reader.string();
+          break;
+        case 4:
+          message.coinA = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.coinB = Coin.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.multisigAddr = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgOpenChannel {
+    const message = { ...baseMsgOpenChannel } as MsgOpenChannel;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.partA !== undefined && object.partA !== null) {
+      message.partA = String(object.partA);
+    } else {
+      message.partA = "";
+    }
+    if (object.partB !== undefined && object.partB !== null) {
+      message.partB = String(object.partB);
+    } else {
+      message.partB = "";
+    }
+    if (object.coinA !== undefined && object.coinA !== null) {
+      message.coinA = Coin.fromJSON(object.coinA);
+    } else {
+      message.coinA = undefined;
+    }
+    if (object.coinB !== undefined && object.coinB !== null) {
+      message.coinB = Coin.fromJSON(object.coinB);
+    } else {
+      message.coinB = undefined;
+    }
+    if (object.multisigAddr !== undefined && object.multisigAddr !== null) {
+      message.multisigAddr = String(object.multisigAddr);
+    } else {
+      message.multisigAddr = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgOpenChannel): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.partA !== undefined && (obj.partA = message.partA);
+    message.partB !== undefined && (obj.partB = message.partB);
+    message.coinA !== undefined &&
+      (obj.coinA = message.coinA ? Coin.toJSON(message.coinA) : undefined);
+    message.coinB !== undefined &&
+      (obj.coinB = message.coinB ? Coin.toJSON(message.coinB) : undefined);
+    message.multisigAddr !== undefined &&
+      (obj.multisigAddr = message.multisigAddr);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgOpenChannel>): MsgOpenChannel {
+    const message = { ...baseMsgOpenChannel } as MsgOpenChannel;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.partA !== undefined && object.partA !== null) {
+      message.partA = object.partA;
+    } else {
+      message.partA = "";
+    }
+    if (object.partB !== undefined && object.partB !== null) {
+      message.partB = object.partB;
+    } else {
+      message.partB = "";
+    }
+    if (object.coinA !== undefined && object.coinA !== null) {
+      message.coinA = Coin.fromPartial(object.coinA);
+    } else {
+      message.coinA = undefined;
+    }
+    if (object.coinB !== undefined && object.coinB !== null) {
+      message.coinB = Coin.fromPartial(object.coinB);
+    } else {
+      message.coinB = undefined;
+    }
+    if (object.multisigAddr !== undefined && object.multisigAddr !== null) {
+      message.multisigAddr = object.multisigAddr;
+    } else {
+      message.multisigAddr = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgOpenChannelResponse: object = {};
+
+export const MsgOpenChannelResponse = {
+  encode(_: MsgOpenChannelResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgOpenChannelResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgOpenChannelResponse } as MsgOpenChannelResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgOpenChannelResponse {
+    const message = { ...baseMsgOpenChannelResponse } as MsgOpenChannelResponse;
+    return message;
+  },
+
+  toJSON(_: MsgOpenChannelResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgOpenChannelResponse>): MsgOpenChannelResponse {
+    const message = { ...baseMsgOpenChannelResponse } as MsgOpenChannelResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Commitment(request: MsgCommitment): Promise<MsgCommitmentResponse>;
@@ -803,8 +1000,9 @@ export interface Msg {
   WithdrawHashlock(
     request: MsgWithdrawHashlock
   ): Promise<MsgWithdrawHashlockResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CloseChannel(request: MsgCloseChannel): Promise<MsgCloseChannelResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  OpenChannel(request: MsgOpenChannel): Promise<MsgOpenChannelResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -857,6 +1055,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCloseChannelResponse.decode(new Reader(data))
+    );
+  }
+
+  OpenChannel(request: MsgOpenChannel): Promise<MsgOpenChannelResponse> {
+    const data = MsgOpenChannel.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Msg",
+      "OpenChannel",
+      data
+    );
+    return promise.then((data) =>
+      MsgOpenChannelResponse.decode(new Reader(data))
     );
   }
 }
