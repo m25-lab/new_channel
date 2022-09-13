@@ -40,6 +40,8 @@ export interface ChannelMsgCommitmentResponse {
   index?: string;
 }
 
+export type ChannelMsgWithdrawTimelockResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

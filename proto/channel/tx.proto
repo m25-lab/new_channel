@@ -9,6 +9,7 @@ option go_package = "channel/x/channel/types";
 // Msg defines the Msg service.
 service Msg {
       rpc Commitment(MsgCommitment) returns (MsgCommitmentResponse);
+  rpc WithdrawTimelock(MsgWithdrawTimelock) returns (MsgWithdrawTimelockResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -25,6 +26,15 @@ message MsgCommitment {
 
 message MsgCommitmentResponse {
   string index = 1;
+}
+
+message MsgWithdrawTimelock {
+  string creator = 1;
+  string to = 2;
+  string index = 3;
+}
+
+message MsgWithdrawTimelockResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

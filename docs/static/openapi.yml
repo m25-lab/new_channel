@@ -44447,6 +44447,8 @@ definitions:
     properties:
       index:
         type: string
+  channel.channel.MsgWithdrawTimelockResponse:
+    type: object
   channel.channel.Params:
     type: object
     description: Params defines the parameters for the module.
