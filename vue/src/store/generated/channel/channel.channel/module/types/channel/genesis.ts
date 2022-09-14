@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Params } from "../channel/params";
 import { Commitment } from "../channel/commitment";
+import { Channel } from "../channel/channel";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "channel.channel";
@@ -8,8 +9,9 @@ export const protobufPackage = "channel.channel";
 /** GenesisState defines the channel module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   commitmentList: Commitment[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  channelList: Channel[];
 }
 
 const baseGenesisState: object = {};
@@ -22,6 +24,9 @@ export const GenesisState = {
     for (const v of message.commitmentList) {
       Commitment.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+    for (const v of message.channelList) {
+      Channel.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -30,6 +35,7 @@ export const GenesisState = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
     message.commitmentList = [];
+    message.channelList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -40,6 +46,9 @@ export const GenesisState = {
           message.commitmentList.push(
             Commitment.decode(reader, reader.uint32())
           );
+          break;
+        case 3:
+          message.channelList.push(Channel.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -52,6 +61,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.commitmentList = [];
+    message.channelList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -60,6 +70,11 @@ export const GenesisState = {
     if (object.commitmentList !== undefined && object.commitmentList !== null) {
       for (const e of object.commitmentList) {
         message.commitmentList.push(Commitment.fromJSON(e));
+      }
+    }
+    if (object.channelList !== undefined && object.channelList !== null) {
+      for (const e of object.channelList) {
+        message.channelList.push(Channel.fromJSON(e));
       }
     }
     return message;
@@ -76,12 +91,20 @@ export const GenesisState = {
     } else {
       obj.commitmentList = [];
     }
+    if (message.channelList) {
+      obj.channelList = message.channelList.map((e) =>
+        e ? Channel.toJSON(e) : undefined
+      );
+    } else {
+      obj.channelList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.commitmentList = [];
+    message.channelList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -90,6 +113,11 @@ export const GenesisState = {
     if (object.commitmentList !== undefined && object.commitmentList !== null) {
       for (const e of object.commitmentList) {
         message.commitmentList.push(Commitment.fromPartial(e));
+      }
+    }
+    if (object.channelList !== undefined && object.channelList !== null) {
+      for (const e of object.channelList) {
+        message.channelList.push(Channel.fromPartial(e));
       }
     }
     return message;

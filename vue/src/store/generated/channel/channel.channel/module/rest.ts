@@ -9,6 +9,13 @@
  * ---------------------------------------------------------------
  */
 
+export interface ChannelChannel {
+  index?: string;
+  multisigAddr?: string;
+  partA?: string;
+  partB?: string;
+}
+
 export interface ChannelCommitment {
   index?: string;
   from?: string;
@@ -53,6 +60,21 @@ export type ChannelMsgWithdrawTimelockResponse = object;
  */
 export type ChannelParams = object;
 
+export interface ChannelQueryAllChannelResponse {
+  channel?: ChannelChannel[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface ChannelQueryAllCommitmentResponse {
   commitment?: ChannelCommitment[];
 
@@ -66,6 +88,10 @@ export interface ChannelQueryAllCommitmentResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface ChannelQueryGetChannelResponse {
+  channel?: ChannelChannel;
 }
 
 export interface ChannelQueryGetCommitmentResponse {
@@ -362,10 +388,52 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title channel/commitment.proto
+ * @title channel/channel.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryChannelAll
+   * @summary Queries a list of Channel items.
+   * @request GET:/channel/channel/channel
+   */
+  queryChannelAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<ChannelQueryAllChannelResponse, RpcStatus>({
+      path: `/channel/channel/channel`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryChannel
+   * @summary Queries a Channel by index.
+   * @request GET:/channel/channel/channel/{index}
+   */
+  queryChannel = (index: string, params: RequestParams = {}) =>
+    this.request<ChannelQueryGetChannelResponse, RpcStatus>({
+      path: `/channel/channel/channel/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

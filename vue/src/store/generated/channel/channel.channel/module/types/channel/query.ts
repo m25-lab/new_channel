@@ -6,6 +6,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
+import { Channel } from "../channel/channel";
 
 export const protobufPackage = "channel.channel";
 
@@ -32,6 +33,23 @@ export interface QueryAllCommitmentRequest {
 
 export interface QueryAllCommitmentResponse {
   commitment: Commitment[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetChannelRequest {
+  index: string;
+}
+
+export interface QueryGetChannelResponse {
+  channel: Channel | undefined;
+}
+
+export interface QueryAllChannelRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllChannelResponse {
+  channel: Channel[];
   pagination: PageResponse | undefined;
 }
 
@@ -446,6 +464,296 @@ export const QueryAllCommitmentResponse = {
   },
 };
 
+const baseQueryGetChannelRequest: object = { index: "" };
+
+export const QueryGetChannelRequest = {
+  encode(
+    message: QueryGetChannelRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetChannelRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetChannelRequest } as QueryGetChannelRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetChannelRequest {
+    const message = { ...baseQueryGetChannelRequest } as QueryGetChannelRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetChannelRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetChannelRequest>
+  ): QueryGetChannelRequest {
+    const message = { ...baseQueryGetChannelRequest } as QueryGetChannelRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetChannelResponse: object = {};
+
+export const QueryGetChannelResponse = {
+  encode(
+    message: QueryGetChannelResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.channel !== undefined) {
+      Channel.encode(message.channel, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetChannelResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetChannelResponse,
+    } as QueryGetChannelResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.channel = Channel.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetChannelResponse {
+    const message = {
+      ...baseQueryGetChannelResponse,
+    } as QueryGetChannelResponse;
+    if (object.channel !== undefined && object.channel !== null) {
+      message.channel = Channel.fromJSON(object.channel);
+    } else {
+      message.channel = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetChannelResponse): unknown {
+    const obj: any = {};
+    message.channel !== undefined &&
+      (obj.channel = message.channel
+        ? Channel.toJSON(message.channel)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetChannelResponse>
+  ): QueryGetChannelResponse {
+    const message = {
+      ...baseQueryGetChannelResponse,
+    } as QueryGetChannelResponse;
+    if (object.channel !== undefined && object.channel !== null) {
+      message.channel = Channel.fromPartial(object.channel);
+    } else {
+      message.channel = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllChannelRequest: object = {};
+
+export const QueryAllChannelRequest = {
+  encode(
+    message: QueryAllChannelRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllChannelRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllChannelRequest } as QueryAllChannelRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllChannelRequest {
+    const message = { ...baseQueryAllChannelRequest } as QueryAllChannelRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllChannelRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllChannelRequest>
+  ): QueryAllChannelRequest {
+    const message = { ...baseQueryAllChannelRequest } as QueryAllChannelRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllChannelResponse: object = {};
+
+export const QueryAllChannelResponse = {
+  encode(
+    message: QueryAllChannelResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.channel) {
+      Channel.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllChannelResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllChannelResponse,
+    } as QueryAllChannelResponse;
+    message.channel = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.channel.push(Channel.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllChannelResponse {
+    const message = {
+      ...baseQueryAllChannelResponse,
+    } as QueryAllChannelResponse;
+    message.channel = [];
+    if (object.channel !== undefined && object.channel !== null) {
+      for (const e of object.channel) {
+        message.channel.push(Channel.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllChannelResponse): unknown {
+    const obj: any = {};
+    if (message.channel) {
+      obj.channel = message.channel.map((e) =>
+        e ? Channel.toJSON(e) : undefined
+      );
+    } else {
+      obj.channel = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllChannelResponse>
+  ): QueryAllChannelResponse {
+    const message = {
+      ...baseQueryAllChannelResponse,
+    } as QueryAllChannelResponse;
+    message.channel = [];
+    if (object.channel !== undefined && object.channel !== null) {
+      for (const e of object.channel) {
+        message.channel.push(Channel.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -458,6 +766,10 @@ export interface Query {
   CommitmentAll(
     request: QueryAllCommitmentRequest
   ): Promise<QueryAllCommitmentResponse>;
+  /** Queries a Channel by index. */
+  Channel(request: QueryGetChannelRequest): Promise<QueryGetChannelResponse>;
+  /** Queries a list of Channel items. */
+  ChannelAll(request: QueryAllChannelRequest): Promise<QueryAllChannelResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -496,6 +808,28 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllCommitmentResponse.decode(new Reader(data))
+    );
+  }
+
+  Channel(request: QueryGetChannelRequest): Promise<QueryGetChannelResponse> {
+    const data = QueryGetChannelRequest.encode(request).finish();
+    const promise = this.rpc.request("channel.channel.Query", "Channel", data);
+    return promise.then((data) =>
+      QueryGetChannelResponse.decode(new Reader(data))
+    );
+  }
+
+  ChannelAll(
+    request: QueryAllChannelRequest
+  ): Promise<QueryAllChannelResponse> {
+    const data = QueryAllChannelRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Query",
+      "ChannelAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllChannelResponse.decode(new Reader(data))
     );
   }
 }

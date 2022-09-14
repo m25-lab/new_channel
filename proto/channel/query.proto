@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "channel/params.proto";
 import "channel/commitment.proto";
+import "channel/channel.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "channel/x/channel/types";
@@ -24,6 +25,16 @@ service Query {
 	// Queries a list of Commitment items.
 	rpc CommitmentAll(QueryAllCommitmentRequest) returns (QueryAllCommitmentResponse) {
 		option (google.api.http).get = "/channel/channel/commitment";
+	}
+
+// Queries a Channel by index.
+	rpc Channel(QueryGetChannelRequest) returns (QueryGetChannelResponse) {
+		option (google.api.http).get = "/channel/channel/channel/{index}";
+	}
+
+	// Queries a list of Channel items.
+	rpc ChannelAll(QueryAllChannelRequest) returns (QueryAllChannelResponse) {
+		option (google.api.http).get = "/channel/channel/channel";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -53,6 +64,24 @@ message QueryAllCommitmentRequest {
 
 message QueryAllCommitmentResponse {
 	repeated Commitment commitment = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetChannelRequest {
+	  string index = 1;
+
+}
+
+message QueryGetChannelResponse {
+	Channel channel = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllChannelRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllChannelResponse {
+	repeated Channel channel = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

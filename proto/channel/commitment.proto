@@ -13,7 +13,6 @@ message Commitment {
   string toBHashlock = 5;
   cosmos.base.v1beta1.Coin coinlock = 6;
   uint64 blockheight = 7;
-  string hashcode = 8; 
-  
+  string hashcode = 8;
 }
 

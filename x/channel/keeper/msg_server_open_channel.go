@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -22,8 +23,25 @@ func (k msgServer) OpenChannel(goCtx context.Context, msg *types.MsgOpenChannel)
 
 	multiAddr := msg.GetSigners()[0]
 
-	k.bankKeeper.SendCoins(ctx, addrA, multiAddr, sdk.Coins{*msg.CoinA})
-	k.bankKeeper.SendCoins(ctx, addrB, multiAddr, sdk.Coins{*msg.CoinB})
-	
+	err = k.bankKeeper.SendCoins(ctx, addrA, multiAddr, sdk.Coins{*msg.CoinA})
+	if err != nil {
+		return nil, err
+	}
+
+	err = k.bankKeeper.SendCoins(ctx, addrB, multiAddr, sdk.Coins{*msg.CoinB})
+	if err != nil {
+		return nil, err
+	}
+
+	indexStr := fmt.Sprintf("%s:%s:%d:%d:%d", msg.MultisigAddr, msg.CoinA.Denom, msg.CoinA.Amount, msg.CoinB.Amount, ctx.BlockHeight())
+
+	channel := types.Channel{
+		Index:        indexStr,
+		MultisigAddr: msg.MultisigAddr,
+		PartA:        msg.PartA,
+		PartB:        msg.PartB,
+	}
+	k.Keeper.SetChannel(ctx, channel)
+
 	return &types.MsgOpenChannelResponse{}, nil
 }
