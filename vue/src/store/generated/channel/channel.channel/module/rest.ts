@@ -49,7 +49,13 @@ export interface ChannelMsgCommitmentResponse {
   index?: string;
 }
 
-export type ChannelMsgOpenChannelResponse = object;
+export interface ChannelMsgFundResponse {
+  index?: string;
+}
+
+export interface ChannelMsgOpenChannelResponse {
+  index?: string;
+}
 
 export type ChannelMsgWithdrawHashlockResponse = object;
 

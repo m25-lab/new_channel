@@ -33,7 +33,8 @@ func (k msgServer) OpenChannel(goCtx context.Context, msg *types.MsgOpenChannel)
 		return nil, err
 	}
 
-	indexStr := fmt.Sprintf("%s:%s:%d:%d:%d", msg.MultisigAddr, msg.CoinA.Denom, msg.CoinA.Amount, msg.CoinB.Amount, ctx.BlockHeight())
+	indexStr := fmt.Sprintf("%s:%s:%s:%s:%d", msg.MultisigAddr, msg.CoinA.Denom,
+		msg.CoinA.Amount.String(), msg.CoinB.Amount.String(), ctx.BlockHeight())
 
 	channel := types.Channel{
 		Index:        indexStr,
@@ -43,5 +44,7 @@ func (k msgServer) OpenChannel(goCtx context.Context, msg *types.MsgOpenChannel)
 	}
 	k.Keeper.SetChannel(ctx, channel)
 
-	return &types.MsgOpenChannelResponse{}, nil
+	return &types.MsgOpenChannelResponse{
+		Index: indexStr,
+	}, nil
 }

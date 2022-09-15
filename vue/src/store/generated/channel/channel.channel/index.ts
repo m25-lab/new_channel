@@ -263,21 +263,6 @@ export default {
 		},
 		
 		
-		async sendMsgOpenChannel({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgOpenChannel(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgOpenChannel:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgCloseChannel({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -293,18 +278,33 @@ export default {
 				}
 			}
 		},
-		async sendMsgWithdrawHashlock({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgFund({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgWithdrawHashlock(value)
+				const msg = await txClient.msgFund(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgWithdrawHashlock:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgFund:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgWithdrawHashlock:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgFund:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgOpenChannel({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgOpenChannel(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgOpenChannel:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -338,20 +338,22 @@ export default {
 				}
 			}
 		},
-		
-		async MsgOpenChannel({ rootGetters }, { value }) {
+		async sendMsgWithdrawHashlock({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgOpenChannel(value)
-				return msg
+				const msg = await txClient.msgWithdrawHashlock(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgOpenChannel:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgWithdrawHashlock:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgWithdrawHashlock:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
+		
 		async MsgCloseChannel({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -365,16 +367,29 @@ export default {
 				}
 			}
 		},
-		async MsgWithdrawHashlock({ rootGetters }, { value }) {
+		async MsgFund({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgWithdrawHashlock(value)
+				const msg = await txClient.msgFund(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgWithdrawHashlock:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgFund:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgWithdrawHashlock:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgFund:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgOpenChannel({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgOpenChannel(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgOpenChannel:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -401,6 +416,19 @@ export default {
 					throw new Error('TxClient:MsgWithdrawTimelock:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgWithdrawTimelock:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgWithdrawHashlock({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgWithdrawHashlock(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgWithdrawHashlock:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgWithdrawHashlock:Create Could not create message: ' + e.message)
 				}
 			}
 		},

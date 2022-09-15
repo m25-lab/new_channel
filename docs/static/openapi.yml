@@ -44634,8 +44634,16 @@ definitions:
     properties:
       index:
         type: string
+  channel.channel.MsgFundResponse:
+    type: object
+    properties:
+      index:
+        type: string
   channel.channel.MsgOpenChannelResponse:
     type: object
+    properties:
+      index:
+        type: string
   channel.channel.MsgWithdrawHashlockResponse:
     type: object
   channel.channel.MsgWithdrawTimelockResponse:
