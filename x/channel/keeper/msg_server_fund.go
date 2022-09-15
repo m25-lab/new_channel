@@ -42,36 +42,38 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	if msg.From == val.PartA {
 		toTimelock = val.PartB
 		toHashlock = val.PartA
-		amount = msg.Coin.Amount.Add(msg.BalanceA.Amount)
+		//amount = msg.Coin.Amount.Add(msg.BalanceA.Amount)
 		coinLock = msg.BalanceB
 	} else {
 		toTimelock = val.PartA
 		toHashlock = val.PartB
-		amount = msg.Coin.Amount.Add(msg.BalanceB.Amount)
+		//amount = msg.Coin.Amount.Add(msg.BalanceB.Amount)
 		coinLock = msg.BalanceA
 	}
 
-	coin := k.Keeper.bankKeeper.GetBalance(ctx, sdk.AccAddress(val.MultisigAddr), coinLock.Denom)
-	if coin.Amount.Uint64() != 12 {
-		return nil, fmt.Errorf("@@@ wrong balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
+	from, err := sdk.AccAddressFromBech32(val.MultisigAddr)
+	if err != nil {
+		return nil, err
 	}
+
+	coin := k.Keeper.bankKeeper.GetBalance(ctx, from, coinLock.Denom)
+
+	ctx.Logger().Info("@@@@ balance of addr", val.MultisigAddr,
+		" balance:", coin.Amount.Uint64(), "coinlock", coinLock.Amount.Uint64())
 
 	if coin.Amount.Uint64() < coinLock.Amount.Uint64() {
-		return nil, fmt.Errorf("@@@ not enough coin")
+		ctx.Logger().Info("@@@ not enough coin")
 	}
-	// Send to LockTx (other) or HashTx (creator)
-	fmt.Println("@@@@ balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
-	fmt.Println("@@@@ balance of coinlock balance:", coinLock.Amount.Uint64())
 
-	err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, sdk.AccAddress(val.MultisigAddr),
-		types.ModuleName, sdk.Coins{*coinLock})
+	// Send to LockTx (other) or HashTx (creator)
+	err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinLock})
 	if err != nil {
-		return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
+		return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
 	}
 
 	indexStr := fmt.Sprintf("%s:%s:%d", msg.Channelid, msg.HashcodeB, ctx.BlockHeight())
 
-	unlockBlock := 300 + uint64(ctx.BlockHeight())
+	unlockBlock := 10 + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
 		Index:       indexStr,
@@ -85,19 +87,26 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	}
 	k.Keeper.SetCommitment(ctx, commitment)
 
-	if val.PartA != msg.From {
-		return nil, fmt.Errorf("not matching receiver address! expected:", val.PartA)
+	if toHashlock != msg.From {
+		return nil, fmt.Errorf("not matching receiver address! expected:", toHashlock)
 	}
 
-	// Send coin to part A (creator) of the funding commitment
-	err = k.bankKeeper.SendCoins(ctx, sdk.AccAddress(val.MultisigAddr), sdk.AccAddress(toHashlock), sdk.Coins{
+	// Send coin to creator of the funding commitment
+	to, err := sdk.AccAddressFromBech32(msg.From)
+	if err != nil {
+		return nil, err
+	}
+
+	amount = coin.Amount.Sub(coinLock.Amount)
+	ctx.Logger().Info("@@@@ remain balance of multisig:", amount.String())
+	err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{
 		sdk.Coin{
 			Denom:  msg.Coin.Denom,
 			Amount: amount,
 		},
 	})
 	if err != nil {
-		return nil, fmt.Errorf("@@@ SendCoins balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64(),
+		return nil, fmt.Errorf("@@@ SendCoins failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64(),
 			"required amount:", amount.Uint64())
 	}
 
