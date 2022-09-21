@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdCommitment() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "commitment [from] [coin-a] [to-a-hashlock] [hashcode] [to-b-timelock] [blockheight] [coinlock]",
+		Use:   "commitment [from] [coin-a] [to-b-hashlock] [hashcode] [to-a-timelock] [num_block] [coinlock]",
 		Short: "Broadcast message commitment",
 		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -30,7 +30,7 @@ func CmdCommitment() *cobra.Command {
 				return err
 			}
 
-			argBlockheight, err := strconv.Atoi(args[5])
+			argBlockheight, err := strconv.ParseUint(args[5], 10, 64)
 			if err != nil {
 				return err
 			}
@@ -52,7 +52,7 @@ func CmdCommitment() *cobra.Command {
 				argFrom,
 				&coinA,
 				argToATimelock,
-				uint64(argBlockheight),
+				argBlockheight,
 				argToBHashlock,
 				argHashcode,
 				&coinLock,
