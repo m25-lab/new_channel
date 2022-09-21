@@ -14,6 +14,7 @@ export interface ChannelChannel {
   multisigAddr?: string;
   partA?: string;
   partB?: string;
+  denom?: string;
 }
 
 export interface ChannelCommitment {

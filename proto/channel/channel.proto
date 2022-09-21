@@ -8,5 +8,6 @@ message Channel {
   string multisigAddr = 2;
   string partA = 3;
   string partB = 4;
+  string denom = 5;
 }
 

@@ -27,6 +27,8 @@ paths:
                       type: string
                     partB:
                       type: string
+                    denom:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -152,6 +154,8 @@ paths:
                   partA:
                     type: string
                   partB:
+                    type: string
+                  denom:
                     type: string
         default:
           description: An unexpected error response.
@@ -44587,6 +44591,8 @@ definitions:
         type: string
       partB:
         type: string
+      denom:
+        type: string
   channel.channel.Commitment:
     type: object
     properties:
@@ -44666,6 +44672,8 @@ definitions:
             partA:
               type: string
             partB:
+              type: string
+            denom:
               type: string
       pagination:
         type: object
@@ -44783,6 +44791,8 @@ definitions:
           partA:
             type: string
           partB:
+            type: string
+          denom:
             type: string
   channel.channel.QueryGetCommitmentResponse:
     type: object

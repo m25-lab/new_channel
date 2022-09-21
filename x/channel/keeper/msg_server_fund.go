@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"cosmossdk.io/math"
 	"errors"
 	"fmt"
 
@@ -35,19 +34,16 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, errors.New("Not matching any part in this channel!")
 	}
 
-	var amount math.Int
 	var toTimelock, toHashlock string
 	var coinLock *sdk.Coin
 
 	if msg.From == val.PartA {
 		toTimelock = val.PartB
 		toHashlock = val.PartA
-		//amount = msg.Coin.Amount.Add(msg.BalanceA.Amount)
 		coinLock = msg.BalanceB
 	} else {
 		toTimelock = val.PartA
 		toHashlock = val.PartB
-		//amount = msg.Coin.Amount.Add(msg.BalanceB.Amount)
 		coinLock = msg.BalanceA
 	}
 
@@ -60,10 +56,6 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 
 	ctx.Logger().Info("@@@@ balance of addr", val.MultisigAddr,
 		" balance:", coin.Amount.Uint64(), "coinlock", coinLock.Amount.Uint64())
-
-	if coin.Amount.Uint64() < coinLock.Amount.Uint64() {
-		ctx.Logger().Info("@@@ not enough coin")
-	}
 
 	// Send to LockTx (other) or HashTx (creator)
 	err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinLock})
@@ -97,8 +89,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, err
 	}
 
-	amount = coin.Amount.Sub(coinLock.Amount)
-	ctx.Logger().Info("@@@@ remain balance of multisig:", amount.String())
+	amount := coin.Amount.Sub(coinLock.Amount)
 	err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{
 		sdk.Coin{
 			Denom:  msg.Coin.Denom,

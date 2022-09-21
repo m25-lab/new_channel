@@ -6,19 +6,19 @@ import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "
 import { Api } from "./rest";
 import { MsgCloseChannel } from "./types/channel/tx";
 import { MsgFund } from "./types/channel/tx";
-import { MsgOpenChannel } from "./types/channel/tx";
-import { MsgCommitment } from "./types/channel/tx";
 import { MsgWithdrawTimelock } from "./types/channel/tx";
 import { MsgWithdrawHashlock } from "./types/channel/tx";
+import { MsgCommitment } from "./types/channel/tx";
+import { MsgOpenChannel } from "./types/channel/tx";
 
 
 const types = [
   ["/channel.channel.MsgCloseChannel", MsgCloseChannel],
   ["/channel.channel.MsgFund", MsgFund],
-  ["/channel.channel.MsgOpenChannel", MsgOpenChannel],
-  ["/channel.channel.MsgCommitment", MsgCommitment],
   ["/channel.channel.MsgWithdrawTimelock", MsgWithdrawTimelock],
   ["/channel.channel.MsgWithdrawHashlock", MsgWithdrawHashlock],
+  ["/channel.channel.MsgCommitment", MsgCommitment],
+  ["/channel.channel.MsgOpenChannel", MsgOpenChannel],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -53,10 +53,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
     msgCloseChannel: (data: MsgCloseChannel): EncodeObject => ({ typeUrl: "/channel.channel.MsgCloseChannel", value: MsgCloseChannel.fromPartial( data ) }),
     msgFund: (data: MsgFund): EncodeObject => ({ typeUrl: "/channel.channel.MsgFund", value: MsgFund.fromPartial( data ) }),
-    msgOpenChannel: (data: MsgOpenChannel): EncodeObject => ({ typeUrl: "/channel.channel.MsgOpenChannel", value: MsgOpenChannel.fromPartial( data ) }),
-    msgCommitment: (data: MsgCommitment): EncodeObject => ({ typeUrl: "/channel.channel.MsgCommitment", value: MsgCommitment.fromPartial( data ) }),
     msgWithdrawTimelock: (data: MsgWithdrawTimelock): EncodeObject => ({ typeUrl: "/channel.channel.MsgWithdrawTimelock", value: MsgWithdrawTimelock.fromPartial( data ) }),
     msgWithdrawHashlock: (data: MsgWithdrawHashlock): EncodeObject => ({ typeUrl: "/channel.channel.MsgWithdrawHashlock", value: MsgWithdrawHashlock.fromPartial( data ) }),
+    msgCommitment: (data: MsgCommitment): EncodeObject => ({ typeUrl: "/channel.channel.MsgCommitment", value: MsgCommitment.fromPartial( data ) }),
+    msgOpenChannel: (data: MsgOpenChannel): EncodeObject => ({ typeUrl: "/channel.channel.MsgOpenChannel", value: MsgOpenChannel.fromPartial( data ) }),
     
   };
 };

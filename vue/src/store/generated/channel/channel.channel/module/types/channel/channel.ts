@@ -8,6 +8,7 @@ export interface Channel {
   multisigAddr: string;
   partA: string;
   partB: string;
+  denom: string;
 }
 
 const baseChannel: object = {
@@ -15,6 +16,7 @@ const baseChannel: object = {
   multisigAddr: "",
   partA: "",
   partB: "",
+  denom: "",
 };
 
 export const Channel = {
@@ -30,6 +32,9 @@ export const Channel = {
     }
     if (message.partB !== "") {
       writer.uint32(34).string(message.partB);
+    }
+    if (message.denom !== "") {
+      writer.uint32(42).string(message.denom);
     }
     return writer;
   },
@@ -52,6 +57,9 @@ export const Channel = {
           break;
         case 4:
           message.partB = reader.string();
+          break;
+        case 5:
+          message.denom = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -83,6 +91,11 @@ export const Channel = {
     } else {
       message.partB = "";
     }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = String(object.denom);
+    } else {
+      message.denom = "";
+    }
     return message;
   },
 
@@ -93,6 +106,7 @@ export const Channel = {
       (obj.multisigAddr = message.multisigAddr);
     message.partA !== undefined && (obj.partA = message.partA);
     message.partB !== undefined && (obj.partB = message.partB);
+    message.denom !== undefined && (obj.denom = message.denom);
     return obj;
   },
 
@@ -117,6 +131,11 @@ export const Channel = {
       message.partB = object.partB;
     } else {
       message.partB = "";
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    } else {
+      message.denom = "";
     }
     return message;
   },
