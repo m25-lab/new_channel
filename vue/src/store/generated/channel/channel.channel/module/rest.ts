@@ -15,6 +15,9 @@ export interface ChannelChannel {
   partA?: string;
   partB?: string;
   denom?: string;
+
+  /** @format uint64 */
+  sequence?: string;
 }
 
 export interface ChannelCommitment {

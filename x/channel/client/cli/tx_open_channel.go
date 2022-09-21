@@ -16,13 +16,19 @@ var _ = strconv.Itoa(0)
 
 func CmdOpenChannel() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "open-channel [part-a] [part-b] [coin-a] [coin-b] [multisig-addr]",
+		Use:   "open-channel [part-a] [part-b] [coin-a] [coin-b] [multisig-addr] [sequence]",
 		Short: "Broadcast message open-channel",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argPartA := args[0]
 			argPartB := args[1]
 			multisig_addr := args[4]
+
+			sequence, err := strconv.ParseUint(args[5], 10, 64)
+			if err != nil {
+				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sequence number (%s)", err)
+			}
+
 			_, err = sdk.AccAddressFromBech32(argPartA)
 			if err != nil {
 				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid partA address (%s)", err)
@@ -35,7 +41,7 @@ func CmdOpenChannel() *cobra.Command {
 
 			_, err = sdk.AccAddressFromBech32(multisig_addr)
 			if err != nil {
-				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid partB address (%s)", err)
+				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid multisig address (%s)", err)
 			}
 
 			cmd.Flags().Set(flags.FlagFrom, multisig_addr)
@@ -63,6 +69,7 @@ func CmdOpenChannel() *cobra.Command {
 				&coinA,
 				&coinB,
 				multisig_addr,
+				sequence,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

@@ -9,14 +9,15 @@ const TypeMsgCloseChannel = "close_channel"
 
 var _ sdk.Msg = &MsgCloseChannel{}
 
-func NewMsgCloseChannel(creator string, from string, toA string, coinA *sdk.Coin, toB string, coinB *sdk.Coin) *MsgCloseChannel {
+func NewMsgCloseChannel(creator string, from string, toA string, coinA *sdk.Coin, toB string, coinB *sdk.Coin, channelid string) *MsgCloseChannel {
 	return &MsgCloseChannel{
-		Creator: creator,
-		From:    from,
-		ToA:     toA,
-		CoinA:   coinA,
-		ToB:     toB,
-		CoinB:   coinB,
+		Creator:   creator,
+		From:      from,
+		ToA:       toA,
+		CoinA:     coinA,
+		ToB:       toB,
+		CoinB:     coinB,
+		Channelid: channelid,
 	}
 }
 

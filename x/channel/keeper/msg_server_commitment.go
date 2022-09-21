@@ -41,7 +41,7 @@ func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (
 		return nil, err
 	}
 
-	indexStr := fmt.Sprintf("%s:%s:%s:%s:%d:%d", msg.From, msg.ToBHashlock, msg.Hashcode, msg.Coinlock.Denom, msg.Coinlock.Amount.Int64(), ctx.BlockHeight())
+	indexStr := fmt.Sprintf("%s:%s", msg.From, msg.Hashcode)
 
 	unlockBlock := msg.Blockheight + uint64(ctx.BlockHeight())
 

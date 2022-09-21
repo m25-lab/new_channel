@@ -16,13 +16,14 @@ var _ = strconv.Itoa(0)
 
 func CmdCloseChannel() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "close-channel [from] [to-a] [coin-a] [to-b] [coin-b]",
+		Use:   "close-channel [from] [to-a] [coin-a] [to-b] [coin-b] [channelid]",
 		Short: "Broadcast message close-channel",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argFrom := args[0]
 			argToA := args[1]
 			argToB := args[3]
+			argChannelID := args[5]
 
 			cmd.Flags().Set(flags.FlagFrom, args[0])
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -64,6 +65,7 @@ func CmdCloseChannel() *cobra.Command {
 				&coinA,
 				argToB,
 				&coinB,
+				argChannelID,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

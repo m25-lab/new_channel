@@ -58,6 +58,7 @@ message MsgCloseChannel {
   cosmos.base.v1beta1.Coin coinA = 4;
   string toB = 5;
   cosmos.base.v1beta1.Coin coinB = 6;
+  string channelid = 7;
 }
 
 message MsgCloseChannelResponse {
@@ -70,6 +71,7 @@ message MsgOpenChannel {
   cosmos.base.v1beta1.Coin coinA = 4;
   cosmos.base.v1beta1.Coin coinB = 5;
   string multisigAddr = 6;
+  uint64 sequence = 7;
 }
 
 message MsgOpenChannelResponse {

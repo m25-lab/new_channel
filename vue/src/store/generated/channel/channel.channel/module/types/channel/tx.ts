@@ -44,6 +44,7 @@ export interface MsgCloseChannel {
   coinA: Coin | undefined;
   toB: string;
   coinB: Coin | undefined;
+  channelid: string;
 }
 
 export interface MsgCloseChannelResponse {}
@@ -55,6 +56,7 @@ export interface MsgOpenChannel {
   coinA: Coin | undefined;
   coinB: Coin | undefined;
   multisigAddr: string;
+  sequence: number;
 }
 
 export interface MsgOpenChannelResponse {
@@ -634,7 +636,13 @@ export const MsgWithdrawHashlockResponse = {
   },
 };
 
-const baseMsgCloseChannel: object = { creator: "", from: "", toA: "", toB: "" };
+const baseMsgCloseChannel: object = {
+  creator: "",
+  from: "",
+  toA: "",
+  toB: "",
+  channelid: "",
+};
 
 export const MsgCloseChannel = {
   encode(message: MsgCloseChannel, writer: Writer = Writer.create()): Writer {
@@ -655,6 +663,9 @@ export const MsgCloseChannel = {
     }
     if (message.coinB !== undefined) {
       Coin.encode(message.coinB, writer.uint32(50).fork()).ldelim();
+    }
+    if (message.channelid !== "") {
+      writer.uint32(58).string(message.channelid);
     }
     return writer;
   },
@@ -683,6 +694,9 @@ export const MsgCloseChannel = {
           break;
         case 6:
           message.coinB = Coin.decode(reader, reader.uint32());
+          break;
+        case 7:
+          message.channelid = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -724,6 +738,11 @@ export const MsgCloseChannel = {
     } else {
       message.coinB = undefined;
     }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = String(object.channelid);
+    } else {
+      message.channelid = "";
+    }
     return message;
   },
 
@@ -737,6 +756,7 @@ export const MsgCloseChannel = {
     message.toB !== undefined && (obj.toB = message.toB);
     message.coinB !== undefined &&
       (obj.coinB = message.coinB ? Coin.toJSON(message.coinB) : undefined);
+    message.channelid !== undefined && (obj.channelid = message.channelid);
     return obj;
   },
 
@@ -771,6 +791,11 @@ export const MsgCloseChannel = {
       message.coinB = Coin.fromPartial(object.coinB);
     } else {
       message.coinB = undefined;
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = object.channelid;
+    } else {
+      message.channelid = "";
     }
     return message;
   },
@@ -827,6 +852,7 @@ const baseMsgOpenChannel: object = {
   partA: "",
   partB: "",
   multisigAddr: "",
+  sequence: 0,
 };
 
 export const MsgOpenChannel = {
@@ -848,6 +874,9 @@ export const MsgOpenChannel = {
     }
     if (message.multisigAddr !== "") {
       writer.uint32(50).string(message.multisigAddr);
+    }
+    if (message.sequence !== 0) {
+      writer.uint32(56).uint64(message.sequence);
     }
     return writer;
   },
@@ -876,6 +905,9 @@ export const MsgOpenChannel = {
           break;
         case 6:
           message.multisigAddr = reader.string();
+          break;
+        case 7:
+          message.sequence = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -917,6 +949,11 @@ export const MsgOpenChannel = {
     } else {
       message.multisigAddr = "";
     }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = Number(object.sequence);
+    } else {
+      message.sequence = 0;
+    }
     return message;
   },
 
@@ -931,6 +968,7 @@ export const MsgOpenChannel = {
       (obj.coinB = message.coinB ? Coin.toJSON(message.coinB) : undefined);
     message.multisigAddr !== undefined &&
       (obj.multisigAddr = message.multisigAddr);
+    message.sequence !== undefined && (obj.sequence = message.sequence);
     return obj;
   },
 
@@ -965,6 +1003,11 @@ export const MsgOpenChannel = {
       message.multisigAddr = object.multisigAddr;
     } else {
       message.multisigAddr = "";
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = object.sequence;
+    } else {
+      message.sequence = 0;
     }
     return message;
   },
