@@ -71,7 +71,7 @@ message MsgOpenChannel {
   cosmos.base.v1beta1.Coin coinA = 4;
   cosmos.base.v1beta1.Coin coinB = 5;
   string multisigAddr = 6;
-  uint64 sequence = 7;
+  string sequence = 7;
 }
 
 message MsgOpenChannelResponse {

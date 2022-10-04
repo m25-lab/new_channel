@@ -23,11 +23,12 @@ func CmdOpenChannel() *cobra.Command {
 			argPartA := args[0]
 			argPartB := args[1]
 			multisig_addr := args[4]
+			sequence := args[5]
 
-			sequence, err := strconv.ParseUint(args[5], 10, 64)
-			if err != nil {
-				return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sequence number (%s)", err)
-			}
+			//sequence, err := strconv.ParseUint(args[5], 10, 64)
+			//if err != nil {
+			//	return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sequence number (%s)", err)
+			//}
 
 			_, err = sdk.AccAddressFromBech32(argPartA)
 			if err != nil {

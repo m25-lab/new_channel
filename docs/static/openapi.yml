@@ -31,7 +31,6 @@ paths:
                       type: string
                     sequence:
                       type: string
-                      format: uint64
               pagination:
                 type: object
                 properties:
@@ -162,7 +161,6 @@ paths:
                     type: string
                   sequence:
                     type: string
-                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -44601,7 +44599,6 @@ definitions:
         type: string
       sequence:
         type: string
-        format: uint64
   channel.channel.Commitment:
     type: object
     properties:
@@ -44686,7 +44683,6 @@ definitions:
               type: string
             sequence:
               type: string
-              format: uint64
       pagination:
         type: object
         properties:
@@ -44808,7 +44804,6 @@ definitions:
             type: string
           sequence:
             type: string
-            format: uint64
   channel.channel.QueryGetCommitmentResponse:
     type: object
     properties:
