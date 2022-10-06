@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
 
 	"channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,9 +14,6 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
-	msg.GetSigners()
-	msg.GetSignBytes()
-
 	_, err := sdk.AccAddressFromBech32(msg.From)
 	if err != nil {
 		return nil, err
@@ -65,9 +63,14 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		}
 	}
 
-	indexStr := fmt.Sprintf("%s:%s:%d", msg.Channelid, msg.HashcodeB, ctx.BlockHeight())
+	indexStr := fmt.Sprintf("%s:%s", msg.Channelid, msg.Hashcode)
 
-	unlockBlock := 10 + uint64(ctx.BlockHeight())
+	numblock, err := strconv.ParseUint(msg.Timelock, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
 		Index:       indexStr,
@@ -77,7 +80,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		ToBHashlock: toHashlock,
 		Coinlock:    coinLock,
 		Blockheight: unlockBlock,
-		Hashcode:    msg.HashcodeB,
+		Hashcode:    msg.Hashcode,
 	}
 	k.Keeper.SetCommitment(ctx, commitment)
 

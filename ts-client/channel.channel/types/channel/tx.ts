@@ -70,7 +70,8 @@ export interface MsgFund {
   coin: Coin | undefined;
   balanceA: Coin | undefined;
   balanceB: Coin | undefined;
-  hashcodeB: string;
+  hashcode: string;
+  timelock: string;
   multisig: string;
 }
 
@@ -1077,7 +1078,8 @@ const baseMsgFund: object = {
   creator: "",
   from: "",
   channelid: "",
-  hashcodeB: "",
+  hashcode: "",
+  timelock: "",
   multisig: "",
 };
 
@@ -1101,11 +1103,14 @@ export const MsgFund = {
     if (message.balanceB !== undefined) {
       Coin.encode(message.balanceB, writer.uint32(50).fork()).ldelim();
     }
-    if (message.hashcodeB !== "") {
-      writer.uint32(58).string(message.hashcodeB);
+    if (message.hashcode !== "") {
+      writer.uint32(58).string(message.hashcode);
+    }
+    if (message.timelock !== "") {
+      writer.uint32(66).string(message.timelock);
     }
     if (message.multisig !== "") {
-      writer.uint32(66).string(message.multisig);
+      writer.uint32(74).string(message.multisig);
     }
     return writer;
   },
@@ -1136,9 +1141,12 @@ export const MsgFund = {
           message.balanceB = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.hashcodeB = reader.string();
+          message.hashcode = reader.string();
           break;
         case 8:
+          message.timelock = reader.string();
+          break;
+        case 9:
           message.multisig = reader.string();
           break;
         default:
@@ -1181,10 +1189,15 @@ export const MsgFund = {
     } else {
       message.balanceB = undefined;
     }
-    if (object.hashcodeB !== undefined && object.hashcodeB !== null) {
-      message.hashcodeB = String(object.hashcodeB);
+    if (object.hashcode !== undefined && object.hashcode !== null) {
+      message.hashcode = String(object.hashcode);
     } else {
-      message.hashcodeB = "";
+      message.hashcode = "";
+    }
+    if (object.timelock !== undefined && object.timelock !== null) {
+      message.timelock = String(object.timelock);
+    } else {
+      message.timelock = "";
     }
     if (object.multisig !== undefined && object.multisig !== null) {
       message.multisig = String(object.multisig);
@@ -1209,7 +1222,8 @@ export const MsgFund = {
       (obj.balanceB = message.balanceB
         ? Coin.toJSON(message.balanceB)
         : undefined);
-    message.hashcodeB !== undefined && (obj.hashcodeB = message.hashcodeB);
+    message.hashcode !== undefined && (obj.hashcode = message.hashcode);
+    message.timelock !== undefined && (obj.timelock = message.timelock);
     message.multisig !== undefined && (obj.multisig = message.multisig);
     return obj;
   },
@@ -1246,10 +1260,15 @@ export const MsgFund = {
     } else {
       message.balanceB = undefined;
     }
-    if (object.hashcodeB !== undefined && object.hashcodeB !== null) {
-      message.hashcodeB = object.hashcodeB;
+    if (object.hashcode !== undefined && object.hashcode !== null) {
+      message.hashcode = object.hashcode;
     } else {
-      message.hashcodeB = "";
+      message.hashcode = "";
+    }
+    if (object.timelock !== undefined && object.timelock !== null) {
+      message.timelock = object.timelock;
+    } else {
+      message.timelock = "";
     }
     if (object.multisig !== undefined && object.multisig !== null) {
       message.multisig = object.multisig;

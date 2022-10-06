@@ -15,14 +15,15 @@ var _ = strconv.Itoa(0)
 
 func CmdFund() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "fund [from] [channelid] [coin] [balance-a] [balance-b] [hashcode-b] [multisig]",
+		Use:   "fund [from] [channelid] [coin] [balance-a] [balance-b] [hashcode] [timelock] [multisig]",
 		Short: "Broadcast message fund",
-		Args:  cobra.ExactArgs(7),
+		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argFrom := args[0]
 			argChannelid := args[1]
-			argHashcodeB := args[5]
-			multisig := args[6]
+			argHashcode := args[5]
+			argTimelock := args[6]
+			multisig := args[7]
 
 			cmd.Flags().Set(flags.FlagFrom, multisig)
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -55,7 +56,8 @@ func CmdFund() *cobra.Command {
 				&coin,
 				&balanceA,
 				&balanceB,
-				argHashcodeB,
+				argHashcode,
+				argTimelock,
 				multisig,
 			)
 			if err := msg.ValidateBasic(); err != nil {

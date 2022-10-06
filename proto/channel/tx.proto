@@ -85,8 +85,9 @@ message MsgFund {
   cosmos.base.v1beta1.Coin coin = 4;
   cosmos.base.v1beta1.Coin balanceA = 5;
   cosmos.base.v1beta1.Coin balanceB = 6;
-  string hashcodeB = 7;
-  string multisig = 8;
+  string hashcode = 7;
+  string timelock = 8;
+  string multisig = 9;
 }
 
 message MsgFundResponse {
