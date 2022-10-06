@@ -82,12 +82,11 @@ message MsgFund {
   string creator = 1;
   string from = 2;
   string channelid = 3;
-  cosmos.base.v1beta1.Coin coin = 4;
-  cosmos.base.v1beta1.Coin balanceA = 5;
-  cosmos.base.v1beta1.Coin balanceB = 6;
-  string hashcode = 7;
-  string timelock = 8;
-  string multisig = 9;
+  cosmos.base.v1beta1.Coin coinfund = 4;
+  cosmos.base.v1beta1.Coin coinlock = 5;
+  string hashcode = 6;
+  string timelock = 7;
+  string multisig = 8;
 }
 
 message MsgFundResponse {

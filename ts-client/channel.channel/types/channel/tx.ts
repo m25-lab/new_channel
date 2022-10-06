@@ -67,9 +67,8 @@ export interface MsgFund {
   creator: string;
   from: string;
   channelid: string;
-  coin: Coin | undefined;
-  balanceA: Coin | undefined;
-  balanceB: Coin | undefined;
+  coinfund: Coin | undefined;
+  coinlock: Coin | undefined;
   hashcode: string;
   timelock: string;
   multisig: string;
@@ -1094,23 +1093,20 @@ export const MsgFund = {
     if (message.channelid !== "") {
       writer.uint32(26).string(message.channelid);
     }
-    if (message.coin !== undefined) {
-      Coin.encode(message.coin, writer.uint32(34).fork()).ldelim();
+    if (message.coinfund !== undefined) {
+      Coin.encode(message.coinfund, writer.uint32(34).fork()).ldelim();
     }
-    if (message.balanceA !== undefined) {
-      Coin.encode(message.balanceA, writer.uint32(42).fork()).ldelim();
-    }
-    if (message.balanceB !== undefined) {
-      Coin.encode(message.balanceB, writer.uint32(50).fork()).ldelim();
+    if (message.coinlock !== undefined) {
+      Coin.encode(message.coinlock, writer.uint32(42).fork()).ldelim();
     }
     if (message.hashcode !== "") {
-      writer.uint32(58).string(message.hashcode);
+      writer.uint32(50).string(message.hashcode);
     }
     if (message.timelock !== "") {
-      writer.uint32(66).string(message.timelock);
+      writer.uint32(58).string(message.timelock);
     }
     if (message.multisig !== "") {
-      writer.uint32(74).string(message.multisig);
+      writer.uint32(66).string(message.multisig);
     }
     return writer;
   },
@@ -1132,21 +1128,18 @@ export const MsgFund = {
           message.channelid = reader.string();
           break;
         case 4:
-          message.coin = Coin.decode(reader, reader.uint32());
+          message.coinfund = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.balanceA = Coin.decode(reader, reader.uint32());
+          message.coinlock = Coin.decode(reader, reader.uint32());
           break;
         case 6:
-          message.balanceB = Coin.decode(reader, reader.uint32());
-          break;
-        case 7:
           message.hashcode = reader.string();
           break;
-        case 8:
+        case 7:
           message.timelock = reader.string();
           break;
-        case 9:
+        case 8:
           message.multisig = reader.string();
           break;
         default:
@@ -1174,20 +1167,15 @@ export const MsgFund = {
     } else {
       message.channelid = "";
     }
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromJSON(object.coin);
+    if (object.coinfund !== undefined && object.coinfund !== null) {
+      message.coinfund = Coin.fromJSON(object.coinfund);
     } else {
-      message.coin = undefined;
+      message.coinfund = undefined;
     }
-    if (object.balanceA !== undefined && object.balanceA !== null) {
-      message.balanceA = Coin.fromJSON(object.balanceA);
+    if (object.coinlock !== undefined && object.coinlock !== null) {
+      message.coinlock = Coin.fromJSON(object.coinlock);
     } else {
-      message.balanceA = undefined;
-    }
-    if (object.balanceB !== undefined && object.balanceB !== null) {
-      message.balanceB = Coin.fromJSON(object.balanceB);
-    } else {
-      message.balanceB = undefined;
+      message.coinlock = undefined;
     }
     if (object.hashcode !== undefined && object.hashcode !== null) {
       message.hashcode = String(object.hashcode);
@@ -1212,15 +1200,13 @@ export const MsgFund = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.from !== undefined && (obj.from = message.from);
     message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.coin !== undefined &&
-      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
-    message.balanceA !== undefined &&
-      (obj.balanceA = message.balanceA
-        ? Coin.toJSON(message.balanceA)
+    message.coinfund !== undefined &&
+      (obj.coinfund = message.coinfund
+        ? Coin.toJSON(message.coinfund)
         : undefined);
-    message.balanceB !== undefined &&
-      (obj.balanceB = message.balanceB
-        ? Coin.toJSON(message.balanceB)
+    message.coinlock !== undefined &&
+      (obj.coinlock = message.coinlock
+        ? Coin.toJSON(message.coinlock)
         : undefined);
     message.hashcode !== undefined && (obj.hashcode = message.hashcode);
     message.timelock !== undefined && (obj.timelock = message.timelock);
@@ -1245,20 +1231,15 @@ export const MsgFund = {
     } else {
       message.channelid = "";
     }
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromPartial(object.coin);
+    if (object.coinfund !== undefined && object.coinfund !== null) {
+      message.coinfund = Coin.fromPartial(object.coinfund);
     } else {
-      message.coin = undefined;
+      message.coinfund = undefined;
     }
-    if (object.balanceA !== undefined && object.balanceA !== null) {
-      message.balanceA = Coin.fromPartial(object.balanceA);
+    if (object.coinlock !== undefined && object.coinlock !== null) {
+      message.coinlock = Coin.fromPartial(object.coinlock);
     } else {
-      message.balanceA = undefined;
-    }
-    if (object.balanceB !== undefined && object.balanceB !== null) {
-      message.balanceB = Coin.fromPartial(object.balanceB);
-    } else {
-      message.balanceB = undefined;
+      message.coinlock = undefined;
     }
     if (object.hashcode !== undefined && object.hashcode !== null) {
       message.hashcode = object.hashcode;

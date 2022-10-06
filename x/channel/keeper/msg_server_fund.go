@@ -33,22 +33,20 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	}
 
 	var toTimelock, toHashlock string
-	var coinLock *sdk.Coin
-
 	if msg.From == val.PartA {
 		toTimelock = val.PartB
 		toHashlock = val.PartA
-		coinLock = msg.BalanceB
 	} else {
 		toTimelock = val.PartA
 		toHashlock = val.PartB
-		coinLock = msg.BalanceA
 	}
 
 	from, err := sdk.AccAddressFromBech32(val.MultisigAddr)
 	if err != nil {
 		return nil, err
 	}
+
+	coinLock := msg.Coinlock
 
 	coin := k.Keeper.bankKeeper.GetBalance(ctx, from, coinLock.Denom)
 
@@ -98,7 +96,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	if amount.IsPositive() {
 		err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{
 			sdk.Coin{
-				Denom:  msg.Coin.Denom,
+				Denom:  msg.Coinfund.Denom,
 				Amount: amount,
 			},
 		})
