@@ -58,9 +58,11 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		" balance:", coin.Amount.Uint64(), "coinlock", coinLock.Amount.Uint64())
 
 	// Send to LockTx (other) or HashTx (creator)
-	err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinLock})
-	if err != nil {
-		return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
+	if coinLock.Amount.IsPositive() {
+		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinLock})
+		if err != nil {
+			return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
+		}
 	}
 
 	indexStr := fmt.Sprintf("%s:%s:%d", msg.Channelid, msg.HashcodeB, ctx.BlockHeight())
@@ -90,15 +92,17 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	}
 
 	amount := coin.Amount.Sub(coinLock.Amount)
-	err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{
-		sdk.Coin{
-			Denom:  msg.Coin.Denom,
-			Amount: amount,
-		},
-	})
-	if err != nil {
-		return nil, fmt.Errorf("@@@ SendCoins failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64(),
-			"required amount:", amount.Uint64())
+	if amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{
+			sdk.Coin{
+				Denom:  msg.Coin.Denom,
+				Amount: amount,
+			},
+		})
+		if err != nil {
+			return nil, fmt.Errorf("SendCoins failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64(),
+				"required amount:", amount.Uint64())
+		}
 	}
 
 	return &types.MsgFundResponse{

@@ -23,17 +23,21 @@ func (k msgServer) OpenChannel(goCtx context.Context, msg *types.MsgOpenChannel)
 
 	multiAddr := msg.GetSigners()[0]
 
-	err = k.bankKeeper.SendCoins(ctx, addrA, multiAddr, sdk.Coins{*msg.CoinA})
-	if err != nil {
-		return nil, err
+	if msg.CoinA.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, addrA, multiAddr, sdk.Coins{*msg.CoinA})
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	err = k.bankKeeper.SendCoins(ctx, addrB, multiAddr, sdk.Coins{*msg.CoinB})
-	if err != nil {
-		return nil, err
+	if msg.CoinB.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, addrB, multiAddr, sdk.Coins{*msg.CoinB})
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	indexStr := fmt.Sprintf("%s:%s:%d", msg.MultisigAddr, msg.CoinA.Denom, msg.Sequence)
+	indexStr := fmt.Sprintf("%s:%s:%s", msg.MultisigAddr, msg.CoinA.Denom, msg.Sequence)
 
 	channel := types.Channel{
 		Index:        indexStr,

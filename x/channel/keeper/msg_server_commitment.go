@@ -25,20 +25,24 @@ func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (
 	}
 
 	// Send coin to creator of commitment
-	err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.CoinA})
-	if err != nil {
-		return nil, err
+	if msg.CoinA.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.CoinA})
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// Send to LockTx (other) or HashTx (creator)
-	err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{
-		sdk.Coin{
-			Denom:  msg.Coinlock.Denom,
-			Amount: msg.Coinlock.Amount,
-		},
-	})
-	if err != nil {
-		return nil, err
+	if msg.Coinlock.Amount.IsPositive() {
+		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{
+			sdk.Coin{
+				Denom:  msg.Coinlock.Denom,
+				Amount: msg.Coinlock.Amount,
+			},
+		})
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	indexStr := fmt.Sprintf("%s:%s", msg.From, msg.Hashcode)

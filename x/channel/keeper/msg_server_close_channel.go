@@ -34,13 +34,17 @@ func (k msgServer) CloseChannel(goCtx context.Context, msg *types.MsgCloseChanne
 	if k.bankKeeper.BlockedAddr(toA) {
 		err = sdkerrors.Wrapf(sdkerrors.ErrUnauthorized, "%s is not allowed to receive funds", msg.ToA)
 	} else {
-		err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.CoinA})
+		if msg.CoinA.Amount.IsPositive() {
+			err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.CoinA})
+		}
 	}
 
 	if k.bankKeeper.BlockedAddr(toB) {
 		err = sdkerrors.Wrapf(sdkerrors.ErrUnauthorized, "%s is not allowed to receive funds", msg.ToB)
 	} else {
-		err = k.bankKeeper.SendCoins(ctx, from, toB, sdk.Coins{*msg.CoinB})
+		if msg.CoinB.Amount.IsPositive() {
+			err = k.bankKeeper.SendCoins(ctx, from, toB, sdk.Coins{*msg.CoinB})
+		}
 	}
 
 	if err != nil {
