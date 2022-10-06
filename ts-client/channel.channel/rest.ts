@@ -45,6 +45,10 @@ export interface ChannelCommitment {
   hashcode?: string;
 }
 
+export interface ChannelMsgAcceptfundResponse {
+  index?: string;
+}
+
 export type ChannelMsgCloseChannelResponse = object;
 
 export interface ChannelMsgCommitmentResponse {

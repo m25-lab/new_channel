@@ -14,6 +14,7 @@ service Msg {
   rpc CloseChannel(MsgCloseChannel) returns (MsgCloseChannelResponse);
   rpc OpenChannel(MsgOpenChannel) returns (MsgOpenChannelResponse);
   rpc Fund(MsgFund) returns (MsgFundResponse);
+  rpc Acceptfund(MsgAcceptfund) returns (MsgAcceptfundResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -90,6 +91,20 @@ message MsgFund {
 }
 
 message MsgFundResponse {
+  string index = 1;
+}
+
+message MsgAcceptfund {
+  string creator = 1;
+  string from = 2;
+  string channelid = 3;
+  cosmos.base.v1beta1.Coin coin = 4;
+  string hashcode = 5;
+  string timelock = 6;
+  string multisig = 7;
+}
+
+message MsgAcceptfundResponse {
   string index = 1;
 }
 

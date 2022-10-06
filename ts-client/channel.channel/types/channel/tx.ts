@@ -78,6 +78,20 @@ export interface MsgFundResponse {
   index: string;
 }
 
+export interface MsgAcceptfund {
+  creator: string;
+  from: string;
+  channelid: string;
+  coin: Coin | undefined;
+  hashcode: string;
+  timelock: string;
+  multisig: string;
+}
+
+export interface MsgAcceptfundResponse {
+  index: string;
+}
+
 const baseMsgCommitment: object = {
   creator: "",
   from: "",
@@ -1315,6 +1329,231 @@ export const MsgFundResponse = {
   },
 };
 
+const baseMsgAcceptfund: object = {
+  creator: "",
+  from: "",
+  channelid: "",
+  hashcode: "",
+  timelock: "",
+  multisig: "",
+};
+
+export const MsgAcceptfund = {
+  encode(message: MsgAcceptfund, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.from !== "") {
+      writer.uint32(18).string(message.from);
+    }
+    if (message.channelid !== "") {
+      writer.uint32(26).string(message.channelid);
+    }
+    if (message.coin !== undefined) {
+      Coin.encode(message.coin, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.hashcode !== "") {
+      writer.uint32(42).string(message.hashcode);
+    }
+    if (message.timelock !== "") {
+      writer.uint32(50).string(message.timelock);
+    }
+    if (message.multisig !== "") {
+      writer.uint32(58).string(message.multisig);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgAcceptfund {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgAcceptfund } as MsgAcceptfund;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.from = reader.string();
+          break;
+        case 3:
+          message.channelid = reader.string();
+          break;
+        case 4:
+          message.coin = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.hashcode = reader.string();
+          break;
+        case 6:
+          message.timelock = reader.string();
+          break;
+        case 7:
+          message.multisig = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgAcceptfund {
+    const message = { ...baseMsgAcceptfund } as MsgAcceptfund;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = String(object.from);
+    } else {
+      message.from = "";
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = String(object.channelid);
+    } else {
+      message.channelid = "";
+    }
+    if (object.coin !== undefined && object.coin !== null) {
+      message.coin = Coin.fromJSON(object.coin);
+    } else {
+      message.coin = undefined;
+    }
+    if (object.hashcode !== undefined && object.hashcode !== null) {
+      message.hashcode = String(object.hashcode);
+    } else {
+      message.hashcode = "";
+    }
+    if (object.timelock !== undefined && object.timelock !== null) {
+      message.timelock = String(object.timelock);
+    } else {
+      message.timelock = "";
+    }
+    if (object.multisig !== undefined && object.multisig !== null) {
+      message.multisig = String(object.multisig);
+    } else {
+      message.multisig = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgAcceptfund): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.from !== undefined && (obj.from = message.from);
+    message.channelid !== undefined && (obj.channelid = message.channelid);
+    message.coin !== undefined &&
+      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
+    message.hashcode !== undefined && (obj.hashcode = message.hashcode);
+    message.timelock !== undefined && (obj.timelock = message.timelock);
+    message.multisig !== undefined && (obj.multisig = message.multisig);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgAcceptfund>): MsgAcceptfund {
+    const message = { ...baseMsgAcceptfund } as MsgAcceptfund;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    } else {
+      message.from = "";
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = object.channelid;
+    } else {
+      message.channelid = "";
+    }
+    if (object.coin !== undefined && object.coin !== null) {
+      message.coin = Coin.fromPartial(object.coin);
+    } else {
+      message.coin = undefined;
+    }
+    if (object.hashcode !== undefined && object.hashcode !== null) {
+      message.hashcode = object.hashcode;
+    } else {
+      message.hashcode = "";
+    }
+    if (object.timelock !== undefined && object.timelock !== null) {
+      message.timelock = object.timelock;
+    } else {
+      message.timelock = "";
+    }
+    if (object.multisig !== undefined && object.multisig !== null) {
+      message.multisig = object.multisig;
+    } else {
+      message.multisig = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgAcceptfundResponse: object = { index: "" };
+
+export const MsgAcceptfundResponse = {
+  encode(
+    message: MsgAcceptfundResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgAcceptfundResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgAcceptfundResponse } as MsgAcceptfundResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgAcceptfundResponse {
+    const message = { ...baseMsgAcceptfundResponse } as MsgAcceptfundResponse;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgAcceptfundResponse): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgAcceptfundResponse>
+  ): MsgAcceptfundResponse {
+    const message = { ...baseMsgAcceptfundResponse } as MsgAcceptfundResponse;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Commitment(request: MsgCommitment): Promise<MsgCommitmentResponse>;
@@ -1326,8 +1565,9 @@ export interface Msg {
   ): Promise<MsgWithdrawHashlockResponse>;
   CloseChannel(request: MsgCloseChannel): Promise<MsgCloseChannelResponse>;
   OpenChannel(request: MsgOpenChannel): Promise<MsgOpenChannelResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   Fund(request: MsgFund): Promise<MsgFundResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  Acceptfund(request: MsgAcceptfund): Promise<MsgAcceptfundResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1399,6 +1639,14 @@ export class MsgClientImpl implements Msg {
     const data = MsgFund.encode(request).finish();
     const promise = this.rpc.request("channel.channel.Msg", "Fund", data);
     return promise.then((data) => MsgFundResponse.decode(new Reader(data)));
+  }
+
+  Acceptfund(request: MsgAcceptfund): Promise<MsgAcceptfundResponse> {
+    const data = MsgAcceptfund.encode(request).finish();
+    const promise = this.rpc.request("channel.channel.Msg", "Acceptfund", data);
+    return promise.then((data) =>
+      MsgAcceptfundResponse.decode(new Reader(data))
+    );
   }
 }
 

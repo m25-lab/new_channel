@@ -44639,6 +44639,11 @@ definitions:
         format: uint64
       hashcode:
         type: string
+  channel.channel.MsgAcceptfundResponse:
+    type: object
+    properties:
+      index:
+        type: string
   channel.channel.MsgCloseChannelResponse:
     type: object
   channel.channel.MsgCommitmentResponse:
