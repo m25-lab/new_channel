@@ -49,7 +49,7 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 	coin_acceptside := msg.Coin
 	coin_channel := k.Keeper.bankKeeper.GetBalance(ctx, from, coin_acceptside.Denom)
 
-	// Send coin to creator of the funding commitment
+	// Send coin to accepted side first
 	to, err := sdk.AccAddressFromBech32(msg.From)
 	if err != nil {
 		return nil, err
@@ -63,15 +63,11 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 		}
 	}
 
-	// Send to HTLC
-	amount := coin_channel.Amount.Sub(coin_acceptside.Amount)
-	if amount.IsPositive() {
-		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{
-			sdk.Coin{
-				Denom:  coin_channel.Denom,
-				Amount: amount,
-			},
-		})
+	// Send the remain coin to HTLC = coin_channel - coin_acceptside
+	coin_htlc := coin_channel.Sub(*coin_acceptside)
+
+	if coin_htlc.Amount.IsPositive() {
+		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{coin_htlc})
 		if err != nil {
 			return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coin_channel.Amount.Uint64())
 		}
@@ -85,7 +81,6 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 	}
 
 	unlockBlock := numblock + uint64(ctx.BlockHeight())
-	coin_htlc := sdk.Coin{Denom: coin_channel.Denom, Amount: amount}
 
 	commitment := types.Commitment{
 		Index:       indexStr,

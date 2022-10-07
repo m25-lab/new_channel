@@ -48,16 +48,16 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 
 	coinLock := msg.Coinlock
 
-	coin := k.Keeper.bankKeeper.GetBalance(ctx, from, coinLock.Denom)
+	coin_channel := k.Keeper.bankKeeper.GetBalance(ctx, from, coinLock.Denom)
 
 	ctx.Logger().Info("@@@@ balance of addr", val.MultisigAddr,
-		" balance:", coin.Amount.Uint64(), "coinlock", coinLock.Amount.Uint64())
+		" balance:", coin_channel.Amount.Uint64(), "coinlock", coinLock.Amount.Uint64())
 
 	// Send to LockTx (other) or HashTx (creator)
 	if coinLock.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinLock})
 		if err != nil {
-			return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64())
+			return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coinLock.Amount.Uint64())
 		}
 	}
 
@@ -73,7 +73,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	commitment := types.Commitment{
 		Index:       indexStr,
 		From:        msg.From,
-		CoinA:       coinLock, // unused
+		CoinA:       nil, // unused
 		ToATimelock: toTimelock,
 		ToBHashlock: toHashlock,
 		Coinlock:    coinLock,
@@ -92,17 +92,14 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, err
 	}
 
-	amount := coin.Amount.Sub(coinLock.Amount)
-	if amount.IsPositive() {
-		err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{
-			sdk.Coin{
-				Denom:  msg.Coinfund.Denom,
-				Amount: amount,
-			},
-		})
+	ctx.Logger().Info("222222333333333")
+
+	coin_fundside := coin_channel.Sub(*coinLock)
+	if coin_fundside.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{sdk.Coin{coin_fundside.Denom, coin_fundside.Amount}})
 		if err != nil {
-			return nil, fmt.Errorf("SendCoins failed balance of addr", val.MultisigAddr, " balance:", coin.Amount.Uint64(),
-				"required amount:", amount.Uint64())
+			return nil, fmt.Errorf("SendCoins failed balance of addr", val.MultisigAddr, " balance:", coin_channel.Amount.Uint64(),
+				"required amount:", coin_fundside.Amount.Uint64())
 		}
 	}
 
