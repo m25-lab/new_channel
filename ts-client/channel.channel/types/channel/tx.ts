@@ -67,7 +67,6 @@ export interface MsgFund {
   creator: string;
   from: string;
   channelid: string;
-  coinfund: Coin | undefined;
   coinlock: Coin | undefined;
   hashcode: string;
   timelock: string;
@@ -1107,20 +1106,17 @@ export const MsgFund = {
     if (message.channelid !== "") {
       writer.uint32(26).string(message.channelid);
     }
-    if (message.coinfund !== undefined) {
-      Coin.encode(message.coinfund, writer.uint32(34).fork()).ldelim();
-    }
     if (message.coinlock !== undefined) {
-      Coin.encode(message.coinlock, writer.uint32(42).fork()).ldelim();
+      Coin.encode(message.coinlock, writer.uint32(34).fork()).ldelim();
     }
     if (message.hashcode !== "") {
-      writer.uint32(50).string(message.hashcode);
+      writer.uint32(42).string(message.hashcode);
     }
     if (message.timelock !== "") {
-      writer.uint32(58).string(message.timelock);
+      writer.uint32(50).string(message.timelock);
     }
     if (message.multisig !== "") {
-      writer.uint32(66).string(message.multisig);
+      writer.uint32(58).string(message.multisig);
     }
     return writer;
   },
@@ -1142,18 +1138,15 @@ export const MsgFund = {
           message.channelid = reader.string();
           break;
         case 4:
-          message.coinfund = Coin.decode(reader, reader.uint32());
-          break;
-        case 5:
           message.coinlock = Coin.decode(reader, reader.uint32());
           break;
-        case 6:
+        case 5:
           message.hashcode = reader.string();
           break;
-        case 7:
+        case 6:
           message.timelock = reader.string();
           break;
-        case 8:
+        case 7:
           message.multisig = reader.string();
           break;
         default:
@@ -1180,11 +1173,6 @@ export const MsgFund = {
       message.channelid = String(object.channelid);
     } else {
       message.channelid = "";
-    }
-    if (object.coinfund !== undefined && object.coinfund !== null) {
-      message.coinfund = Coin.fromJSON(object.coinfund);
-    } else {
-      message.coinfund = undefined;
     }
     if (object.coinlock !== undefined && object.coinlock !== null) {
       message.coinlock = Coin.fromJSON(object.coinlock);
@@ -1214,10 +1202,6 @@ export const MsgFund = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.from !== undefined && (obj.from = message.from);
     message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.coinfund !== undefined &&
-      (obj.coinfund = message.coinfund
-        ? Coin.toJSON(message.coinfund)
-        : undefined);
     message.coinlock !== undefined &&
       (obj.coinlock = message.coinlock
         ? Coin.toJSON(message.coinlock)
@@ -1244,11 +1228,6 @@ export const MsgFund = {
       message.channelid = object.channelid;
     } else {
       message.channelid = "";
-    }
-    if (object.coinfund !== undefined && object.coinfund !== null) {
-      message.coinfund = Coin.fromPartial(object.coinfund);
-    } else {
-      message.coinfund = undefined;
     }
     if (object.coinlock !== undefined && object.coinlock !== null) {
       message.coinlock = Coin.fromPartial(object.coinlock);

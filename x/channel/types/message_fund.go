@@ -9,12 +9,11 @@ const TypeMsgFund = "fund"
 
 var _ sdk.Msg = &MsgFund{}
 
-func NewMsgFund(creator string, from string, channelid string, coinfund *sdk.Coin, coinlock *sdk.Coin, hashcode string, timelock string, multisig string) *MsgFund {
+func NewMsgFund(creator string, from string, channelid string, coinlock *sdk.Coin, hashcode string, timelock string, multisig string) *MsgFund {
 	return &MsgFund{
 		Creator:   creator,
 		From:      from,
 		Channelid: channelid,
-		Coinfund:  coinfund,
 		Coinlock:  coinlock,
 		Hashcode:  hashcode,
 		Timelock:  timelock,

@@ -92,8 +92,6 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, err
 	}
 
-	ctx.Logger().Info("222222333333333")
-
 	coin_fundside := coin_channel.Sub(*coinLock)
 	if coin_fundside.Amount.IsPositive() {
 		err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{sdk.Coin{coin_fundside.Denom, coin_fundside.Amount}})
