@@ -449,6 +449,10 @@ paths:
                       type: string
                     channelid:
                       type: string
+                    sender:
+                      type: string
+                    receiver:
+                      type: string
                     hashcodedest:
                       type: string
                     timelockreceiver:
@@ -593,6 +597,10 @@ paths:
                   index:
                     type: string
                   channelid:
+                    type: string
+                  sender:
+                    type: string
+                  receiver:
                     type: string
                   hashcodedest:
                     type: string
@@ -44858,6 +44866,10 @@ definitions:
         type: string
       channelid:
         type: string
+      sender:
+        type: string
+      receiver:
+        type: string
       hashcodedest:
         type: string
       timelockreceiver:
@@ -44907,6 +44919,8 @@ definitions:
         type: string
       indextransfer:
         type: string
+  channel.channel.MsgSenderwithdrawtimelockResponse:
+    type: object
   channel.channel.MsgWithdrawHashlockResponse:
     type: object
   channel.channel.MsgWithdrawTimelockResponse:
@@ -45049,6 +45063,10 @@ definitions:
               type: string
             channelid:
               type: string
+            sender:
+              type: string
+            receiver:
+              type: string
             hashcodedest:
               type: string
             timelockreceiver:
@@ -45174,6 +45192,10 @@ definitions:
           index:
             type: string
           channelid:
+            type: string
+          sender:
+            type: string
+          receiver:
             type: string
           hashcodedest:
             type: string

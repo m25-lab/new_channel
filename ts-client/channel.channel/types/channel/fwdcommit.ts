@@ -7,6 +7,8 @@ export const protobufPackage = "channel.channel";
 export interface Fwdcommit {
   index: string;
   channelid: string;
+  sender: string;
+  receiver: string;
   hashcodedest: string;
   timelockreceiver: string;
   timelocksender: string;
@@ -17,6 +19,8 @@ export interface Fwdcommit {
 const baseFwdcommit: object = {
   index: "",
   channelid: "",
+  sender: "",
+  receiver: "",
   hashcodedest: "",
   timelockreceiver: "",
   timelocksender: "",
@@ -31,20 +35,26 @@ export const Fwdcommit = {
     if (message.channelid !== "") {
       writer.uint32(18).string(message.channelid);
     }
+    if (message.sender !== "") {
+      writer.uint32(26).string(message.sender);
+    }
+    if (message.receiver !== "") {
+      writer.uint32(34).string(message.receiver);
+    }
     if (message.hashcodedest !== "") {
-      writer.uint32(26).string(message.hashcodedest);
+      writer.uint32(42).string(message.hashcodedest);
     }
     if (message.timelockreceiver !== "") {
-      writer.uint32(34).string(message.timelockreceiver);
+      writer.uint32(50).string(message.timelockreceiver);
     }
     if (message.timelocksender !== "") {
-      writer.uint32(42).string(message.timelocksender);
+      writer.uint32(58).string(message.timelocksender);
     }
     if (message.hashcodehtlc !== "") {
-      writer.uint32(50).string(message.hashcodehtlc);
+      writer.uint32(66).string(message.hashcodehtlc);
     }
     if (message.coin !== undefined) {
-      Coin.encode(message.coin, writer.uint32(58).fork()).ldelim();
+      Coin.encode(message.coin, writer.uint32(74).fork()).ldelim();
     }
     return writer;
   },
@@ -63,18 +73,24 @@ export const Fwdcommit = {
           message.channelid = reader.string();
           break;
         case 3:
-          message.hashcodedest = reader.string();
+          message.sender = reader.string();
           break;
         case 4:
-          message.timelockreceiver = reader.string();
+          message.receiver = reader.string();
           break;
         case 5:
-          message.timelocksender = reader.string();
+          message.hashcodedest = reader.string();
           break;
         case 6:
-          message.hashcodehtlc = reader.string();
+          message.timelockreceiver = reader.string();
           break;
         case 7:
+          message.timelocksender = reader.string();
+          break;
+        case 8:
+          message.hashcodehtlc = reader.string();
+          break;
+        case 9:
           message.coin = Coin.decode(reader, reader.uint32());
           break;
         default:
@@ -96,6 +112,16 @@ export const Fwdcommit = {
       message.channelid = String(object.channelid);
     } else {
       message.channelid = "";
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = String(object.sender);
+    } else {
+      message.sender = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
     }
     if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
       message.hashcodedest = String(object.hashcodedest);
@@ -132,6 +158,8 @@ export const Fwdcommit = {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     message.channelid !== undefined && (obj.channelid = message.channelid);
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.hashcodedest !== undefined &&
       (obj.hashcodedest = message.hashcodedest);
     message.timelockreceiver !== undefined &&
@@ -156,6 +184,16 @@ export const Fwdcommit = {
       message.channelid = object.channelid;
     } else {
       message.channelid = "";
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    } else {
+      message.sender = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
       message.hashcodedest = object.hashcodedest;

@@ -100,6 +100,8 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	fwscommitment := types.Fwdcommit{
 		Index:            indexTransfer,
 		Channelid:        msg.Channelid,
+		Sender:           toHashlock,
+		Receiver:         toTimelock,
 		Hashcodedest:     msg.Hashcodedest,
 		Timelockreceiver: string(Timelockreceiver),
 		Timelocksender:   string(Timelocksender),

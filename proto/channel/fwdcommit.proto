@@ -8,10 +8,12 @@ option go_package = "channel/x/channel/types";
 message Fwdcommit {
   string index = 1; 
   string channelid = 2;
-  string hashcodedest = 3;
-  string timelockreceiver = 4;
-  string timelocksender = 5;
-  string hashcodehtlc = 6;
-  cosmos.base.v1beta1.Coin coin = 7;
+  string sender = 3;
+  string receiver = 4;
+  string hashcodedest = 5;
+  string timelockreceiver = 6;
+  string timelocksender = 7;
+  string hashcodehtlc = 8;
+  cosmos.base.v1beta1.Coin coin = 9;
 }
 

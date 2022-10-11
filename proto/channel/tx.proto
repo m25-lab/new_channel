@@ -16,6 +16,7 @@ service Msg {
   rpc Fund(MsgFund) returns (MsgFundResponse);
   rpc Acceptfund(MsgAcceptfund) returns (MsgAcceptfundResponse);
   rpc Sendercommit(MsgSendercommit) returns (MsgSendercommitResponse);
+  rpc Senderwithdrawtimelock(MsgSenderwithdrawtimelock) returns (MsgSenderwithdrawtimelockResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -126,6 +127,15 @@ message MsgSendercommit {
 message MsgSendercommitResponse {
   string indexhtlc = 1;
   string indextransfer = 2;
+}
+
+message MsgSenderwithdrawtimelock {
+  string creator = 1;
+  string transferindex = 2;
+  string to = 3;
+}
+
+message MsgSenderwithdrawtimelockResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

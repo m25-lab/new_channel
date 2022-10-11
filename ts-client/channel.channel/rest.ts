@@ -48,6 +48,8 @@ export interface ChannelCommitment {
 export interface ChannelFwdcommit {
   index?: string;
   channelid?: string;
+  sender?: string;
+  receiver?: string;
   hashcodedest?: string;
   timelockreceiver?: string;
   timelocksender?: string;
@@ -84,6 +86,8 @@ export interface ChannelMsgSendercommitResponse {
   indexhtlc?: string;
   indextransfer?: string;
 }
+
+export type ChannelMsgSenderwithdrawtimelockResponse = object;
 
 export type ChannelMsgWithdrawHashlockResponse = object;
 
