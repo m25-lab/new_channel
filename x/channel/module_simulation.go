@@ -60,6 +60,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSenderwithdrawtimelock int = 100
 
+	opWeightMsgSenderwithdrawhashlock = "op_weight_msg_senderwithdrawhashlock"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSenderwithdrawhashlock int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -191,6 +195,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSenderwithdrawtimelock,
 		channelsimulation.SimulateMsgSenderwithdrawtimelock(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSenderwithdrawhashlock int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSenderwithdrawhashlock, &weightMsgSenderwithdrawhashlock, nil,
+		func(_ *rand.Rand) {
+			weightMsgSenderwithdrawhashlock = defaultWeightMsgSenderwithdrawhashlock
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSenderwithdrawhashlock,
+		channelsimulation.SimulateMsgSenderwithdrawhashlock(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
