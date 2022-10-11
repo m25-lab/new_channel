@@ -2,10 +2,11 @@ import { Client, registry, MissingWalletError } from 'channel-client-ts'
 
 import { Channel } from "channel-client-ts/channel.channel/types"
 import { Commitment } from "channel-client-ts/channel.channel/types"
+import { Fwdcommit } from "channel-client-ts/channel.channel/types"
 import { Params } from "channel-client-ts/channel.channel/types"
 
 
-export { Channel, Commitment, Params };
+export { Channel, Commitment, Fwdcommit, Params };
 
 function initClient(vuexGetters) {
 	return new Client(vuexGetters['common/env/getEnv'], vuexGetters['common/wallet/signer'])
@@ -41,10 +42,13 @@ const getDefaultState = () => {
 				CommitmentAll: {},
 				Channel: {},
 				ChannelAll: {},
+				Fwdcommit: {},
+				FwdcommitAll: {},
 				
 				_Structure: {
 						Channel: getStructure(Channel.fromPartial({})),
 						Commitment: getStructure(Commitment.fromPartial({})),
+						Fwdcommit: getStructure(Fwdcommit.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
 						
 		},
@@ -103,6 +107,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.ChannelAll[JSON.stringify(params)] ?? {}
+		},
+				getFwdcommit: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Fwdcommit[JSON.stringify(params)] ?? {}
+		},
+				getFwdcommitAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.FwdcommitAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -256,16 +272,77 @@ export default {
 		},
 		
 		
-		async sendMsgCloseChannel({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		
+		 		
+		
+		
+		async QueryFwdcommit({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const client = initClient(rootGetters);
+				let value= (await client.ChannelChannel.query.queryFwdcommit( key.index)).data
+				
+					
+				commit('QUERY', { query: 'Fwdcommit', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryFwdcommit', payload: { options: { all }, params: {...key},query }})
+				return getters['getFwdcommit']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryFwdcommit API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryFwdcommitAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const client = initClient(rootGetters);
+				let value= (await client.ChannelChannel.query.queryFwdcommitAll(query ?? undefined)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await client.ChannelChannel.query.queryFwdcommitAll({...query ?? {}, 'pagination.key':(<any> value).pagination.next_key} as any)).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'FwdcommitAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryFwdcommitAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getFwdcommitAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryFwdcommitAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		async sendMsgCommitment({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const client=await initClient(rootGetters)
-				const result = await client.ChannelChannel.tx.sendMsgCloseChannel({ value, fee: {amount: fee, gas: "200000"}, memo })
+				const result = await client.ChannelChannel.tx.sendMsgCommitment({ value, fee: {amount: fee, gas: "200000"}, memo })
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCloseChannel:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCommitment:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCloseChannel:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgCommitment:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgOpenChannel({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const client=await initClient(rootGetters)
+				const result = await client.ChannelChannel.tx.sendMsgOpenChannel({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgOpenChannel:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -295,6 +372,19 @@ export default {
 				}
 			}
 		},
+		async sendMsgCloseChannel({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const client=await initClient(rootGetters)
+				const result = await client.ChannelChannel.tx.sendMsgCloseChannel({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCloseChannel:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCloseChannel:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgWithdrawTimelock({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const client=await initClient(rootGetters)
@@ -305,32 +395,6 @@ export default {
 					throw new Error('TxClient:MsgWithdrawTimelock:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgWithdrawTimelock:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgOpenChannel({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const client=await initClient(rootGetters)
-				const result = await client.ChannelChannel.tx.sendMsgOpenChannel({ value, fee: {amount: fee, gas: "200000"}, memo })
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgOpenChannel:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCommitment({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const client=await initClient(rootGetters)
-				const result = await client.ChannelChannel.tx.sendMsgCommitment({ value, fee: {amount: fee, gas: "200000"}, memo })
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCommitment:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCommitment:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -347,17 +411,43 @@ export default {
 				}
 			}
 		},
+		async sendMsgSendercommit({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const client=await initClient(rootGetters)
+				const result = await client.ChannelChannel.tx.sendMsgSendercommit({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgSendercommit:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgSendercommit:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		
-		async MsgCloseChannel({ rootGetters }, { value }) {
+		async MsgCommitment({ rootGetters }, { value }) {
 			try {
 				const client=initClient(rootGetters)
-				const msg = await client.ChannelChannel.tx.msgCloseChannel({value})
+				const msg = await client.ChannelChannel.tx.msgCommitment({value})
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCloseChannel:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCommitment:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgCloseChannel:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgCommitment:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgOpenChannel({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.ChannelChannel.tx.msgOpenChannel({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgOpenChannel:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -387,6 +477,19 @@ export default {
 				}
 			}
 		},
+		async MsgCloseChannel({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.ChannelChannel.tx.msgCloseChannel({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCloseChannel:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCloseChannel:Create Could not create message: ' + e.message)
+				}
+			}
+		},
 		async MsgWithdrawTimelock({ rootGetters }, { value }) {
 			try {
 				const client=initClient(rootGetters)
@@ -400,32 +503,6 @@ export default {
 				}
 			}
 		},
-		async MsgOpenChannel({ rootGetters }, { value }) {
-			try {
-				const client=initClient(rootGetters)
-				const msg = await client.ChannelChannel.tx.msgOpenChannel({value})
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgOpenChannel:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgOpenChannel:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCommitment({ rootGetters }, { value }) {
-			try {
-				const client=initClient(rootGetters)
-				const msg = await client.ChannelChannel.tx.msgCommitment({value})
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCommitment:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCommitment:Create Could not create message: ' + e.message)
-				}
-			}
-		},
 		async MsgAcceptfund({ rootGetters }, { value }) {
 			try {
 				const client=initClient(rootGetters)
@@ -436,6 +513,19 @@ export default {
 					throw new Error('TxClient:MsgAcceptfund:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgAcceptfund:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgSendercommit({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.ChannelChannel.tx.msgSendercommit({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgSendercommit:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgSendercommit:Create Could not create message: ' + e.message)
 				}
 			}
 		},

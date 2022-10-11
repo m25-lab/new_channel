@@ -16,6 +16,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgOpenChannel{}, "channel/OpenChannel", nil)
 	cdc.RegisterConcrete(&MsgFund{}, "channel/Fund", nil)
 	cdc.RegisterConcrete(&MsgAcceptfund{}, "channel/Acceptfund", nil)
+cdc.RegisterConcrete(&MsgSendercommit{}, "channel/Sendercommit", nil)
 // this line is used by starport scaffolding # 2
 }
 
@@ -40,6 +41,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 	&MsgAcceptfund{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgSendercommit{},
 )
 // this line is used by starport scaffolding # 3
 

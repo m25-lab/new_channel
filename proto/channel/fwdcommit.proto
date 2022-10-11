@@ -1,0 +1,15 @@
+syntax = "proto3";
+package channel.channel;
+
+option go_package = "channel/x/channel/types";
+
+message Fwdcommit {
+  string index = 1; 
+  string channelid = 2;
+  string hashcodedest = 3;
+  string timelockreceiver = 4;
+  string timelocksender = 5;
+  string hashcodehtlc = 6;
+  
+}
+

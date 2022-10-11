@@ -11,9 +11,6 @@ import (
 func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (*types.MsgCommitmentResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	msg.GetSigners()
-	msg.GetSignBytes()
-
 	from, err := sdk.AccAddressFromBech32(msg.From)
 	if err != nil {
 		return nil, err

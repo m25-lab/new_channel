@@ -16,7 +16,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.ChannelList {
 		k.SetChannel(ctx, elem)
 	}
-	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the fwdcommit
+for _, elem := range genState.FwdcommitList {
+	k.SetFwdcommit(ctx, elem)
+}
+// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
 
@@ -27,7 +31,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	genesis.CommitmentList = k.GetAllCommitment(ctx)
 	genesis.ChannelList = k.GetAllChannel(ctx)
-	// this line is used by starport scaffolding # genesis/module/export
+	genesis.FwdcommitList = k.GetAllFwdcommit(ctx)
+// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
 }

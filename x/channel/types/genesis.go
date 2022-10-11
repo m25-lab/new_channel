@@ -12,7 +12,8 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		CommitmentList: []Commitment{},
 		ChannelList:    []Channel{},
-		// this line is used by starport scaffolding # genesis/types/default
+		FwdcommitList: []Fwdcommit{},
+// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
 }
@@ -40,7 +41,17 @@ func (gs GenesisState) Validate() error {
 		}
 		channelIndexMap[index] = struct{}{}
 	}
-	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated index in fwdcommit
+fwdcommitIndexMap := make(map[string]struct{})
+
+for _, elem := range gs.FwdcommitList {
+	index := string(FwdcommitKey(elem.Index))
+	if _, ok := fwdcommitIndexMap[index]; ok {
+		return fmt.Errorf("duplicated index for fwdcommit")
+	}
+	fwdcommitIndexMap[index] = struct{}{}
+}
+// this line is used by starport scaffolding # genesis/types/validate
 
 	return gs.Params.Validate()
 }

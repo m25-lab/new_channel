@@ -30,7 +30,15 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
-		// this line is used by starport scaffolding # genesis/test/state
+		FwdcommitList: []types.Fwdcommit{
+		{
+			Index: "0",
+},
+		{
+			Index: "1",
+},
+	},
+	// this line is used by starport scaffolding # genesis/test/state
 	}
 
 	k, ctx := keepertest.ChannelKeeper(t)
@@ -43,5 +51,6 @@ func TestGenesis(t *testing.T) {
 
 	require.ElementsMatch(t, genesisState.CommitmentList, got.CommitmentList)
 	require.ElementsMatch(t, genesisState.ChannelList, got.ChannelList)
-	// this line is used by starport scaffolding # genesis/test/assert
+	require.ElementsMatch(t, genesisState.FwdcommitList, got.FwdcommitList)
+// this line is used by starport scaffolding # genesis/test/assert
 }

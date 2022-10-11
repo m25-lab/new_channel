@@ -45,6 +45,15 @@ export interface ChannelCommitment {
   hashcode?: string;
 }
 
+export interface ChannelFwdcommit {
+  index?: string;
+  channelid?: string;
+  hashcodedest?: string;
+  timelockreceiver?: string;
+  timelocksender?: string;
+  hashcodehtlc?: string;
+}
+
 export interface ChannelMsgAcceptfundResponse {
   index?: string;
 }
@@ -62,6 +71,8 @@ export interface ChannelMsgFundResponse {
 export interface ChannelMsgOpenChannelResponse {
   index?: string;
 }
+
+export type ChannelMsgSendercommitResponse = object;
 
 export type ChannelMsgWithdrawHashlockResponse = object;
 
@@ -102,12 +113,31 @@ export interface ChannelQueryAllCommitmentResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface ChannelQueryAllFwdcommitResponse {
+  fwdcommit?: ChannelFwdcommit[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface ChannelQueryGetChannelResponse {
   channel?: ChannelChannel;
 }
 
 export interface ChannelQueryGetCommitmentResponse {
   commitment?: ChannelCommitment;
+}
+
+export interface ChannelQueryGetFwdcommitResponse {
+  fwdcommit?: ChannelFwdcommit;
 }
 
 /**
@@ -483,6 +513,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryCommitment = (index: string, params: RequestParams = {}) =>
     this.request<ChannelQueryGetCommitmentResponse, RpcStatus>({
       path: `/channel/channel/commitment/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFwdcommitAll
+   * @summary Queries a list of Fwdcommit items.
+   * @request GET:/channel/channel/fwdcommit
+   */
+  queryFwdcommitAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<ChannelQueryAllFwdcommitResponse, RpcStatus>({
+      path: `/channel/channel/fwdcommit`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFwdcommit
+   * @summary Queries a Fwdcommit by index.
+   * @request GET:/channel/channel/fwdcommit/{index}
+   */
+  queryFwdcommit = (index: string, params: RequestParams = {}) =>
+    this.request<ChannelQueryGetFwdcommitResponse, RpcStatus>({
+      path: `/channel/channel/fwdcommit/${index}`,
       method: "GET",
       format: "json",
       ...params,

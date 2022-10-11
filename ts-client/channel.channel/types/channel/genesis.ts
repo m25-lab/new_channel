@@ -2,6 +2,7 @@
 import { Params } from "../channel/params";
 import { Commitment } from "../channel/commitment";
 import { Channel } from "../channel/channel";
+import { Fwdcommit } from "../channel/fwdcommit";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "channel.channel";
@@ -10,8 +11,9 @@ export const protobufPackage = "channel.channel";
 export interface GenesisState {
   params: Params | undefined;
   commitmentList: Commitment[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   channelList: Channel[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  fwdcommitList: Fwdcommit[];
 }
 
 const baseGenesisState: object = {};
@@ -27,6 +29,9 @@ export const GenesisState = {
     for (const v of message.channelList) {
       Channel.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+    for (const v of message.fwdcommitList) {
+      Fwdcommit.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -36,6 +41,7 @@ export const GenesisState = {
     const message = { ...baseGenesisState } as GenesisState;
     message.commitmentList = [];
     message.channelList = [];
+    message.fwdcommitList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -50,6 +56,9 @@ export const GenesisState = {
         case 3:
           message.channelList.push(Channel.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.fwdcommitList.push(Fwdcommit.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -62,6 +71,7 @@ export const GenesisState = {
     const message = { ...baseGenesisState } as GenesisState;
     message.commitmentList = [];
     message.channelList = [];
+    message.fwdcommitList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -75,6 +85,11 @@ export const GenesisState = {
     if (object.channelList !== undefined && object.channelList !== null) {
       for (const e of object.channelList) {
         message.channelList.push(Channel.fromJSON(e));
+      }
+    }
+    if (object.fwdcommitList !== undefined && object.fwdcommitList !== null) {
+      for (const e of object.fwdcommitList) {
+        message.fwdcommitList.push(Fwdcommit.fromJSON(e));
       }
     }
     return message;
@@ -98,6 +113,13 @@ export const GenesisState = {
     } else {
       obj.channelList = [];
     }
+    if (message.fwdcommitList) {
+      obj.fwdcommitList = message.fwdcommitList.map((e) =>
+        e ? Fwdcommit.toJSON(e) : undefined
+      );
+    } else {
+      obj.fwdcommitList = [];
+    }
     return obj;
   },
 
@@ -105,6 +127,7 @@ export const GenesisState = {
     const message = { ...baseGenesisState } as GenesisState;
     message.commitmentList = [];
     message.channelList = [];
+    message.fwdcommitList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -118,6 +141,11 @@ export const GenesisState = {
     if (object.channelList !== undefined && object.channelList !== null) {
       for (const e of object.channelList) {
         message.channelList.push(Channel.fromPartial(e));
+      }
+    }
+    if (object.fwdcommitList !== undefined && object.fwdcommitList !== null) {
+      for (const e of object.fwdcommitList) {
+        message.fwdcommitList.push(Fwdcommit.fromPartial(e));
       }
     }
     return message;

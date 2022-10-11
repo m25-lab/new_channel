@@ -15,6 +15,7 @@ service Msg {
   rpc OpenChannel(MsgOpenChannel) returns (MsgOpenChannelResponse);
   rpc Fund(MsgFund) returns (MsgFundResponse);
   rpc Acceptfund(MsgAcceptfund) returns (MsgAcceptfundResponse);
+  rpc Sendercommit(MsgSendercommit) returns (MsgSendercommitResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -105,6 +106,24 @@ message MsgAcceptfund {
 
 message MsgAcceptfundResponse {
   string index = 1;
+}
+
+message MsgSendercommit {
+  string creator = 1;
+  string from = 2;
+  string channelid = 3;
+  cosmos.base.v1beta1.Coin cointosender = 4;
+  cosmos.base.v1beta1.Coin cointohtlc = 5;
+  string hashcodehtlc = 6;
+  string timelockhtlc = 7;
+  cosmos.base.v1beta1.Coin cointransfer = 8;
+  string hashcodedest = 9;
+  string timelockreceiver = 10;
+  string timelocksender = 11;
+  string multisig = 12;
+}
+
+message MsgSendercommitResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

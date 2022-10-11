@@ -7,6 +7,7 @@ import {
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
 import { Channel } from "../channel/channel";
+import { Fwdcommit } from "../channel/fwdcommit";
 
 export const protobufPackage = "channel.channel";
 
@@ -50,6 +51,23 @@ export interface QueryAllChannelRequest {
 
 export interface QueryAllChannelResponse {
   channel: Channel[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetFwdcommitRequest {
+  index: string;
+}
+
+export interface QueryGetFwdcommitResponse {
+  fwdcommit: Fwdcommit | undefined;
+}
+
+export interface QueryAllFwdcommitRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllFwdcommitResponse {
+  fwdcommit: Fwdcommit[];
   pagination: PageResponse | undefined;
 }
 
@@ -754,6 +772,320 @@ export const QueryAllChannelResponse = {
   },
 };
 
+const baseQueryGetFwdcommitRequest: object = { index: "" };
+
+export const QueryGetFwdcommitRequest = {
+  encode(
+    message: QueryGetFwdcommitRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetFwdcommitRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetFwdcommitRequest,
+    } as QueryGetFwdcommitRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetFwdcommitRequest {
+    const message = {
+      ...baseQueryGetFwdcommitRequest,
+    } as QueryGetFwdcommitRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = String(object.index);
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetFwdcommitRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetFwdcommitRequest>
+  ): QueryGetFwdcommitRequest {
+    const message = {
+      ...baseQueryGetFwdcommitRequest,
+    } as QueryGetFwdcommitRequest;
+    if (object.index !== undefined && object.index !== null) {
+      message.index = object.index;
+    } else {
+      message.index = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetFwdcommitResponse: object = {};
+
+export const QueryGetFwdcommitResponse = {
+  encode(
+    message: QueryGetFwdcommitResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.fwdcommit !== undefined) {
+      Fwdcommit.encode(message.fwdcommit, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetFwdcommitResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetFwdcommitResponse,
+    } as QueryGetFwdcommitResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fwdcommit = Fwdcommit.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetFwdcommitResponse {
+    const message = {
+      ...baseQueryGetFwdcommitResponse,
+    } as QueryGetFwdcommitResponse;
+    if (object.fwdcommit !== undefined && object.fwdcommit !== null) {
+      message.fwdcommit = Fwdcommit.fromJSON(object.fwdcommit);
+    } else {
+      message.fwdcommit = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetFwdcommitResponse): unknown {
+    const obj: any = {};
+    message.fwdcommit !== undefined &&
+      (obj.fwdcommit = message.fwdcommit
+        ? Fwdcommit.toJSON(message.fwdcommit)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetFwdcommitResponse>
+  ): QueryGetFwdcommitResponse {
+    const message = {
+      ...baseQueryGetFwdcommitResponse,
+    } as QueryGetFwdcommitResponse;
+    if (object.fwdcommit !== undefined && object.fwdcommit !== null) {
+      message.fwdcommit = Fwdcommit.fromPartial(object.fwdcommit);
+    } else {
+      message.fwdcommit = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllFwdcommitRequest: object = {};
+
+export const QueryAllFwdcommitRequest = {
+  encode(
+    message: QueryAllFwdcommitRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllFwdcommitRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllFwdcommitRequest,
+    } as QueryAllFwdcommitRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFwdcommitRequest {
+    const message = {
+      ...baseQueryAllFwdcommitRequest,
+    } as QueryAllFwdcommitRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllFwdcommitRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllFwdcommitRequest>
+  ): QueryAllFwdcommitRequest {
+    const message = {
+      ...baseQueryAllFwdcommitRequest,
+    } as QueryAllFwdcommitRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllFwdcommitResponse: object = {};
+
+export const QueryAllFwdcommitResponse = {
+  encode(
+    message: QueryAllFwdcommitResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.fwdcommit) {
+      Fwdcommit.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllFwdcommitResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllFwdcommitResponse,
+    } as QueryAllFwdcommitResponse;
+    message.fwdcommit = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fwdcommit.push(Fwdcommit.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFwdcommitResponse {
+    const message = {
+      ...baseQueryAllFwdcommitResponse,
+    } as QueryAllFwdcommitResponse;
+    message.fwdcommit = [];
+    if (object.fwdcommit !== undefined && object.fwdcommit !== null) {
+      for (const e of object.fwdcommit) {
+        message.fwdcommit.push(Fwdcommit.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllFwdcommitResponse): unknown {
+    const obj: any = {};
+    if (message.fwdcommit) {
+      obj.fwdcommit = message.fwdcommit.map((e) =>
+        e ? Fwdcommit.toJSON(e) : undefined
+      );
+    } else {
+      obj.fwdcommit = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllFwdcommitResponse>
+  ): QueryAllFwdcommitResponse {
+    const message = {
+      ...baseQueryAllFwdcommitResponse,
+    } as QueryAllFwdcommitResponse;
+    message.fwdcommit = [];
+    if (object.fwdcommit !== undefined && object.fwdcommit !== null) {
+      for (const e of object.fwdcommit) {
+        message.fwdcommit.push(Fwdcommit.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -770,6 +1102,14 @@ export interface Query {
   Channel(request: QueryGetChannelRequest): Promise<QueryGetChannelResponse>;
   /** Queries a list of Channel items. */
   ChannelAll(request: QueryAllChannelRequest): Promise<QueryAllChannelResponse>;
+  /** Queries a Fwdcommit by index. */
+  Fwdcommit(
+    request: QueryGetFwdcommitRequest
+  ): Promise<QueryGetFwdcommitResponse>;
+  /** Queries a list of Fwdcommit items. */
+  FwdcommitAll(
+    request: QueryAllFwdcommitRequest
+  ): Promise<QueryAllFwdcommitResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -830,6 +1170,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllChannelResponse.decode(new Reader(data))
+    );
+  }
+
+  Fwdcommit(
+    request: QueryGetFwdcommitRequest
+  ): Promise<QueryGetFwdcommitResponse> {
+    const data = QueryGetFwdcommitRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Query",
+      "Fwdcommit",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetFwdcommitResponse.decode(new Reader(data))
+    );
+  }
+
+  FwdcommitAll(
+    request: QueryAllFwdcommitRequest
+  ): Promise<QueryAllFwdcommitResponse> {
+    const data = QueryAllFwdcommitRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Query",
+      "FwdcommitAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllFwdcommitResponse.decode(new Reader(data))
     );
   }
 }

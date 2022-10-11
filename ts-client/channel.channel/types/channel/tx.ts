@@ -91,6 +91,23 @@ export interface MsgAcceptfundResponse {
   index: string;
 }
 
+export interface MsgSendercommit {
+  creator: string;
+  from: string;
+  channelid: string;
+  cointosender: Coin | undefined;
+  cointohtlc: Coin | undefined;
+  hashcodehtlc: string;
+  timelockhtlc: string;
+  cointransfer: Coin | undefined;
+  hashcodedest: string;
+  timelockreceiver: string;
+  timelocksender: string;
+  multisig: string;
+}
+
+export interface MsgSendercommitResponse {}
+
 const baseMsgCommitment: object = {
   creator: "",
   from: "",
@@ -1533,6 +1550,324 @@ export const MsgAcceptfundResponse = {
   },
 };
 
+const baseMsgSendercommit: object = {
+  creator: "",
+  from: "",
+  channelid: "",
+  hashcodehtlc: "",
+  timelockhtlc: "",
+  hashcodedest: "",
+  timelockreceiver: "",
+  timelocksender: "",
+  multisig: "",
+};
+
+export const MsgSendercommit = {
+  encode(message: MsgSendercommit, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.from !== "") {
+      writer.uint32(18).string(message.from);
+    }
+    if (message.channelid !== "") {
+      writer.uint32(26).string(message.channelid);
+    }
+    if (message.cointosender !== undefined) {
+      Coin.encode(message.cointosender, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.cointohtlc !== undefined) {
+      Coin.encode(message.cointohtlc, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.hashcodehtlc !== "") {
+      writer.uint32(50).string(message.hashcodehtlc);
+    }
+    if (message.timelockhtlc !== "") {
+      writer.uint32(58).string(message.timelockhtlc);
+    }
+    if (message.cointransfer !== undefined) {
+      Coin.encode(message.cointransfer, writer.uint32(66).fork()).ldelim();
+    }
+    if (message.hashcodedest !== "") {
+      writer.uint32(74).string(message.hashcodedest);
+    }
+    if (message.timelockreceiver !== "") {
+      writer.uint32(82).string(message.timelockreceiver);
+    }
+    if (message.timelocksender !== "") {
+      writer.uint32(90).string(message.timelocksender);
+    }
+    if (message.multisig !== "") {
+      writer.uint32(98).string(message.multisig);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgSendercommit {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgSendercommit } as MsgSendercommit;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.from = reader.string();
+          break;
+        case 3:
+          message.channelid = reader.string();
+          break;
+        case 4:
+          message.cointosender = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.cointohtlc = Coin.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.hashcodehtlc = reader.string();
+          break;
+        case 7:
+          message.timelockhtlc = reader.string();
+          break;
+        case 8:
+          message.cointransfer = Coin.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.hashcodedest = reader.string();
+          break;
+        case 10:
+          message.timelockreceiver = reader.string();
+          break;
+        case 11:
+          message.timelocksender = reader.string();
+          break;
+        case 12:
+          message.multisig = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSendercommit {
+    const message = { ...baseMsgSendercommit } as MsgSendercommit;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = String(object.from);
+    } else {
+      message.from = "";
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = String(object.channelid);
+    } else {
+      message.channelid = "";
+    }
+    if (object.cointosender !== undefined && object.cointosender !== null) {
+      message.cointosender = Coin.fromJSON(object.cointosender);
+    } else {
+      message.cointosender = undefined;
+    }
+    if (object.cointohtlc !== undefined && object.cointohtlc !== null) {
+      message.cointohtlc = Coin.fromJSON(object.cointohtlc);
+    } else {
+      message.cointohtlc = undefined;
+    }
+    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
+      message.hashcodehtlc = String(object.hashcodehtlc);
+    } else {
+      message.hashcodehtlc = "";
+    }
+    if (object.timelockhtlc !== undefined && object.timelockhtlc !== null) {
+      message.timelockhtlc = String(object.timelockhtlc);
+    } else {
+      message.timelockhtlc = "";
+    }
+    if (object.cointransfer !== undefined && object.cointransfer !== null) {
+      message.cointransfer = Coin.fromJSON(object.cointransfer);
+    } else {
+      message.cointransfer = undefined;
+    }
+    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
+      message.hashcodedest = String(object.hashcodedest);
+    } else {
+      message.hashcodedest = "";
+    }
+    if (
+      object.timelockreceiver !== undefined &&
+      object.timelockreceiver !== null
+    ) {
+      message.timelockreceiver = String(object.timelockreceiver);
+    } else {
+      message.timelockreceiver = "";
+    }
+    if (object.timelocksender !== undefined && object.timelocksender !== null) {
+      message.timelocksender = String(object.timelocksender);
+    } else {
+      message.timelocksender = "";
+    }
+    if (object.multisig !== undefined && object.multisig !== null) {
+      message.multisig = String(object.multisig);
+    } else {
+      message.multisig = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSendercommit): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.from !== undefined && (obj.from = message.from);
+    message.channelid !== undefined && (obj.channelid = message.channelid);
+    message.cointosender !== undefined &&
+      (obj.cointosender = message.cointosender
+        ? Coin.toJSON(message.cointosender)
+        : undefined);
+    message.cointohtlc !== undefined &&
+      (obj.cointohtlc = message.cointohtlc
+        ? Coin.toJSON(message.cointohtlc)
+        : undefined);
+    message.hashcodehtlc !== undefined &&
+      (obj.hashcodehtlc = message.hashcodehtlc);
+    message.timelockhtlc !== undefined &&
+      (obj.timelockhtlc = message.timelockhtlc);
+    message.cointransfer !== undefined &&
+      (obj.cointransfer = message.cointransfer
+        ? Coin.toJSON(message.cointransfer)
+        : undefined);
+    message.hashcodedest !== undefined &&
+      (obj.hashcodedest = message.hashcodedest);
+    message.timelockreceiver !== undefined &&
+      (obj.timelockreceiver = message.timelockreceiver);
+    message.timelocksender !== undefined &&
+      (obj.timelocksender = message.timelocksender);
+    message.multisig !== undefined && (obj.multisig = message.multisig);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgSendercommit>): MsgSendercommit {
+    const message = { ...baseMsgSendercommit } as MsgSendercommit;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.from !== undefined && object.from !== null) {
+      message.from = object.from;
+    } else {
+      message.from = "";
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = object.channelid;
+    } else {
+      message.channelid = "";
+    }
+    if (object.cointosender !== undefined && object.cointosender !== null) {
+      message.cointosender = Coin.fromPartial(object.cointosender);
+    } else {
+      message.cointosender = undefined;
+    }
+    if (object.cointohtlc !== undefined && object.cointohtlc !== null) {
+      message.cointohtlc = Coin.fromPartial(object.cointohtlc);
+    } else {
+      message.cointohtlc = undefined;
+    }
+    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
+      message.hashcodehtlc = object.hashcodehtlc;
+    } else {
+      message.hashcodehtlc = "";
+    }
+    if (object.timelockhtlc !== undefined && object.timelockhtlc !== null) {
+      message.timelockhtlc = object.timelockhtlc;
+    } else {
+      message.timelockhtlc = "";
+    }
+    if (object.cointransfer !== undefined && object.cointransfer !== null) {
+      message.cointransfer = Coin.fromPartial(object.cointransfer);
+    } else {
+      message.cointransfer = undefined;
+    }
+    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
+      message.hashcodedest = object.hashcodedest;
+    } else {
+      message.hashcodedest = "";
+    }
+    if (
+      object.timelockreceiver !== undefined &&
+      object.timelockreceiver !== null
+    ) {
+      message.timelockreceiver = object.timelockreceiver;
+    } else {
+      message.timelockreceiver = "";
+    }
+    if (object.timelocksender !== undefined && object.timelocksender !== null) {
+      message.timelocksender = object.timelocksender;
+    } else {
+      message.timelocksender = "";
+    }
+    if (object.multisig !== undefined && object.multisig !== null) {
+      message.multisig = object.multisig;
+    } else {
+      message.multisig = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgSendercommitResponse: object = {};
+
+export const MsgSendercommitResponse = {
+  encode(_: MsgSendercommitResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgSendercommitResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSendercommitResponse,
+    } as MsgSendercommitResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSendercommitResponse {
+    const message = {
+      ...baseMsgSendercommitResponse,
+    } as MsgSendercommitResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSendercommitResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSendercommitResponse>
+  ): MsgSendercommitResponse {
+    const message = {
+      ...baseMsgSendercommitResponse,
+    } as MsgSendercommitResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Commitment(request: MsgCommitment): Promise<MsgCommitmentResponse>;
@@ -1545,8 +1880,9 @@ export interface Msg {
   CloseChannel(request: MsgCloseChannel): Promise<MsgCloseChannelResponse>;
   OpenChannel(request: MsgOpenChannel): Promise<MsgOpenChannelResponse>;
   Fund(request: MsgFund): Promise<MsgFundResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   Acceptfund(request: MsgAcceptfund): Promise<MsgAcceptfundResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  Sendercommit(request: MsgSendercommit): Promise<MsgSendercommitResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1625,6 +1961,18 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request("channel.channel.Msg", "Acceptfund", data);
     return promise.then((data) =>
       MsgAcceptfundResponse.decode(new Reader(data))
+    );
+  }
+
+  Sendercommit(request: MsgSendercommit): Promise<MsgSendercommitResponse> {
+    const data = MsgSendercommit.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Msg",
+      "Sendercommit",
+      data
+    );
+    return promise.then((data) =>
+      MsgSendercommitResponse.decode(new Reader(data))
     );
   }
 }
