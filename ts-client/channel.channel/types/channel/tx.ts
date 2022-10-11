@@ -119,6 +119,24 @@ export interface MsgSenderwithdrawtimelock {
 
 export interface MsgSenderwithdrawtimelockResponse {}
 
+export interface MsgSenderwithdrawhashlock {
+  creator: string;
+  transferindex: string;
+  to: string;
+  secret: string;
+}
+
+export interface MsgSenderwithdrawhashlockResponse {}
+
+export interface MsgReceiverwithdraw {
+  creator: string;
+  transferindex: string;
+  to: string;
+  secret: string;
+}
+
+export interface MsgReceiverwithdrawResponse {}
+
 const baseMsgCommitment: object = {
   creator: "",
   from: "",
@@ -2080,6 +2098,351 @@ export const MsgSenderwithdrawtimelockResponse = {
   },
 };
 
+const baseMsgSenderwithdrawhashlock: object = {
+  creator: "",
+  transferindex: "",
+  to: "",
+  secret: "",
+};
+
+export const MsgSenderwithdrawhashlock = {
+  encode(
+    message: MsgSenderwithdrawhashlock,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.transferindex !== "") {
+      writer.uint32(18).string(message.transferindex);
+    }
+    if (message.to !== "") {
+      writer.uint32(26).string(message.to);
+    }
+    if (message.secret !== "") {
+      writer.uint32(34).string(message.secret);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSenderwithdrawhashlock {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSenderwithdrawhashlock,
+    } as MsgSenderwithdrawhashlock;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.transferindex = reader.string();
+          break;
+        case 3:
+          message.to = reader.string();
+          break;
+        case 4:
+          message.secret = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSenderwithdrawhashlock {
+    const message = {
+      ...baseMsgSenderwithdrawhashlock,
+    } as MsgSenderwithdrawhashlock;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.transferindex !== undefined && object.transferindex !== null) {
+      message.transferindex = String(object.transferindex);
+    } else {
+      message.transferindex = "";
+    }
+    if (object.to !== undefined && object.to !== null) {
+      message.to = String(object.to);
+    } else {
+      message.to = "";
+    }
+    if (object.secret !== undefined && object.secret !== null) {
+      message.secret = String(object.secret);
+    } else {
+      message.secret = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSenderwithdrawhashlock): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.transferindex !== undefined &&
+      (obj.transferindex = message.transferindex);
+    message.to !== undefined && (obj.to = message.to);
+    message.secret !== undefined && (obj.secret = message.secret);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgSenderwithdrawhashlock>
+  ): MsgSenderwithdrawhashlock {
+    const message = {
+      ...baseMsgSenderwithdrawhashlock,
+    } as MsgSenderwithdrawhashlock;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.transferindex !== undefined && object.transferindex !== null) {
+      message.transferindex = object.transferindex;
+    } else {
+      message.transferindex = "";
+    }
+    if (object.to !== undefined && object.to !== null) {
+      message.to = object.to;
+    } else {
+      message.to = "";
+    }
+    if (object.secret !== undefined && object.secret !== null) {
+      message.secret = object.secret;
+    } else {
+      message.secret = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgSenderwithdrawhashlockResponse: object = {};
+
+export const MsgSenderwithdrawhashlockResponse = {
+  encode(
+    _: MsgSenderwithdrawhashlockResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSenderwithdrawhashlockResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSenderwithdrawhashlockResponse,
+    } as MsgSenderwithdrawhashlockResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSenderwithdrawhashlockResponse {
+    const message = {
+      ...baseMsgSenderwithdrawhashlockResponse,
+    } as MsgSenderwithdrawhashlockResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSenderwithdrawhashlockResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSenderwithdrawhashlockResponse>
+  ): MsgSenderwithdrawhashlockResponse {
+    const message = {
+      ...baseMsgSenderwithdrawhashlockResponse,
+    } as MsgSenderwithdrawhashlockResponse;
+    return message;
+  },
+};
+
+const baseMsgReceiverwithdraw: object = {
+  creator: "",
+  transferindex: "",
+  to: "",
+  secret: "",
+};
+
+export const MsgReceiverwithdraw = {
+  encode(
+    message: MsgReceiverwithdraw,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.transferindex !== "") {
+      writer.uint32(18).string(message.transferindex);
+    }
+    if (message.to !== "") {
+      writer.uint32(26).string(message.to);
+    }
+    if (message.secret !== "") {
+      writer.uint32(34).string(message.secret);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgReceiverwithdraw {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgReceiverwithdraw } as MsgReceiverwithdraw;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.transferindex = reader.string();
+          break;
+        case 3:
+          message.to = reader.string();
+          break;
+        case 4:
+          message.secret = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgReceiverwithdraw {
+    const message = { ...baseMsgReceiverwithdraw } as MsgReceiverwithdraw;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.transferindex !== undefined && object.transferindex !== null) {
+      message.transferindex = String(object.transferindex);
+    } else {
+      message.transferindex = "";
+    }
+    if (object.to !== undefined && object.to !== null) {
+      message.to = String(object.to);
+    } else {
+      message.to = "";
+    }
+    if (object.secret !== undefined && object.secret !== null) {
+      message.secret = String(object.secret);
+    } else {
+      message.secret = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgReceiverwithdraw): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.transferindex !== undefined &&
+      (obj.transferindex = message.transferindex);
+    message.to !== undefined && (obj.to = message.to);
+    message.secret !== undefined && (obj.secret = message.secret);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgReceiverwithdraw>): MsgReceiverwithdraw {
+    const message = { ...baseMsgReceiverwithdraw } as MsgReceiverwithdraw;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.transferindex !== undefined && object.transferindex !== null) {
+      message.transferindex = object.transferindex;
+    } else {
+      message.transferindex = "";
+    }
+    if (object.to !== undefined && object.to !== null) {
+      message.to = object.to;
+    } else {
+      message.to = "";
+    }
+    if (object.secret !== undefined && object.secret !== null) {
+      message.secret = object.secret;
+    } else {
+      message.secret = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgReceiverwithdrawResponse: object = {};
+
+export const MsgReceiverwithdrawResponse = {
+  encode(
+    _: MsgReceiverwithdrawResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgReceiverwithdrawResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgReceiverwithdrawResponse,
+    } as MsgReceiverwithdrawResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgReceiverwithdrawResponse {
+    const message = {
+      ...baseMsgReceiverwithdrawResponse,
+    } as MsgReceiverwithdrawResponse;
+    return message;
+  },
+
+  toJSON(_: MsgReceiverwithdrawResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgReceiverwithdrawResponse>
+  ): MsgReceiverwithdrawResponse {
+    const message = {
+      ...baseMsgReceiverwithdrawResponse,
+    } as MsgReceiverwithdrawResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Commitment(request: MsgCommitment): Promise<MsgCommitmentResponse>;
@@ -2094,10 +2457,16 @@ export interface Msg {
   Fund(request: MsgFund): Promise<MsgFundResponse>;
   Acceptfund(request: MsgAcceptfund): Promise<MsgAcceptfundResponse>;
   Sendercommit(request: MsgSendercommit): Promise<MsgSendercommitResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   Senderwithdrawtimelock(
     request: MsgSenderwithdrawtimelock
   ): Promise<MsgSenderwithdrawtimelockResponse>;
+  Senderwithdrawhashlock(
+    request: MsgSenderwithdrawhashlock
+  ): Promise<MsgSenderwithdrawhashlockResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  Receiverwithdraw(
+    request: MsgReceiverwithdraw
+  ): Promise<MsgReceiverwithdrawResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2202,6 +2571,34 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgSenderwithdrawtimelockResponse.decode(new Reader(data))
+    );
+  }
+
+  Senderwithdrawhashlock(
+    request: MsgSenderwithdrawhashlock
+  ): Promise<MsgSenderwithdrawhashlockResponse> {
+    const data = MsgSenderwithdrawhashlock.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Msg",
+      "Senderwithdrawhashlock",
+      data
+    );
+    return promise.then((data) =>
+      MsgSenderwithdrawhashlockResponse.decode(new Reader(data))
+    );
+  }
+
+  Receiverwithdraw(
+    request: MsgReceiverwithdraw
+  ): Promise<MsgReceiverwithdrawResponse> {
+    const data = MsgReceiverwithdraw.encode(request).finish();
+    const promise = this.rpc.request(
+      "channel.channel.Msg",
+      "Receiverwithdraw",
+      data
+    );
+    return promise.then((data) =>
+      MsgReceiverwithdrawResponse.decode(new Reader(data))
     );
   }
 }

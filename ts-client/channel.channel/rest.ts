@@ -82,10 +82,14 @@ export interface ChannelMsgOpenChannelResponse {
   index?: string;
 }
 
+export type ChannelMsgReceiverwithdrawResponse = object;
+
 export interface ChannelMsgSendercommitResponse {
   indexhtlc?: string;
   indextransfer?: string;
 }
+
+export type ChannelMsgSenderwithdrawhashlockResponse = object;
 
 export type ChannelMsgSenderwithdrawtimelockResponse = object;
 

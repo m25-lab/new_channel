@@ -6,12 +6,13 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"strconv"
 
 	"channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) Senderwithdrawhashlock(goCtx context.Context, msg *types.MsgSenderwithdrawhashlock) (*types.MsgSenderwithdrawhashlockResponse, error) {
+func (k msgServer) Receiverwithdraw(goCtx context.Context, msg *types.MsgReceiverwithdraw) (*types.MsgReceiverwithdrawResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
@@ -20,14 +21,22 @@ func (k msgServer) Senderwithdrawhashlock(goCtx context.Context, msg *types.MsgS
 		return nil, errors.New("commitment is not existing")
 	}
 
-	if val.Sender != msg.To {
-		return nil, fmt.Errorf("not matching receiver address! expected:", val.Sender)
+	if val.Receiver != msg.To {
+		return nil, fmt.Errorf("not matching receiver address! expected:", val.Receiver)
 		//return nil, errors.New("not matching receiver address!")
 	}
 
 	hash := sha256.Sum256([]byte(msg.Secret))
-	if val.Hashcodehtlc != base64.StdEncoding.EncodeToString(hash[:]) {
+	if val.Hashcodedest != base64.StdEncoding.EncodeToString(hash[:]) {
 		return nil, errors.New("Wrong hash !")
+	}
+
+	timelockreceiver, err := strconv.ParseUint(val.Timelockreceiver, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	if timelockreceiver > uint64(ctx.BlockHeight()) {
+		return nil, errors.New("wait until valid blokcheight")
 	}
 
 	to, err := sdk.AccAddressFromBech32(msg.To)
@@ -42,5 +51,5 @@ func (k msgServer) Senderwithdrawhashlock(goCtx context.Context, msg *types.MsgS
 
 	k.Keeper.RemoveFwdcommit(ctx, msg.Transferindex)
 
-	return &types.MsgSenderwithdrawhashlockResponse{}, nil
+	return &types.MsgReceiverwithdrawResponse{}, nil
 }

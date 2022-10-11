@@ -19,6 +19,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 cdc.RegisterConcrete(&MsgSendercommit{}, "channel/Sendercommit", nil)
 cdc.RegisterConcrete(&MsgSenderwithdrawtimelock{}, "channel/Senderwithdrawtimelock", nil)
 cdc.RegisterConcrete(&MsgSenderwithdrawhashlock{}, "channel/Senderwithdrawhashlock", nil)
+cdc.RegisterConcrete(&MsgReceiverwithdraw{}, "channel/Receiverwithdraw", nil)
 // this line is used by starport scaffolding # 2
 }
 
@@ -52,6 +53,9 @@ registry.RegisterImplementations((*sdk.Msg)(nil),
 )
 registry.RegisterImplementations((*sdk.Msg)(nil),
 	&MsgSenderwithdrawhashlock{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgReceiverwithdraw{},
 )
 // this line is used by starport scaffolding # 3
 
