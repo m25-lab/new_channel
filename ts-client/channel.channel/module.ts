@@ -8,34 +8,23 @@ import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
 import { MsgFund } from "./types/channel/tx";
-import { MsgSenderwithdrawtimelock } from "./types/channel/tx";
-import { MsgCommitment } from "./types/channel/tx";
 import { MsgCloseChannel } from "./types/channel/tx";
+import { MsgOpenChannel } from "./types/channel/tx";
 import { MsgReceiverwithdraw } from "./types/channel/tx";
-import { MsgSendercommit } from "./types/channel/tx";
+import { MsgCommitment } from "./types/channel/tx";
+import { MsgReceivercommit } from "./types/channel/tx";
 import { MsgWithdrawHashlock } from "./types/channel/tx";
+import { MsgSendercommit } from "./types/channel/tx";
 import { MsgAcceptfund } from "./types/channel/tx";
 import { MsgWithdrawTimelock } from "./types/channel/tx";
-import { MsgOpenChannel } from "./types/channel/tx";
 import { MsgSenderwithdrawhashlock } from "./types/channel/tx";
+import { MsgSenderwithdrawtimelock } from "./types/channel/tx";
 
 
-export { MsgFund, MsgSenderwithdrawtimelock, MsgCommitment, MsgCloseChannel, MsgReceiverwithdraw, MsgSendercommit, MsgWithdrawHashlock, MsgAcceptfund, MsgWithdrawTimelock, MsgOpenChannel, MsgSenderwithdrawhashlock };
+export { MsgFund, MsgCloseChannel, MsgOpenChannel, MsgReceiverwithdraw, MsgCommitment, MsgReceivercommit, MsgWithdrawHashlock, MsgSendercommit, MsgAcceptfund, MsgWithdrawTimelock, MsgSenderwithdrawhashlock, MsgSenderwithdrawtimelock };
 
 type sendMsgFundParams = {
   value: MsgFund,
-  fee?: StdFee,
-  memo?: string
-};
-
-type sendMsgSenderwithdrawtimelockParams = {
-  value: MsgSenderwithdrawtimelock,
-  fee?: StdFee,
-  memo?: string
-};
-
-type sendMsgCommitmentParams = {
-  value: MsgCommitment,
   fee?: StdFee,
   memo?: string
 };
@@ -46,20 +35,38 @@ type sendMsgCloseChannelParams = {
   memo?: string
 };
 
+type sendMsgOpenChannelParams = {
+  value: MsgOpenChannel,
+  fee?: StdFee,
+  memo?: string
+};
+
 type sendMsgReceiverwithdrawParams = {
   value: MsgReceiverwithdraw,
   fee?: StdFee,
   memo?: string
 };
 
-type sendMsgSendercommitParams = {
-  value: MsgSendercommit,
+type sendMsgCommitmentParams = {
+  value: MsgCommitment,
+  fee?: StdFee,
+  memo?: string
+};
+
+type sendMsgReceivercommitParams = {
+  value: MsgReceivercommit,
   fee?: StdFee,
   memo?: string
 };
 
 type sendMsgWithdrawHashlockParams = {
   value: MsgWithdrawHashlock,
+  fee?: StdFee,
+  memo?: string
+};
+
+type sendMsgSendercommitParams = {
+  value: MsgSendercommit,
   fee?: StdFee,
   memo?: string
 };
@@ -76,14 +83,14 @@ type sendMsgWithdrawTimelockParams = {
   memo?: string
 };
 
-type sendMsgOpenChannelParams = {
-  value: MsgOpenChannel,
+type sendMsgSenderwithdrawhashlockParams = {
+  value: MsgSenderwithdrawhashlock,
   fee?: StdFee,
   memo?: string
 };
 
-type sendMsgSenderwithdrawhashlockParams = {
-  value: MsgSenderwithdrawhashlock,
+type sendMsgSenderwithdrawtimelockParams = {
+  value: MsgSenderwithdrawtimelock,
   fee?: StdFee,
   memo?: string
 };
@@ -93,28 +100,32 @@ type msgFundParams = {
   value: MsgFund,
 };
 
-type msgSenderwithdrawtimelockParams = {
-  value: MsgSenderwithdrawtimelock,
-};
-
-type msgCommitmentParams = {
-  value: MsgCommitment,
-};
-
 type msgCloseChannelParams = {
   value: MsgCloseChannel,
+};
+
+type msgOpenChannelParams = {
+  value: MsgOpenChannel,
 };
 
 type msgReceiverwithdrawParams = {
   value: MsgReceiverwithdraw,
 };
 
-type msgSendercommitParams = {
-  value: MsgSendercommit,
+type msgCommitmentParams = {
+  value: MsgCommitment,
+};
+
+type msgReceivercommitParams = {
+  value: MsgReceivercommit,
 };
 
 type msgWithdrawHashlockParams = {
   value: MsgWithdrawHashlock,
+};
+
+type msgSendercommitParams = {
+  value: MsgSendercommit,
 };
 
 type msgAcceptfundParams = {
@@ -125,12 +136,12 @@ type msgWithdrawTimelockParams = {
   value: MsgWithdrawTimelock,
 };
 
-type msgOpenChannelParams = {
-  value: MsgOpenChannel,
-};
-
 type msgSenderwithdrawhashlockParams = {
   value: MsgSenderwithdrawhashlock,
+};
+
+type msgSenderwithdrawtimelockParams = {
+  value: MsgSenderwithdrawtimelock,
 };
 
 
@@ -165,34 +176,6 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		async sendMsgSenderwithdrawtimelock({ value, fee, memo }: sendMsgSenderwithdrawtimelockParams): Promise<DeliverTxResponse> {
-			if (!signer) {
-					throw new Error('TxClient:sendMsgSenderwithdrawtimelock: Unable to sign Tx. Signer is not present.')
-			}
-			try {			
-				const { address } = (await signer.getAccounts())[0]; 
-				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgSenderwithdrawtimelock({ value: MsgSenderwithdrawtimelock.fromPartial(value) })
-				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
-			} catch (e: any) {
-				throw new Error('TxClient:sendMsgSenderwithdrawtimelock: Could not broadcast Tx: '+ e.message)
-			}
-		},
-		
-		async sendMsgCommitment({ value, fee, memo }: sendMsgCommitmentParams): Promise<DeliverTxResponse> {
-			if (!signer) {
-					throw new Error('TxClient:sendMsgCommitment: Unable to sign Tx. Signer is not present.')
-			}
-			try {			
-				const { address } = (await signer.getAccounts())[0]; 
-				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgCommitment({ value: MsgCommitment.fromPartial(value) })
-				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
-			} catch (e: any) {
-				throw new Error('TxClient:sendMsgCommitment: Could not broadcast Tx: '+ e.message)
-			}
-		},
-		
 		async sendMsgCloseChannel({ value, fee, memo }: sendMsgCloseChannelParams): Promise<DeliverTxResponse> {
 			if (!signer) {
 					throw new Error('TxClient:sendMsgCloseChannel: Unable to sign Tx. Signer is not present.')
@@ -204,6 +187,20 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
 			} catch (e: any) {
 				throw new Error('TxClient:sendMsgCloseChannel: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
+		async sendMsgOpenChannel({ value, fee, memo }: sendMsgOpenChannelParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgOpenChannel: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgOpenChannel({ value: MsgOpenChannel.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgOpenChannel: Could not broadcast Tx: '+ e.message)
 			}
 		},
 		
@@ -221,17 +218,31 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		async sendMsgSendercommit({ value, fee, memo }: sendMsgSendercommitParams): Promise<DeliverTxResponse> {
+		async sendMsgCommitment({ value, fee, memo }: sendMsgCommitmentParams): Promise<DeliverTxResponse> {
 			if (!signer) {
-					throw new Error('TxClient:sendMsgSendercommit: Unable to sign Tx. Signer is not present.')
+					throw new Error('TxClient:sendMsgCommitment: Unable to sign Tx. Signer is not present.')
 			}
 			try {			
 				const { address } = (await signer.getAccounts())[0]; 
 				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgSendercommit({ value: MsgSendercommit.fromPartial(value) })
+				let msg = this.msgCommitment({ value: MsgCommitment.fromPartial(value) })
 				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
 			} catch (e: any) {
-				throw new Error('TxClient:sendMsgSendercommit: Could not broadcast Tx: '+ e.message)
+				throw new Error('TxClient:sendMsgCommitment: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
+		async sendMsgReceivercommit({ value, fee, memo }: sendMsgReceivercommitParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgReceivercommit: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgReceivercommit({ value: MsgReceivercommit.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgReceivercommit: Could not broadcast Tx: '+ e.message)
 			}
 		},
 		
@@ -246,6 +257,20 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
 			} catch (e: any) {
 				throw new Error('TxClient:sendMsgWithdrawHashlock: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
+		async sendMsgSendercommit({ value, fee, memo }: sendMsgSendercommitParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgSendercommit: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgSendercommit({ value: MsgSendercommit.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgSendercommit: Could not broadcast Tx: '+ e.message)
 			}
 		},
 		
@@ -277,20 +302,6 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		async sendMsgOpenChannel({ value, fee, memo }: sendMsgOpenChannelParams): Promise<DeliverTxResponse> {
-			if (!signer) {
-					throw new Error('TxClient:sendMsgOpenChannel: Unable to sign Tx. Signer is not present.')
-			}
-			try {			
-				const { address } = (await signer.getAccounts())[0]; 
-				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgOpenChannel({ value: MsgOpenChannel.fromPartial(value) })
-				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
-			} catch (e: any) {
-				throw new Error('TxClient:sendMsgOpenChannel: Could not broadcast Tx: '+ e.message)
-			}
-		},
-		
 		async sendMsgSenderwithdrawhashlock({ value, fee, memo }: sendMsgSenderwithdrawhashlockParams): Promise<DeliverTxResponse> {
 			if (!signer) {
 					throw new Error('TxClient:sendMsgSenderwithdrawhashlock: Unable to sign Tx. Signer is not present.')
@@ -305,28 +316,26 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
+		async sendMsgSenderwithdrawtimelock({ value, fee, memo }: sendMsgSenderwithdrawtimelockParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgSenderwithdrawtimelock: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgSenderwithdrawtimelock({ value: MsgSenderwithdrawtimelock.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgSenderwithdrawtimelock: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
 		
 		msgFund({ value }: msgFundParams): EncodeObject {
 			try {
 				return { typeUrl: "/channel.channel.MsgFund", value: MsgFund.fromPartial( value ) }  
 			} catch (e: any) {
 				throw new Error('TxClient:MsgFund: Could not create message: ' + e.message)
-			}
-		},
-		
-		msgSenderwithdrawtimelock({ value }: msgSenderwithdrawtimelockParams): EncodeObject {
-			try {
-				return { typeUrl: "/channel.channel.MsgSenderwithdrawtimelock", value: MsgSenderwithdrawtimelock.fromPartial( value ) }  
-			} catch (e: any) {
-				throw new Error('TxClient:MsgSenderwithdrawtimelock: Could not create message: ' + e.message)
-			}
-		},
-		
-		msgCommitment({ value }: msgCommitmentParams): EncodeObject {
-			try {
-				return { typeUrl: "/channel.channel.MsgCommitment", value: MsgCommitment.fromPartial( value ) }  
-			} catch (e: any) {
-				throw new Error('TxClient:MsgCommitment: Could not create message: ' + e.message)
 			}
 		},
 		
@@ -338,6 +347,14 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
+		msgOpenChannel({ value }: msgOpenChannelParams): EncodeObject {
+			try {
+				return { typeUrl: "/channel.channel.MsgOpenChannel", value: MsgOpenChannel.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgOpenChannel: Could not create message: ' + e.message)
+			}
+		},
+		
 		msgReceiverwithdraw({ value }: msgReceiverwithdrawParams): EncodeObject {
 			try {
 				return { typeUrl: "/channel.channel.MsgReceiverwithdraw", value: MsgReceiverwithdraw.fromPartial( value ) }  
@@ -346,11 +363,19 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		msgSendercommit({ value }: msgSendercommitParams): EncodeObject {
+		msgCommitment({ value }: msgCommitmentParams): EncodeObject {
 			try {
-				return { typeUrl: "/channel.channel.MsgSendercommit", value: MsgSendercommit.fromPartial( value ) }  
+				return { typeUrl: "/channel.channel.MsgCommitment", value: MsgCommitment.fromPartial( value ) }  
 			} catch (e: any) {
-				throw new Error('TxClient:MsgSendercommit: Could not create message: ' + e.message)
+				throw new Error('TxClient:MsgCommitment: Could not create message: ' + e.message)
+			}
+		},
+		
+		msgReceivercommit({ value }: msgReceivercommitParams): EncodeObject {
+			try {
+				return { typeUrl: "/channel.channel.MsgReceivercommit", value: MsgReceivercommit.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgReceivercommit: Could not create message: ' + e.message)
 			}
 		},
 		
@@ -359,6 +384,14 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 				return { typeUrl: "/channel.channel.MsgWithdrawHashlock", value: MsgWithdrawHashlock.fromPartial( value ) }  
 			} catch (e: any) {
 				throw new Error('TxClient:MsgWithdrawHashlock: Could not create message: ' + e.message)
+			}
+		},
+		
+		msgSendercommit({ value }: msgSendercommitParams): EncodeObject {
+			try {
+				return { typeUrl: "/channel.channel.MsgSendercommit", value: MsgSendercommit.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgSendercommit: Could not create message: ' + e.message)
 			}
 		},
 		
@@ -378,19 +411,19 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		msgOpenChannel({ value }: msgOpenChannelParams): EncodeObject {
-			try {
-				return { typeUrl: "/channel.channel.MsgOpenChannel", value: MsgOpenChannel.fromPartial( value ) }  
-			} catch (e: any) {
-				throw new Error('TxClient:MsgOpenChannel: Could not create message: ' + e.message)
-			}
-		},
-		
 		msgSenderwithdrawhashlock({ value }: msgSenderwithdrawhashlockParams): EncodeObject {
 			try {
 				return { typeUrl: "/channel.channel.MsgSenderwithdrawhashlock", value: MsgSenderwithdrawhashlock.fromPartial( value ) }  
 			} catch (e: any) {
 				throw new Error('TxClient:MsgSenderwithdrawhashlock: Could not create message: ' + e.message)
+			}
+		},
+		
+		msgSenderwithdrawtimelock({ value }: msgSenderwithdrawtimelockParams): EncodeObject {
+			try {
+				return { typeUrl: "/channel.channel.MsgSenderwithdrawtimelock", value: MsgSenderwithdrawtimelock.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgSenderwithdrawtimelock: Could not create message: ' + e.message)
 			}
 		},
 		

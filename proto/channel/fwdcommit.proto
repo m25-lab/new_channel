@@ -15,5 +15,6 @@ message Fwdcommit {
   string timelocksender = 7;
   string hashcodehtlc = 8;
   cosmos.base.v1beta1.Coin coin = 9;
+  string creator = 10;
 }
 

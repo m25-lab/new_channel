@@ -20,6 +20,7 @@ cdc.RegisterConcrete(&MsgSendercommit{}, "channel/Sendercommit", nil)
 cdc.RegisterConcrete(&MsgSenderwithdrawtimelock{}, "channel/Senderwithdrawtimelock", nil)
 cdc.RegisterConcrete(&MsgSenderwithdrawhashlock{}, "channel/Senderwithdrawhashlock", nil)
 cdc.RegisterConcrete(&MsgReceiverwithdraw{}, "channel/Receiverwithdraw", nil)
+cdc.RegisterConcrete(&MsgReceivercommit{}, "channel/Receivercommit", nil)
 // this line is used by starport scaffolding # 2
 }
 
@@ -56,6 +57,9 @@ registry.RegisterImplementations((*sdk.Msg)(nil),
 )
 registry.RegisterImplementations((*sdk.Msg)(nil),
 	&MsgReceiverwithdraw{},
+)
+registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgReceivercommit{},
 )
 // this line is used by starport scaffolding # 3
 

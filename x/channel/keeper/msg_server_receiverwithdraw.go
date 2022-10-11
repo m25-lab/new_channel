@@ -27,8 +27,19 @@ func (k msgServer) Receiverwithdraw(goCtx context.Context, msg *types.MsgReceive
 	}
 
 	hash := sha256.Sum256([]byte(msg.Secret))
-	if val.Hashcodedest != base64.StdEncoding.EncodeToString(hash[:]) {
-		return nil, errors.New("Wrong hash !")
+	if val.Creator == "receiver" {
+		// Receiver created this Forward Contract =>
+		// the withdrawer could provide either the destination secret or the sender secret
+		if val.Hashcodedest != base64.StdEncoding.EncodeToString(hash[:]) &&
+			val.Hashcodehtlc != base64.StdEncoding.EncodeToString(hash[:]) {
+			return nil, errors.New("Wrong hash !")
+		}
+	} else {
+		// sender created this Forward Contract =>
+		// the withdrawer has to provide the destination secret
+		if val.Hashcodedest != base64.StdEncoding.EncodeToString(hash[:]) {
+			return nil, errors.New("Wrong hash !")
+		}
 	}
 
 	timelockreceiver, err := strconv.ParseUint(val.Timelockreceiver, 10, 64)

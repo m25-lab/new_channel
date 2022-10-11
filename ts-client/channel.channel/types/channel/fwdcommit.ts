@@ -14,6 +14,7 @@ export interface Fwdcommit {
   timelocksender: string;
   hashcodehtlc: string;
   coin: Coin | undefined;
+  creator: string;
 }
 
 const baseFwdcommit: object = {
@@ -25,6 +26,7 @@ const baseFwdcommit: object = {
   timelockreceiver: "",
   timelocksender: "",
   hashcodehtlc: "",
+  creator: "",
 };
 
 export const Fwdcommit = {
@@ -55,6 +57,9 @@ export const Fwdcommit = {
     }
     if (message.coin !== undefined) {
       Coin.encode(message.coin, writer.uint32(74).fork()).ldelim();
+    }
+    if (message.creator !== "") {
+      writer.uint32(82).string(message.creator);
     }
     return writer;
   },
@@ -92,6 +97,9 @@ export const Fwdcommit = {
           break;
         case 9:
           message.coin = Coin.decode(reader, reader.uint32());
+          break;
+        case 10:
+          message.creator = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -151,6 +159,11 @@ export const Fwdcommit = {
     } else {
       message.coin = undefined;
     }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
     return message;
   },
 
@@ -170,6 +183,7 @@ export const Fwdcommit = {
       (obj.hashcodehtlc = message.hashcodehtlc);
     message.coin !== undefined &&
       (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
+    message.creator !== undefined && (obj.creator = message.creator);
     return obj;
   },
 
@@ -222,6 +236,11 @@ export const Fwdcommit = {
       message.coin = Coin.fromPartial(object.coin);
     } else {
       message.coin = undefined;
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
     }
     return message;
   },

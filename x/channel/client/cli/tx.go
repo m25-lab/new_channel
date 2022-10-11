@@ -41,6 +41,7 @@ cmd.AddCommand(CmdSendercommit())
 cmd.AddCommand(CmdSenderwithdrawtimelock())
 cmd.AddCommand(CmdSenderwithdrawhashlock())
 cmd.AddCommand(CmdReceiverwithdraw())
+cmd.AddCommand(CmdReceivercommit())
 // this line is used by starport scaffolding # 1
 
 	return cmd

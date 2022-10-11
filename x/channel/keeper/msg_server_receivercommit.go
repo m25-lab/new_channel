@@ -1,15 +1,16 @@
 package keeper
 
 import (
-	"channel/x/channel/types"
 	"context"
 	"errors"
 	"fmt"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"strconv"
+
+	"channel/x/channel/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommit) (*types.MsgSendercommitResponse, error) {
+func (k msgServer) Receivercommit(goCtx context.Context, msg *types.MsgReceivercommit) (*types.MsgReceivercommitResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
@@ -27,7 +28,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 		toHashlock = val.PartB
 	}
 
-	toSender, err := sdk.AccAddressFromBech32(msg.From)
+	toReceiver, err := sdk.AccAddressFromBech32(msg.From)
 	if err != nil {
 		return nil, err
 	}
@@ -38,8 +39,8 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	}
 
 	// Send coin to creator of commitment
-	if msg.Cointosender.Amount.IsPositive() {
-		err = k.bankKeeper.SendCoins(ctx, from, toSender, sdk.Coins{*msg.Cointosender})
+	if msg.Cointoreceiver.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, toReceiver, sdk.Coins{*msg.Cointoreceiver})
 		if err != nil {
 			return nil, err
 		}
@@ -65,7 +66,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	commitment := types.Commitment{
 		Index:       indexHtlc,
 		From:        msg.From,
-		CoinA:       msg.Cointosender,
+		CoinA:       msg.Cointoreceiver,
 		ToATimelock: toTimelock,
 		ToBHashlock: toHashlock,
 		Coinlock:    msg.Cointohtlc,
@@ -83,7 +84,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 		}
 	}
 
-	creator := "sender"
+	creator := "receiver"
 	indexTransfer := fmt.Sprintf("%s:%s:%s", msg.Channelid, msg.Hashcodedest, creator)
 
 	Timelocksender, err := strconv.ParseUint(msg.Timelocksender, 10, 64)
@@ -92,19 +93,13 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	}
 	Timelocksender = Timelocksender + uint64(ctx.BlockHeight())
 
-	Timelockreceiver, err := strconv.ParseUint(msg.Timelockreceiver, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	Timelockreceiver = Timelockreceiver + uint64(ctx.BlockHeight())
-
 	fwscommitment := types.Fwdcommit{
 		Index:            indexTransfer,
 		Channelid:        msg.Channelid,
-		Sender:           toHashlock,
-		Receiver:         toTimelock,
+		Sender:           toTimelock,
+		Receiver:         toHashlock,
 		Hashcodedest:     msg.Hashcodedest,
-		Timelockreceiver: string(Timelockreceiver),
+		Timelockreceiver: string(0),
 		Timelocksender:   string(Timelocksender),
 		Hashcodehtlc:     msg.Hashcodehtlc,
 		Coin:             msg.Cointransfer,
@@ -115,7 +110,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	if err != nil {
 		return nil, err
 	}
-	return &types.MsgSendercommitResponse{
+	return &types.MsgReceivercommitResponse{
 		Indexhtlc:     indexHtlc,
 		Indextransfer: indexTransfer,
 	}, nil

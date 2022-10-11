@@ -68,6 +68,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgReceiverwithdraw int = 100
 
+	opWeightMsgReceivercommit = "op_weight_msg_receivercommit"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgReceivercommit int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -221,6 +225,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgReceiverwithdraw,
 		channelsimulation.SimulateMsgReceiverwithdraw(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgReceivercommit int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgReceivercommit, &weightMsgReceivercommit, nil,
+		func(_ *rand.Rand) {
+			weightMsgReceivercommit = defaultWeightMsgReceivercommit
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgReceivercommit,
+		channelsimulation.SimulateMsgReceivercommit(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

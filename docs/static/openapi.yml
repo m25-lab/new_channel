@@ -476,6 +476,8 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
+                    creator:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -625,6 +627,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
+                  creator:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -44890,6 +44894,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+      creator:
+        type: string
   channel.channel.MsgAcceptfundResponse:
     type: object
     properties:
@@ -44911,6 +44917,13 @@ definitions:
     type: object
     properties:
       index:
+        type: string
+  channel.channel.MsgReceivercommitResponse:
+    type: object
+    properties:
+      indexhtlc:
+        type: string
+      indextransfer:
         type: string
   channel.channel.MsgReceiverwithdrawResponse:
     type: object
@@ -45094,6 +45107,8 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+            creator:
+              type: string
       pagination:
         type: object
         properties:
@@ -45224,6 +45239,8 @@ definitions:
               method
 
               signatures required by gogoproto.
+          creator:
+            type: string
   channel.channel.QueryParamsResponse:
     type: object
     properties:

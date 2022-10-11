@@ -62,6 +62,7 @@ export interface ChannelFwdcommit {
    * signatures required by gogoproto.
    */
   coin?: V1Beta1Coin;
+  creator?: string;
 }
 
 export interface ChannelMsgAcceptfundResponse {
@@ -80,6 +81,11 @@ export interface ChannelMsgFundResponse {
 
 export interface ChannelMsgOpenChannelResponse {
   index?: string;
+}
+
+export interface ChannelMsgReceivercommitResponse {
+  indexhtlc?: string;
+  indextransfer?: string;
 }
 
 export type ChannelMsgReceiverwithdrawResponse = object;
