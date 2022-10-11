@@ -106,7 +106,10 @@ export interface MsgSendercommit {
   multisig: string;
 }
 
-export interface MsgSendercommitResponse {}
+export interface MsgSendercommitResponse {
+  indexhtlc: string;
+  indextransfer: string;
+}
 
 const baseMsgCommitment: object = {
   creator: "",
@@ -1822,10 +1825,22 @@ export const MsgSendercommit = {
   },
 };
 
-const baseMsgSendercommitResponse: object = {};
+const baseMsgSendercommitResponse: object = {
+  indexhtlc: "",
+  indextransfer: "",
+};
 
 export const MsgSendercommitResponse = {
-  encode(_: MsgSendercommitResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: MsgSendercommitResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.indexhtlc !== "") {
+      writer.uint32(10).string(message.indexhtlc);
+    }
+    if (message.indextransfer !== "") {
+      writer.uint32(18).string(message.indextransfer);
+    }
     return writer;
   },
 
@@ -1838,6 +1853,12 @@ export const MsgSendercommitResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.indexhtlc = reader.string();
+          break;
+        case 2:
+          message.indextransfer = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1846,24 +1867,47 @@ export const MsgSendercommitResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgSendercommitResponse {
+  fromJSON(object: any): MsgSendercommitResponse {
     const message = {
       ...baseMsgSendercommitResponse,
     } as MsgSendercommitResponse;
+    if (object.indexhtlc !== undefined && object.indexhtlc !== null) {
+      message.indexhtlc = String(object.indexhtlc);
+    } else {
+      message.indexhtlc = "";
+    }
+    if (object.indextransfer !== undefined && object.indextransfer !== null) {
+      message.indextransfer = String(object.indextransfer);
+    } else {
+      message.indextransfer = "";
+    }
     return message;
   },
 
-  toJSON(_: MsgSendercommitResponse): unknown {
+  toJSON(message: MsgSendercommitResponse): unknown {
     const obj: any = {};
+    message.indexhtlc !== undefined && (obj.indexhtlc = message.indexhtlc);
+    message.indextransfer !== undefined &&
+      (obj.indextransfer = message.indextransfer);
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgSendercommitResponse>
+    object: DeepPartial<MsgSendercommitResponse>
   ): MsgSendercommitResponse {
     const message = {
       ...baseMsgSendercommitResponse,
     } as MsgSendercommitResponse;
+    if (object.indexhtlc !== undefined && object.indexhtlc !== null) {
+      message.indexhtlc = object.indexhtlc;
+    } else {
+      message.indexhtlc = "";
+    }
+    if (object.indextransfer !== undefined && object.indextransfer !== null) {
+      message.indextransfer = object.indextransfer;
+    } else {
+      message.indextransfer = "";
+    }
     return message;
   },
 };

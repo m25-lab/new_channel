@@ -1,6 +1,8 @@
 syntax = "proto3";
 package channel.channel;
 
+import "cosmos/base/v1beta1/coin.proto";
+
 option go_package = "channel/x/channel/types";
 
 message Fwdcommit {
@@ -10,6 +12,6 @@ message Fwdcommit {
   string timelockreceiver = 4;
   string timelocksender = 5;
   string hashcodehtlc = 6;
-  
+  cosmos.base.v1beta1.Coin coin = 7;
 }
 

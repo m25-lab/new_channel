@@ -52,6 +52,14 @@ export interface ChannelFwdcommit {
   timelockreceiver?: string;
   timelocksender?: string;
   hashcodehtlc?: string;
+
+  /**
+   * Coin defines a token with a denomination and an amount.
+   *
+   * NOTE: The amount field is an Int which implements the custom method
+   * signatures required by gogoproto.
+   */
+  coin?: V1Beta1Coin;
 }
 
 export interface ChannelMsgAcceptfundResponse {
@@ -72,7 +80,10 @@ export interface ChannelMsgOpenChannelResponse {
   index?: string;
 }
 
-export type ChannelMsgSendercommitResponse = object;
+export interface ChannelMsgSendercommitResponse {
+  indexhtlc?: string;
+  indextransfer?: string;
+}
 
 export type ChannelMsgWithdrawHashlockResponse = object;
 

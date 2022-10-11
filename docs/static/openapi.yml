@@ -457,6 +457,21 @@ paths:
                       type: string
                     hashcodehtlc:
                       type: string
+                    coin:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
               pagination:
                 type: object
                 properties:
@@ -587,6 +602,21 @@ paths:
                     type: string
                   hashcodehtlc:
                     type: string
+                  coin:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
         default:
           description: An unexpected error response.
           schema:
@@ -44836,6 +44866,18 @@ definitions:
         type: string
       hashcodehtlc:
         type: string
+      coin:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
   channel.channel.MsgAcceptfundResponse:
     type: object
     properties:
@@ -44860,6 +44902,11 @@ definitions:
         type: string
   channel.channel.MsgSendercommitResponse:
     type: object
+    properties:
+      indexhtlc:
+        type: string
+      indextransfer:
+        type: string
   channel.channel.MsgWithdrawHashlockResponse:
     type: object
   channel.channel.MsgWithdrawTimelockResponse:
@@ -45010,6 +45057,21 @@ definitions:
               type: string
             hashcodehtlc:
               type: string
+            coin:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
       pagination:
         type: object
         properties:
@@ -45121,6 +45183,21 @@ definitions:
             type: string
           hashcodehtlc:
             type: string
+          coin:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
   channel.channel.QueryParamsResponse:
     type: object
     properties:

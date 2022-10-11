@@ -124,6 +124,8 @@ message MsgSendercommit {
 }
 
 message MsgSendercommitResponse {
+  string indexhtlc = 1;
+  string indextransfer = 2;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

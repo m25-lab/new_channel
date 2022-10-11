@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "channel.channel";
@@ -10,6 +11,7 @@ export interface Fwdcommit {
   timelockreceiver: string;
   timelocksender: string;
   hashcodehtlc: string;
+  coin: Coin | undefined;
 }
 
 const baseFwdcommit: object = {
@@ -41,6 +43,9 @@ export const Fwdcommit = {
     if (message.hashcodehtlc !== "") {
       writer.uint32(50).string(message.hashcodehtlc);
     }
+    if (message.coin !== undefined) {
+      Coin.encode(message.coin, writer.uint32(58).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -68,6 +73,9 @@ export const Fwdcommit = {
           break;
         case 6:
           message.hashcodehtlc = reader.string();
+          break;
+        case 7:
+          message.coin = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -112,6 +120,11 @@ export const Fwdcommit = {
     } else {
       message.hashcodehtlc = "";
     }
+    if (object.coin !== undefined && object.coin !== null) {
+      message.coin = Coin.fromJSON(object.coin);
+    } else {
+      message.coin = undefined;
+    }
     return message;
   },
 
@@ -127,6 +140,8 @@ export const Fwdcommit = {
       (obj.timelocksender = message.timelocksender);
     message.hashcodehtlc !== undefined &&
       (obj.hashcodehtlc = message.hashcodehtlc);
+    message.coin !== undefined &&
+      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
     return obj;
   },
 
@@ -164,6 +179,11 @@ export const Fwdcommit = {
       message.hashcodehtlc = object.hashcodehtlc;
     } else {
       message.hashcodehtlc = "";
+    }
+    if (object.coin !== undefined && object.coin !== null) {
+      message.coin = Coin.fromPartial(object.coin);
+    } else {
+      message.coin = undefined;
     }
     return message;
   },

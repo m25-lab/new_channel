@@ -54,7 +54,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 		}
 	}
 
-	indexStr := fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
+	indexHtlc := fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
 
 	numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
 	if err != nil {
@@ -63,7 +63,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
-		Index:       indexStr,
+		Index:       indexHtlc,
 		From:        msg.From,
 		CoinA:       msg.Cointosender,
 		ToATimelock: toTimelock,
@@ -83,7 +83,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 		}
 	}
 
-	indexStr = fmt.Sprintf("%s:%s", msg.Channelid, msg.Hashcodedest)
+	indexTransfer := fmt.Sprintf("%s:%s", msg.Channelid, msg.Hashcodedest)
 
 	Timelocksender, err := strconv.ParseUint(msg.Timelocksender, 10, 64)
 	if err != nil {
@@ -98,12 +98,13 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	Timelockreceiver = Timelockreceiver + uint64(ctx.BlockHeight())
 
 	fwscommitment := types.Fwdcommit{
-		Index:            indexStr,
+		Index:            indexTransfer,
 		Channelid:        msg.Channelid,
 		Hashcodedest:     msg.Hashcodedest,
 		Timelockreceiver: string(Timelockreceiver),
 		Timelocksender:   string(Timelocksender),
 		Hashcodehtlc:     msg.Hashcodehtlc,
+		Coin:             msg.Cointransfer,
 	}
 	k.Keeper.SetFwdcommit(ctx, fwscommitment)
 
@@ -111,7 +112,8 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 		return nil, err
 	}
 	return &types.MsgSendercommitResponse{
-		//		Index: indexStr,
+		Indexhtlc:     indexHtlc,
+		Indextransfer: indexTransfer,
 	}, nil
 
 }
