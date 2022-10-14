@@ -101,6 +101,8 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		}
 	}
 
+	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+
 	return &types.MsgFundResponse{
 		Index: indexStr,
 	}, nil

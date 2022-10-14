@@ -113,9 +113,8 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	}
 	k.Keeper.SetFwdcommit(ctx, fwscommitment)
 
-	if err != nil {
-		return nil, err
-	}
+	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+
 	return &types.MsgSendercommitResponse{
 		Indexhtlc:     indexHtlc,
 		Indextransfer: indexTransfer,
