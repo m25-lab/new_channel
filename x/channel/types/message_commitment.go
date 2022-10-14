@@ -9,16 +9,17 @@ const TypeMsgCommitment = "commitment"
 
 var _ sdk.Msg = &MsgCommitment{}
 
-func NewMsgCommitment(creator string, from string, coinA *sdk.Coin, toATimelock string, blockheight uint64, toBHashlock string, hashcode string, coinlock *sdk.Coin) *MsgCommitment {
+func NewMsgCommitment(creator string, from string, coinA *sdk.Coin, toATimelock string, blockheight uint64, toBHashlock string, hashcode string, coinlock *sdk.Coin, channelid string) *MsgCommitment {
 	return &MsgCommitment{
-		Creator:     creator,
-		From:        from,
-		CoinA:       coinA,
-		ToATimelock: toATimelock,
-		Blockheight: blockheight,
-		ToBHashlock: toBHashlock,
-		Hashcode:    hashcode,
-		Coinlock:    coinlock,
+		Creator:       creator,
+		From:          from,
+		Cointocreator: coinA,
+		ToTimelock:    toATimelock,
+		Blockheight:   blockheight,
+		ToHashlock:    toBHashlock,
+		Hashcode:      hashcode,
+		Coinhtlc:      coinlock,
+		Channelid:     channelid,
 	}
 }
 

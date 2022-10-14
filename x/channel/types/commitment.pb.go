@@ -24,14 +24,15 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Commitment struct {
-	Index       string      `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
-	From        string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	CoinA       *types.Coin `protobuf:"bytes,3,opt,name=coinA,proto3" json:"coinA,omitempty"`
-	ToATimelock string      `protobuf:"bytes,4,opt,name=toATimelock,proto3" json:"toATimelock,omitempty"`
-	ToBHashlock string      `protobuf:"bytes,5,opt,name=toBHashlock,proto3" json:"toBHashlock,omitempty"`
-	Coinlock    *types.Coin `protobuf:"bytes,6,opt,name=coinlock,proto3" json:"coinlock,omitempty"`
-	Blockheight uint64      `protobuf:"varint,7,opt,name=blockheight,proto3" json:"blockheight,omitempty"`
-	Hashcode    string      `protobuf:"bytes,8,opt,name=hashcode,proto3" json:"hashcode,omitempty"`
+	Index         string      `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	From          string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
+	Cointocreator *types.Coin `protobuf:"bytes,3,opt,name=cointocreator,proto3" json:"cointocreator,omitempty"`
+	ToTimelock    string      `protobuf:"bytes,4,opt,name=toTimelock,proto3" json:"toTimelock,omitempty"`
+	ToHashlock    string      `protobuf:"bytes,5,opt,name=toHashlock,proto3" json:"toHashlock,omitempty"`
+	Coinhtlc      *types.Coin `protobuf:"bytes,6,opt,name=coinhtlc,proto3" json:"coinhtlc,omitempty"`
+	Blockheight   uint64      `protobuf:"varint,7,opt,name=blockheight,proto3" json:"blockheight,omitempty"`
+	Hashcode      string      `protobuf:"bytes,8,opt,name=hashcode,proto3" json:"hashcode,omitempty"`
+	Channelid     string      `protobuf:"bytes,9,opt,name=channelid,proto3" json:"channelid,omitempty"`
 }
 
 func (m *Commitment) Reset()         { *m = Commitment{} }
@@ -81,30 +82,30 @@ func (m *Commitment) GetFrom() string {
 	return ""
 }
 
-func (m *Commitment) GetCoinA() *types.Coin {
+func (m *Commitment) GetCointocreator() *types.Coin {
 	if m != nil {
-		return m.CoinA
+		return m.Cointocreator
 	}
 	return nil
 }
 
-func (m *Commitment) GetToATimelock() string {
+func (m *Commitment) GetToTimelock() string {
 	if m != nil {
-		return m.ToATimelock
+		return m.ToTimelock
 	}
 	return ""
 }
 
-func (m *Commitment) GetToBHashlock() string {
+func (m *Commitment) GetToHashlock() string {
 	if m != nil {
-		return m.ToBHashlock
+		return m.ToHashlock
 	}
 	return ""
 }
 
-func (m *Commitment) GetCoinlock() *types.Coin {
+func (m *Commitment) GetCoinhtlc() *types.Coin {
 	if m != nil {
-		return m.Coinlock
+		return m.Coinhtlc
 	}
 	return nil
 }
@@ -123,6 +124,13 @@ func (m *Commitment) GetHashcode() string {
 	return ""
 }
 
+func (m *Commitment) GetChannelid() string {
+	if m != nil {
+		return m.Channelid
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Commitment)(nil), "channel.channel.Commitment")
 }
@@ -130,25 +138,26 @@ func init() {
 func init() { proto.RegisterFile("channel/commitment.proto", fileDescriptor_e0f017e3d8b1468c) }
 
 var fileDescriptor_e0f017e3d8b1468c = []byte{
-	// 284 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x91, 0x3f, 0x4e, 0xc3, 0x30,
-	0x18, 0xc5, 0xeb, 0x92, 0x94, 0xe0, 0x0e, 0x48, 0x16, 0x12, 0xa6, 0x83, 0x15, 0x31, 0x65, 0xb2,
-	0x15, 0x10, 0x07, 0x68, 0xbb, 0x30, 0x47, 0x4c, 0x6c, 0x89, 0x6b, 0xb0, 0x45, 0x6d, 0x57, 0xb5,
-	0x85, 0xca, 0x2d, 0x38, 0x02, 0xc7, 0x61, 0xec, 0xc8, 0x88, 0x92, 0x8b, 0xa0, 0x38, 0x7f, 0xd4,
-	0x8d, 0xc9, 0xef, 0x7b, 0xdf, 0xf3, 0xfb, 0x49, 0x36, 0xc4, 0x5c, 0x96, 0xc6, 0x88, 0x2d, 0xe3,
-	0x56, 0x6b, 0xe5, 0xb5, 0x30, 0x9e, 0xee, 0xf6, 0xd6, 0x5b, 0x74, 0xd9, 0x6f, 0x68, 0x7f, 0x2e,
-	0x08, 0xb7, 0x4e, 0x5b, 0xc7, 0xaa, 0xd2, 0x09, 0xf6, 0x9e, 0x57, 0xc2, 0x97, 0x39, 0xe3, 0x56,
-	0x99, 0xee, 0xc2, 0xed, 0xd7, 0x14, 0xc2, 0xf5, 0xd8, 0x82, 0xae, 0x60, 0xac, 0xcc, 0x46, 0x1c,
-	0x30, 0x48, 0x41, 0x76, 0x51, 0x74, 0x03, 0x42, 0x30, 0x7a, 0xd9, 0x5b, 0x8d, 0xa7, 0xc1, 0x0c,
-	0x1a, 0x31, 0x18, 0xb7, 0x35, 0x4b, 0x7c, 0x96, 0x82, 0x6c, 0x7e, 0x77, 0x43, 0x3b, 0x10, 0x6d,
-	0x41, 0xb4, 0x07, 0xd1, 0xb5, 0x55, 0xa6, 0xe8, 0x72, 0x28, 0x85, 0x73, 0x6f, 0x97, 0x4f, 0x4a,
-	0x8b, 0xad, 0xe5, 0x6f, 0x38, 0x0a, 0x5d, 0xa7, 0x56, 0x97, 0x58, 0x3d, 0x96, 0x4e, 0x86, 0x44,
-	0x3c, 0x24, 0x46, 0x0b, 0x3d, 0xc0, 0xa4, 0x2d, 0x0b, 0xeb, 0xd9, 0x7f, 0xdc, 0x31, 0xda, 0x16,
-	0x57, 0xad, 0x90, 0x42, 0xbd, 0x4a, 0x8f, 0xcf, 0x53, 0x90, 0x45, 0xc5, 0xa9, 0x85, 0x16, 0x30,
-	0x91, 0xa5, 0x93, 0xdc, 0x6e, 0x04, 0x4e, 0x02, 0x77, 0x9c, 0x57, 0xf9, 0x77, 0x4d, 0xc0, 0xb1,
-	0x26, 0xe0, 0xb7, 0x26, 0xe0, 0xb3, 0x21, 0x93, 0x63, 0x43, 0x26, 0x3f, 0x0d, 0x99, 0x3c, 0x5f,
-	0x0f, 0xff, 0x70, 0x60, 0x83, 0xf2, 0x1f, 0x3b, 0xe1, 0xaa, 0x59, 0x78, 0xdc, 0xfb, 0xbf, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0x59, 0x83, 0xed, 0xf5, 0xa9, 0x01, 0x00, 0x00,
+	// 303 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x91, 0x4f, 0x4b, 0x33, 0x31,
+	0x10, 0xc6, 0x9b, 0xbe, 0x6d, 0xdf, 0x76, 0x8a, 0x08, 0x41, 0x30, 0x16, 0x09, 0x8b, 0xa7, 0x9e,
+	0x76, 0xa9, 0xe2, 0x59, 0xb0, 0x17, 0xcf, 0xc5, 0x93, 0xb7, 0x6c, 0x1a, 0x4d, 0xb0, 0xc9, 0x94,
+	0x4d, 0x90, 0xfa, 0x2d, 0xfc, 0x58, 0xe2, 0xa9, 0x47, 0x8f, 0xd2, 0x7e, 0x11, 0xd9, 0xec, 0x1f,
+	0xeb, 0xc9, 0x53, 0x66, 0x9e, 0x67, 0xe6, 0xf9, 0x41, 0x06, 0x98, 0xd4, 0xc2, 0x39, 0xb5, 0xca,
+	0x24, 0x5a, 0x6b, 0x82, 0x55, 0x2e, 0xa4, 0xeb, 0x02, 0x03, 0xd2, 0xe3, 0xda, 0x49, 0xeb, 0x77,
+	0xc2, 0x25, 0x7a, 0x8b, 0x3e, 0xcb, 0x85, 0x57, 0xd9, 0xcb, 0x2c, 0x57, 0x41, 0xcc, 0x32, 0x89,
+	0xc6, 0x55, 0x0b, 0x17, 0x1f, 0x5d, 0x80, 0x79, 0x9b, 0x42, 0x4f, 0xa0, 0x6f, 0xdc, 0x52, 0x6d,
+	0x18, 0x49, 0xc8, 0x74, 0xb4, 0xa8, 0x1a, 0x4a, 0xa1, 0xf7, 0x58, 0xa0, 0x65, 0xdd, 0x28, 0xc6,
+	0x9a, 0xde, 0xc0, 0x51, 0x19, 0x13, 0x50, 0x16, 0x4a, 0x04, 0x2c, 0xd8, 0xbf, 0x84, 0x4c, 0xc7,
+	0x97, 0x67, 0x69, 0x05, 0x4c, 0x4b, 0x60, 0x5a, 0x03, 0xd3, 0x39, 0x1a, 0xb7, 0xf8, 0x3d, 0x4f,
+	0x39, 0x40, 0xc0, 0x7b, 0x63, 0xd5, 0x0a, 0xe5, 0x33, 0xeb, 0xc5, 0xe8, 0x03, 0xa5, 0xf2, 0xef,
+	0x84, 0xd7, 0xd1, 0xef, 0x37, 0x7e, 0xa3, 0xd0, 0x6b, 0x18, 0x96, 0x81, 0x3a, 0xac, 0x24, 0x1b,
+	0xfc, 0xc5, 0x6e, 0x47, 0x69, 0x02, 0xe3, 0xbc, 0xdc, 0xd7, 0xca, 0x3c, 0xe9, 0xc0, 0xfe, 0x27,
+	0x64, 0xda, 0x5b, 0x1c, 0x4a, 0x74, 0x02, 0x43, 0x2d, 0xbc, 0x96, 0xb8, 0x54, 0x6c, 0x18, 0xb1,
+	0x6d, 0x4f, 0xcf, 0x61, 0x54, 0xff, 0xac, 0x59, 0xb2, 0x51, 0x34, 0x7f, 0x84, 0xdb, 0xd9, 0xfb,
+	0x8e, 0x93, 0xed, 0x8e, 0x93, 0xaf, 0x1d, 0x27, 0x6f, 0x7b, 0xde, 0xd9, 0xee, 0x79, 0xe7, 0x73,
+	0xcf, 0x3b, 0x0f, 0xa7, 0xcd, 0xc5, 0x36, 0x59, 0x53, 0x85, 0xd7, 0xb5, 0xf2, 0xf9, 0x20, 0x9e,
+	0xe1, 0xea, 0x3b, 0x00, 0x00, 0xff, 0xff, 0x02, 0x6f, 0x44, 0xf5, 0xd3, 0x01, 0x00, 0x00,
 }
 
 func (m *Commitment) Marshal() (dAtA []byte, err error) {
@@ -171,6 +180,13 @@ func (m *Commitment) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Channelid) > 0 {
+		i -= len(m.Channelid)
+		copy(dAtA[i:], m.Channelid)
+		i = encodeVarintCommitment(dAtA, i, uint64(len(m.Channelid)))
+		i--
+		dAtA[i] = 0x4a
+	}
 	if len(m.Hashcode) > 0 {
 		i -= len(m.Hashcode)
 		copy(dAtA[i:], m.Hashcode)
@@ -183,9 +199,9 @@ func (m *Commitment) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x38
 	}
-	if m.Coinlock != nil {
+	if m.Coinhtlc != nil {
 		{
-			size, err := m.Coinlock.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.Coinhtlc.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -195,23 +211,23 @@ func (m *Commitment) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x32
 	}
-	if len(m.ToBHashlock) > 0 {
-		i -= len(m.ToBHashlock)
-		copy(dAtA[i:], m.ToBHashlock)
-		i = encodeVarintCommitment(dAtA, i, uint64(len(m.ToBHashlock)))
+	if len(m.ToHashlock) > 0 {
+		i -= len(m.ToHashlock)
+		copy(dAtA[i:], m.ToHashlock)
+		i = encodeVarintCommitment(dAtA, i, uint64(len(m.ToHashlock)))
 		i--
 		dAtA[i] = 0x2a
 	}
-	if len(m.ToATimelock) > 0 {
-		i -= len(m.ToATimelock)
-		copy(dAtA[i:], m.ToATimelock)
-		i = encodeVarintCommitment(dAtA, i, uint64(len(m.ToATimelock)))
+	if len(m.ToTimelock) > 0 {
+		i -= len(m.ToTimelock)
+		copy(dAtA[i:], m.ToTimelock)
+		i = encodeVarintCommitment(dAtA, i, uint64(len(m.ToTimelock)))
 		i--
 		dAtA[i] = 0x22
 	}
-	if m.CoinA != nil {
+	if m.Cointocreator != nil {
 		{
-			size, err := m.CoinA.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.Cointocreator.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -263,26 +279,30 @@ func (m *Commitment) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovCommitment(uint64(l))
 	}
-	if m.CoinA != nil {
-		l = m.CoinA.Size()
+	if m.Cointocreator != nil {
+		l = m.Cointocreator.Size()
 		n += 1 + l + sovCommitment(uint64(l))
 	}
-	l = len(m.ToATimelock)
+	l = len(m.ToTimelock)
 	if l > 0 {
 		n += 1 + l + sovCommitment(uint64(l))
 	}
-	l = len(m.ToBHashlock)
+	l = len(m.ToHashlock)
 	if l > 0 {
 		n += 1 + l + sovCommitment(uint64(l))
 	}
-	if m.Coinlock != nil {
-		l = m.Coinlock.Size()
+	if m.Coinhtlc != nil {
+		l = m.Coinhtlc.Size()
 		n += 1 + l + sovCommitment(uint64(l))
 	}
 	if m.Blockheight != 0 {
 		n += 1 + sovCommitment(uint64(m.Blockheight))
 	}
 	l = len(m.Hashcode)
+	if l > 0 {
+		n += 1 + l + sovCommitment(uint64(l))
+	}
+	l = len(m.Channelid)
 	if l > 0 {
 		n += 1 + l + sovCommitment(uint64(l))
 	}
@@ -390,7 +410,7 @@ func (m *Commitment) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CoinA", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Cointocreator", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -417,16 +437,16 @@ func (m *Commitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.CoinA == nil {
-				m.CoinA = &types.Coin{}
+			if m.Cointocreator == nil {
+				m.Cointocreator = &types.Coin{}
 			}
-			if err := m.CoinA.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Cointocreator.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ToATimelock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ToTimelock", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -454,11 +474,11 @@ func (m *Commitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ToATimelock = string(dAtA[iNdEx:postIndex])
+			m.ToTimelock = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ToBHashlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ToHashlock", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -486,11 +506,11 @@ func (m *Commitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ToBHashlock = string(dAtA[iNdEx:postIndex])
+			m.ToHashlock = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Coinlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Coinhtlc", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -517,10 +537,10 @@ func (m *Commitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Coinlock == nil {
-				m.Coinlock = &types.Coin{}
+			if m.Coinhtlc == nil {
+				m.Coinhtlc = &types.Coin{}
 			}
-			if err := m.Coinlock.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Coinhtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -574,6 +594,38 @@ func (m *Commitment) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Hashcode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCommitment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCommitment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCommitment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Channelid = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

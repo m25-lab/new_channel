@@ -46,33 +46,34 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	}
 
 	// Send to HTLC
-	Cointohtlc := msg.Cointohtlc
-	if Cointohtlc.Amount.IsPositive() {
-		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*Cointohtlc})
+	indexHtlc := ""
+	CointoHTLC := msg.Cointohtlc
+	if CointoHTLC.Amount.IsPositive() {
+		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*CointoHTLC})
 		if err != nil {
 			return nil, err
 		}
-	}
 
-	indexHtlc := fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
+		indexHtlc = fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
 
-	numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	unlockBlock := numblock + uint64(ctx.BlockHeight())
+		numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+		unlockBlock := numblock + uint64(ctx.BlockHeight())
 
-	commitment := types.Commitment{
-		Index:       indexHtlc,
-		From:        msg.From,
-		CoinA:       msg.Cointosender,
-		ToATimelock: toTimelock,
-		ToBHashlock: toHashlock,
-		Coinlock:    msg.Cointohtlc,
-		Blockheight: unlockBlock,
-		Hashcode:    msg.Hashcodehtlc,
+		commitment := types.Commitment{
+			Index:         indexHtlc,
+			From:          msg.From,
+			Cointocreator: msg.Cointosender,
+			ToTimelock:    toTimelock,
+			ToHashlock:    toHashlock,
+			Coinhtlc:      msg.Cointohtlc,
+			Blockheight:   unlockBlock,
+			Hashcode:      msg.Hashcodehtlc,
+		}
+		k.Keeper.SetCommitment(ctx, commitment)
 	}
-	k.Keeper.SetCommitment(ctx, commitment)
 
 	// Send to FwdContract
 	CointoFC := msg.Cointransfer
@@ -104,8 +105,8 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 		Sender:           toHashlock,
 		Receiver:         toTimelock,
 		Hashcodedest:     msg.Hashcodedest,
-		Timelockreceiver: string(Timelockreceiver),
-		Timelocksender:   string(Timelocksender),
+		Timelockreceiver: strconv.FormatUint(Timelockreceiver, 10),
+		Timelocksender:   strconv.FormatUint(Timelocksender, 10),
 		Hashcodehtlc:     msg.Hashcodehtlc,
 		Coin:             msg.Cointransfer,
 		Creator:          creator,

@@ -26,12 +26,13 @@ service Msg {
 message MsgCommitment {
   string creator = 1;
   string from = 2;
-  cosmos.base.v1beta1.Coin coinA = 3;
-  string toATimelock = 4;
+  cosmos.base.v1beta1.Coin cointocreator = 3;
+  string toTimelock = 4;
   uint64 blockheight = 5;
-  string toBHashlock = 6;
+  string toHashlock = 6;
   string hashcode = 7;
-  cosmos.base.v1beta1.Coin coinlock = 8;
+  cosmos.base.v1beta1.Coin coinhtlc = 8;
+  string channelid = 9;
 }
 
 message MsgCommitmentResponse {

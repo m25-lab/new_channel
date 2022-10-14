@@ -8,12 +8,13 @@ export const protobufPackage = "channel.channel";
 export interface MsgCommitment {
   creator: string;
   from: string;
-  coinA: Coin | undefined;
-  toATimelock: string;
+  cointocreator: Coin | undefined;
+  toTimelock: string;
   blockheight: number;
-  toBHashlock: string;
+  toHashlock: string;
   hashcode: string;
-  coinlock: Coin | undefined;
+  coinhtlc: Coin | undefined;
+  channelid: string;
 }
 
 export interface MsgCommitmentResponse {
@@ -159,10 +160,11 @@ export interface MsgReceivercommitResponse {
 const baseMsgCommitment: object = {
   creator: "",
   from: "",
-  toATimelock: "",
+  toTimelock: "",
   blockheight: 0,
-  toBHashlock: "",
+  toHashlock: "",
   hashcode: "",
+  channelid: "",
 };
 
 export const MsgCommitment = {
@@ -173,23 +175,26 @@ export const MsgCommitment = {
     if (message.from !== "") {
       writer.uint32(18).string(message.from);
     }
-    if (message.coinA !== undefined) {
-      Coin.encode(message.coinA, writer.uint32(26).fork()).ldelim();
+    if (message.cointocreator !== undefined) {
+      Coin.encode(message.cointocreator, writer.uint32(26).fork()).ldelim();
     }
-    if (message.toATimelock !== "") {
-      writer.uint32(34).string(message.toATimelock);
+    if (message.toTimelock !== "") {
+      writer.uint32(34).string(message.toTimelock);
     }
     if (message.blockheight !== 0) {
       writer.uint32(40).uint64(message.blockheight);
     }
-    if (message.toBHashlock !== "") {
-      writer.uint32(50).string(message.toBHashlock);
+    if (message.toHashlock !== "") {
+      writer.uint32(50).string(message.toHashlock);
     }
     if (message.hashcode !== "") {
       writer.uint32(58).string(message.hashcode);
     }
-    if (message.coinlock !== undefined) {
-      Coin.encode(message.coinlock, writer.uint32(66).fork()).ldelim();
+    if (message.coinhtlc !== undefined) {
+      Coin.encode(message.coinhtlc, writer.uint32(66).fork()).ldelim();
+    }
+    if (message.channelid !== "") {
+      writer.uint32(74).string(message.channelid);
     }
     return writer;
   },
@@ -208,22 +213,25 @@ export const MsgCommitment = {
           message.from = reader.string();
           break;
         case 3:
-          message.coinA = Coin.decode(reader, reader.uint32());
+          message.cointocreator = Coin.decode(reader, reader.uint32());
           break;
         case 4:
-          message.toATimelock = reader.string();
+          message.toTimelock = reader.string();
           break;
         case 5:
           message.blockheight = longToNumber(reader.uint64() as Long);
           break;
         case 6:
-          message.toBHashlock = reader.string();
+          message.toHashlock = reader.string();
           break;
         case 7:
           message.hashcode = reader.string();
           break;
         case 8:
-          message.coinlock = Coin.decode(reader, reader.uint32());
+          message.coinhtlc = Coin.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.channelid = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -245,35 +253,40 @@ export const MsgCommitment = {
     } else {
       message.from = "";
     }
-    if (object.coinA !== undefined && object.coinA !== null) {
-      message.coinA = Coin.fromJSON(object.coinA);
+    if (object.cointocreator !== undefined && object.cointocreator !== null) {
+      message.cointocreator = Coin.fromJSON(object.cointocreator);
     } else {
-      message.coinA = undefined;
+      message.cointocreator = undefined;
     }
-    if (object.toATimelock !== undefined && object.toATimelock !== null) {
-      message.toATimelock = String(object.toATimelock);
+    if (object.toTimelock !== undefined && object.toTimelock !== null) {
+      message.toTimelock = String(object.toTimelock);
     } else {
-      message.toATimelock = "";
+      message.toTimelock = "";
     }
     if (object.blockheight !== undefined && object.blockheight !== null) {
       message.blockheight = Number(object.blockheight);
     } else {
       message.blockheight = 0;
     }
-    if (object.toBHashlock !== undefined && object.toBHashlock !== null) {
-      message.toBHashlock = String(object.toBHashlock);
+    if (object.toHashlock !== undefined && object.toHashlock !== null) {
+      message.toHashlock = String(object.toHashlock);
     } else {
-      message.toBHashlock = "";
+      message.toHashlock = "";
     }
     if (object.hashcode !== undefined && object.hashcode !== null) {
       message.hashcode = String(object.hashcode);
     } else {
       message.hashcode = "";
     }
-    if (object.coinlock !== undefined && object.coinlock !== null) {
-      message.coinlock = Coin.fromJSON(object.coinlock);
+    if (object.coinhtlc !== undefined && object.coinhtlc !== null) {
+      message.coinhtlc = Coin.fromJSON(object.coinhtlc);
     } else {
-      message.coinlock = undefined;
+      message.coinhtlc = undefined;
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = String(object.channelid);
+    } else {
+      message.channelid = "";
     }
     return message;
   },
@@ -282,19 +295,20 @@ export const MsgCommitment = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.from !== undefined && (obj.from = message.from);
-    message.coinA !== undefined &&
-      (obj.coinA = message.coinA ? Coin.toJSON(message.coinA) : undefined);
-    message.toATimelock !== undefined &&
-      (obj.toATimelock = message.toATimelock);
+    message.cointocreator !== undefined &&
+      (obj.cointocreator = message.cointocreator
+        ? Coin.toJSON(message.cointocreator)
+        : undefined);
+    message.toTimelock !== undefined && (obj.toTimelock = message.toTimelock);
     message.blockheight !== undefined &&
       (obj.blockheight = message.blockheight);
-    message.toBHashlock !== undefined &&
-      (obj.toBHashlock = message.toBHashlock);
+    message.toHashlock !== undefined && (obj.toHashlock = message.toHashlock);
     message.hashcode !== undefined && (obj.hashcode = message.hashcode);
-    message.coinlock !== undefined &&
-      (obj.coinlock = message.coinlock
-        ? Coin.toJSON(message.coinlock)
+    message.coinhtlc !== undefined &&
+      (obj.coinhtlc = message.coinhtlc
+        ? Coin.toJSON(message.coinhtlc)
         : undefined);
+    message.channelid !== undefined && (obj.channelid = message.channelid);
     return obj;
   },
 
@@ -310,35 +324,40 @@ export const MsgCommitment = {
     } else {
       message.from = "";
     }
-    if (object.coinA !== undefined && object.coinA !== null) {
-      message.coinA = Coin.fromPartial(object.coinA);
+    if (object.cointocreator !== undefined && object.cointocreator !== null) {
+      message.cointocreator = Coin.fromPartial(object.cointocreator);
     } else {
-      message.coinA = undefined;
+      message.cointocreator = undefined;
     }
-    if (object.toATimelock !== undefined && object.toATimelock !== null) {
-      message.toATimelock = object.toATimelock;
+    if (object.toTimelock !== undefined && object.toTimelock !== null) {
+      message.toTimelock = object.toTimelock;
     } else {
-      message.toATimelock = "";
+      message.toTimelock = "";
     }
     if (object.blockheight !== undefined && object.blockheight !== null) {
       message.blockheight = object.blockheight;
     } else {
       message.blockheight = 0;
     }
-    if (object.toBHashlock !== undefined && object.toBHashlock !== null) {
-      message.toBHashlock = object.toBHashlock;
+    if (object.toHashlock !== undefined && object.toHashlock !== null) {
+      message.toHashlock = object.toHashlock;
     } else {
-      message.toBHashlock = "";
+      message.toHashlock = "";
     }
     if (object.hashcode !== undefined && object.hashcode !== null) {
       message.hashcode = object.hashcode;
     } else {
       message.hashcode = "";
     }
-    if (object.coinlock !== undefined && object.coinlock !== null) {
-      message.coinlock = Coin.fromPartial(object.coinlock);
+    if (object.coinhtlc !== undefined && object.coinhtlc !== null) {
+      message.coinhtlc = Coin.fromPartial(object.coinhtlc);
     } else {
-      message.coinlock = undefined;
+      message.coinhtlc = undefined;
+    }
+    if (object.channelid !== undefined && object.channelid !== null) {
+      message.channelid = object.channelid;
+    } else {
+      message.channelid = "";
     }
     return message;
   },

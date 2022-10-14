@@ -28,9 +28,9 @@ export interface ChannelCommitment {
    * NOTE: The amount field is an Int which implements the custom method
    * signatures required by gogoproto.
    */
-  coinA?: V1Beta1Coin;
-  toATimelock?: string;
-  toBHashlock?: string;
+  cointocreator?: V1Beta1Coin;
+  toTimelock?: string;
+  toHashlock?: string;
 
   /**
    * Coin defines a token with a denomination and an amount.
@@ -38,11 +38,12 @@ export interface ChannelCommitment {
    * NOTE: The amount field is an Int which implements the custom method
    * signatures required by gogoproto.
    */
-  coinlock?: V1Beta1Coin;
+  coinhtlc?: V1Beta1Coin;
 
   /** @format uint64 */
   blockheight?: string;
   hashcode?: string;
+  channelid?: string;
 }
 
 export interface ChannelFwdcommit {

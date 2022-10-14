@@ -16,51 +16,49 @@ func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (
 		return nil, err
 	}
 
-	toA, err := sdk.AccAddressFromBech32(msg.ToATimelock)
+	toA, err := sdk.AccAddressFromBech32(msg.ToTimelock)
 	if err != nil {
 		return nil, err
 	}
 
 	// Send coin to creator of commitment
-	if msg.CoinA.Amount.IsPositive() {
-		err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.CoinA})
+	if msg.Cointocreator.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.Cointocreator})
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	// Send to LockTx (other) or HashTx (creator)
-	if msg.Coinlock.Amount.IsPositive() {
+	// Send to HTLC
+	indexStr := fmt.Sprintf("%s:%s", msg.From, msg.Hashcode)
+	if msg.Coinhtlc.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{
 			sdk.Coin{
-				Denom:  msg.Coinlock.Denom,
-				Amount: msg.Coinlock.Amount,
+				Denom:  msg.Coinhtlc.Denom,
+				Amount: msg.Coinhtlc.Amount,
 			},
 		})
 		if err != nil {
 			return nil, err
 		}
+
+		unlockBlock := msg.Blockheight + uint64(ctx.BlockHeight())
+
+		commitment := types.Commitment{
+			Index:         indexStr,
+			From:          msg.From,
+			Cointocreator: msg.Cointocreator,
+			ToTimelock:    msg.ToTimelock,
+			ToHashlock:    msg.ToHashlock,
+			Coinhtlc:      msg.Coinhtlc,
+			Blockheight:   unlockBlock,
+			Hashcode:      msg.Hashcode,
+		}
+		k.Keeper.SetCommitment(ctx, commitment)
 	}
 
-	indexStr := fmt.Sprintf("%s:%s", msg.From, msg.Hashcode)
+	k.Keeper.RemoveChannel(ctx, msg.Channelid)
 
-	unlockBlock := msg.Blockheight + uint64(ctx.BlockHeight())
-
-	commitment := types.Commitment{
-		Index:       indexStr,
-		From:        msg.From,
-		CoinA:       msg.CoinA,
-		ToATimelock: msg.ToATimelock,
-		ToBHashlock: msg.ToBHashlock,
-		Coinlock:    msg.Coinlock,
-		Blockheight: unlockBlock,
-		Hashcode:    msg.Hashcode,
-	}
-	k.Keeper.SetCommitment(ctx, commitment)
-
-	if err != nil {
-		return nil, err
-	}
 	return &types.MsgCommitmentResponse{
 		Index: indexStr,
 	}, nil

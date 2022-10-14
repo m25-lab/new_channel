@@ -83,20 +83,22 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 	unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
-		Index:       indexStr,
-		From:        msg.From,
-		CoinA:       nil, // unused
-		ToATimelock: toTimelock,
-		ToBHashlock: toHashlock,
-		Coinlock:    &coin_htlc,
-		Blockheight: unlockBlock,
-		Hashcode:    msg.Hashcode,
+		Index:         indexStr,
+		From:          msg.From,
+		Cointocreator: nil, // unused
+		ToTimelock:    toTimelock,
+		ToHashlock:    toHashlock,
+		Coinhtlc:      &coin_htlc,
+		Blockheight:   unlockBlock,
+		Hashcode:      msg.Hashcode,
 	}
 	k.Keeper.SetCommitment(ctx, commitment)
 
 	if toHashlock != msg.From {
 		return nil, fmt.Errorf("not matching receiver address! expected:", toHashlock)
 	}
+
+	k.Keeper.RemoveChannel(ctx, msg.Channelid)
 
 	return &types.MsgAcceptfundResponse{
 		Index: indexStr,

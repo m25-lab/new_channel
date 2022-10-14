@@ -16,7 +16,7 @@ func (k msgServer) WithdrawTimelock(goCtx context.Context, msg *types.MsgWithdra
 		return nil, errors.New("time lock is not existing")
 	}
 
-	if val.ToATimelock != msg.To {
+	if val.ToTimelock != msg.To {
 		return nil, errors.New("not matching receiver address!")
 	}
 
@@ -29,7 +29,7 @@ func (k msgServer) WithdrawTimelock(goCtx context.Context, msg *types.MsgWithdra
 		return nil, err
 	}
 
-	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.Coinlock})
+	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.Coinhtlc})
 	if err != nil {
 		return nil, err
 	}

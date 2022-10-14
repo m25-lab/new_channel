@@ -205,7 +205,7 @@ paths:
                       type: string
                     from:
                       type: string
-                    coinA:
+                    cointocreator:
                       type: object
                       properties:
                         denom:
@@ -220,11 +220,11 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                    toATimelock:
+                    toTimelock:
                       type: string
-                    toBHashlock:
+                    toHashlock:
                       type: string
-                    coinlock:
+                    coinhtlc:
                       type: object
                       properties:
                         denom:
@@ -243,6 +243,8 @@ paths:
                       type: string
                       format: uint64
                     hashcode:
+                      type: string
+                    channelid:
                       type: string
               pagination:
                 type: object
@@ -366,7 +368,7 @@ paths:
                     type: string
                   from:
                     type: string
-                  coinA:
+                  cointocreator:
                     type: object
                     properties:
                       denom:
@@ -381,11 +383,11 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  toATimelock:
+                  toTimelock:
                     type: string
-                  toBHashlock:
+                  toHashlock:
                     type: string
-                  coinlock:
+                  coinhtlc:
                     type: object
                     properties:
                       denom:
@@ -404,6 +406,8 @@ paths:
                     type: string
                     format: uint64
                   hashcode:
+                    type: string
+                  channelid:
                     type: string
         default:
           description: An unexpected error response.
@@ -44830,7 +44834,7 @@ definitions:
         type: string
       from:
         type: string
-      coinA:
+      cointocreator:
         type: object
         properties:
           denom:
@@ -44842,11 +44846,11 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      toATimelock:
+      toTimelock:
         type: string
-      toBHashlock:
+      toHashlock:
         type: string
-      coinlock:
+      coinhtlc:
         type: object
         properties:
           denom:
@@ -44862,6 +44866,8 @@ definitions:
         type: string
         format: uint64
       hashcode:
+        type: string
+      channelid:
         type: string
   channel.channel.Fwdcommit:
     type: object
@@ -45003,7 +45009,7 @@ definitions:
               type: string
             from:
               type: string
-            coinA:
+            cointocreator:
               type: object
               properties:
                 denom:
@@ -45018,11 +45024,11 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-            toATimelock:
+            toTimelock:
               type: string
-            toBHashlock:
+            toHashlock:
               type: string
-            coinlock:
+            coinhtlc:
               type: object
               properties:
                 denom:
@@ -45041,6 +45047,8 @@ definitions:
               type: string
               format: uint64
             hashcode:
+              type: string
+            channelid:
               type: string
       pagination:
         type: object
@@ -45163,7 +45171,7 @@ definitions:
             type: string
           from:
             type: string
-          coinA:
+          cointocreator:
             type: object
             properties:
               denom:
@@ -45178,11 +45186,11 @@ definitions:
               method
 
               signatures required by gogoproto.
-          toATimelock:
+          toTimelock:
             type: string
-          toBHashlock:
+          toHashlock:
             type: string
-          coinlock:
+          coinhtlc:
             type: object
             properties:
               denom:
@@ -45201,6 +45209,8 @@ definitions:
             type: string
             format: uint64
           hashcode:
+            type: string
+          channelid:
             type: string
   channel.channel.QueryGetFwdcommitResponse:
     type: object

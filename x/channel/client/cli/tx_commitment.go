@@ -15,14 +15,17 @@ var _ = strconv.Itoa(0)
 
 func CmdCommitment() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "commitment [from] [coin-a] [to-b-hashlock] [hashcode] [to-a-timelock] [num_block] [coinlock]",
+		Use:   "commitment [from] [cointocreator] [tohashlock] [hashcode] [totimelock] [num_block] [coinhtlc] [channelid]",
 		Short: "Broadcast message commitment",
-		Args:  cobra.ExactArgs(7),
+		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argFrom := args[0]
-			argToBHashlock := args[2]
-			argToATimelock := args[4]
+			argToHashlock := args[2]
+			argToTimelock := args[4]
 			argHashcode := args[3]
+			argChannelId := args[7]
+
+			//todo validate channelid
 
 			cmd.Flags().Set(flags.FlagFrom, args[0])
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -39,23 +42,24 @@ func CmdCommitment() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			coinA, _ := sdk.NormalizeDecCoin(decCoin).TruncateDecimal()
+			coinToCreator, _ := sdk.NormalizeDecCoin(decCoin).TruncateDecimal()
 
 			decCoin, err = sdk.ParseDecCoin(args[6])
 			if err != nil {
 				return err
 			}
-			coinLock, _ := sdk.NormalizeDecCoin(decCoin).TruncateDecimal()
+			coinHtlc, _ := sdk.NormalizeDecCoin(decCoin).TruncateDecimal()
 
 			msg := types.NewMsgCommitment(
 				clientCtx.GetFromAddress().String(),
 				argFrom,
-				&coinA,
-				argToATimelock,
+				&coinToCreator,
+				argToTimelock,
 				argBlockheight,
-				argToBHashlock,
+				argToHashlock,
 				argHashcode,
-				&coinLock,
+				&coinHtlc,
+				argChannelId,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

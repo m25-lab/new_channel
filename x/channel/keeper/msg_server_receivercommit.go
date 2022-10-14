@@ -47,33 +47,32 @@ func (k msgServer) Receivercommit(goCtx context.Context, msg *types.MsgReceiverc
 	}
 
 	// Send to HTLC
+	indexHtlc := fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
 	Cointohtlc := msg.Cointohtlc
 	if Cointohtlc.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*Cointohtlc})
 		if err != nil {
 			return nil, err
 		}
-	}
 
-	indexHtlc := fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
+		numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
+		if err != nil {
+			return nil, err
+		}
+		unlockBlock := numblock + uint64(ctx.BlockHeight())
 
-	numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
-	if err != nil {
-		return nil, err
+		commitment := types.Commitment{
+			Index:         indexHtlc,
+			From:          msg.From,
+			Cointocreator: msg.Cointoreceiver,
+			ToTimelock:    toTimelock,
+			ToHashlock:    toHashlock,
+			Coinhtlc:      msg.Cointohtlc,
+			Blockheight:   unlockBlock,
+			Hashcode:      msg.Hashcodehtlc,
+		}
+		k.Keeper.SetCommitment(ctx, commitment)
 	}
-	unlockBlock := numblock + uint64(ctx.BlockHeight())
-
-	commitment := types.Commitment{
-		Index:       indexHtlc,
-		From:        msg.From,
-		CoinA:       msg.Cointoreceiver,
-		ToATimelock: toTimelock,
-		ToBHashlock: toHashlock,
-		Coinlock:    msg.Cointohtlc,
-		Blockheight: unlockBlock,
-		Hashcode:    msg.Hashcodehtlc,
-	}
-	k.Keeper.SetCommitment(ctx, commitment)
 
 	// Send to FwdContract
 	CointoFC := msg.Cointransfer

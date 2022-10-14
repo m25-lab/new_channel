@@ -71,14 +71,14 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
-		Index:       indexStr,
-		From:        msg.From,
-		CoinA:       nil, // unused
-		ToATimelock: toTimelock,
-		ToBHashlock: toHashlock,
-		Coinlock:    coinLock,
-		Blockheight: unlockBlock,
-		Hashcode:    msg.Hashcode,
+		Index:         indexStr,
+		From:          msg.From,
+		Cointocreator: nil, // unused
+		ToTimelock:    toTimelock,
+		ToHashlock:    toHashlock,
+		Coinhtlc:      coinLock,
+		Blockheight:   unlockBlock,
+		Hashcode:      msg.Hashcode,
 	}
 	k.Keeper.SetCommitment(ctx, commitment)
 
