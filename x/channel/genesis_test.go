@@ -3,10 +3,10 @@ package channel_test
 import (
 	"testing"
 
-	keepertest "channel/testutil/keeper"
-	"channel/testutil/nullify"
-	"channel/x/channel"
-	"channel/x/channel/types"
+	keepertest "github.com/dungtran8tiki/channel/testutil/keeper"
+	"github.com/dungtran8tiki/channel/testutil/nullify"
+	"github.com/dungtran8tiki/channel/x/channel"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,14 +31,14 @@ func TestGenesis(t *testing.T) {
 			},
 		},
 		FwdcommitList: []types.Fwdcommit{
-		{
-			Index: "0",
-},
-		{
-			Index: "1",
-},
-	},
-	// this line is used by starport scaffolding # genesis/test/state
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		// this line is used by starport scaffolding # genesis/test/state
 	}
 
 	k, ctx := keepertest.ChannelKeeper(t)
@@ -52,5 +52,5 @@ func TestGenesis(t *testing.T) {
 	require.ElementsMatch(t, genesisState.CommitmentList, got.CommitmentList)
 	require.ElementsMatch(t, genesisState.ChannelList, got.ChannelList)
 	require.ElementsMatch(t, genesisState.FwdcommitList, got.FwdcommitList)
-// this line is used by starport scaffolding # genesis/test/assert
+	// this line is used by starport scaffolding # genesis/test/assert
 }

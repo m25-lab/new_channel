@@ -104,10 +104,10 @@ import (
 	"github.com/ignite/cli/ignite/pkg/cosmoscmd"
 	"github.com/ignite/cli/ignite/pkg/openapiconsole"
 
-	"channel/docs"
-	channelmodule "channel/x/channel"
-	channelmodulekeeper "channel/x/channel/keeper"
-	channelmoduletypes "channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/docs"
+	channelmodule "github.com/dungtran8tiki/channel/x/channel"
+	channelmodulekeeper "github.com/dungtran8tiki/channel/x/channel/keeper"
+	channelmoduletypes "github.com/dungtran8tiki/channel/x/channel/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 

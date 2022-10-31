@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 var (
@@ -37,12 +37,12 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdOpenChannel())
 	cmd.AddCommand(CmdFund())
 	cmd.AddCommand(CmdAcceptfund())
-cmd.AddCommand(CmdSendercommit())
-cmd.AddCommand(CmdSenderwithdrawtimelock())
-cmd.AddCommand(CmdSenderwithdrawhashlock())
-cmd.AddCommand(CmdReceiverwithdraw())
-cmd.AddCommand(CmdReceivercommit())
-// this line is used by starport scaffolding # 1
+	cmd.AddCommand(CmdSendercommit())
+	cmd.AddCommand(CmdSenderwithdrawtimelock())
+	cmd.AddCommand(CmdSenderwithdrawhashlock())
+	cmd.AddCommand(CmdReceiverwithdraw())
+	cmd.AddCommand(CmdReceivercommit())
+	// this line is used by starport scaffolding # 1
 
 	return cmd
 }

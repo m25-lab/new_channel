@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -46,11 +46,11 @@ func (k Keeper) Fwdcommit(c context.Context, req *types.QueryGetFwdcommitRequest
 	ctx := sdk.UnwrapSDKContext(c)
 
 	val, found := k.GetFwdcommit(
-	    ctx,
-	    req.Index,
-        )
+		ctx,
+		req.Index,
+	)
 	if !found {
-	    return nil, status.Error(codes.NotFound, "not found")
+		return nil, status.Error(codes.NotFound, "not found")
 	}
 
 	return &types.QueryGetFwdcommitResponse{Fwdcommit: val}, nil

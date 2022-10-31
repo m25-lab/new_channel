@@ -1,34 +1,34 @@
 package keeper
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"channel/x/channel/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // SetFwdcommit set a specific fwdcommit in the store from its index
 func (k Keeper) SetFwdcommit(ctx sdk.Context, fwdcommit types.Fwdcommit) {
-	store :=  prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FwdcommitKeyPrefix))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FwdcommitKeyPrefix))
 	b := k.cdc.MustMarshal(&fwdcommit)
 	store.Set(types.FwdcommitKey(
-        fwdcommit.Index,
-    ), b)
+		fwdcommit.Index,
+	), b)
 }
 
 // GetFwdcommit returns a fwdcommit from its index
 func (k Keeper) GetFwdcommit(
-    ctx sdk.Context,
-    index string,
-    
+	ctx sdk.Context,
+	index string,
+
 ) (val types.Fwdcommit, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FwdcommitKeyPrefix))
 
 	b := store.Get(types.FwdcommitKey(
-        index,
-    ))
-    if b == nil {
-        return val, false
-    }
+		index,
+	))
+	if b == nil {
+		return val, false
+	}
 
 	k.cdc.MustUnmarshal(b, &val)
 	return val, true
@@ -36,19 +36,19 @@ func (k Keeper) GetFwdcommit(
 
 // RemoveFwdcommit removes a fwdcommit from the store
 func (k Keeper) RemoveFwdcommit(
-    ctx sdk.Context,
-    index string,
-    
+	ctx sdk.Context,
+	index string,
+
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FwdcommitKeyPrefix))
 	store.Delete(types.FwdcommitKey(
-	    index,
-    ))
+		index,
+	))
 }
 
 // GetAllFwdcommit returns all fwdcommit
 func (k Keeper) GetAllFwdcommit(ctx sdk.Context) (list []types.Fwdcommit) {
-    store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FwdcommitKeyPrefix))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FwdcommitKeyPrefix))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -56,8 +56,8 @@ func (k Keeper) GetAllFwdcommit(ctx sdk.Context) (list []types.Fwdcommit) {
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.Fwdcommit
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
-        list = append(list, val)
+		list = append(list, val)
 	}
 
-    return
+	return
 }

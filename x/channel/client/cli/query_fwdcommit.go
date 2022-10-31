@@ -1,12 +1,12 @@
 package cli
 
 import (
-    "context"
-	
-    "github.com/spf13/cobra"
+	"context"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-    "channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
+	"github.com/spf13/cobra"
 )
 
 func CmdListFwdcommit() *cobra.Command {
@@ -14,32 +14,32 @@ func CmdListFwdcommit() *cobra.Command {
 		Use:   "list-fwdcommit",
 		Short: "list all fwdcommit",
 		RunE: func(cmd *cobra.Command, args []string) error {
-            clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx := client.GetClientContextFromCmd(cmd)
 
-            pageReq, err := client.ReadPageRequest(cmd.Flags())
-            if err != nil {
-                return err
-            }
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
 
-            queryClient := types.NewQueryClient(clientCtx)
+			queryClient := types.NewQueryClient(clientCtx)
 
-            params := &types.QueryAllFwdcommitRequest{
-                Pagination: pageReq,
-            }
+			params := &types.QueryAllFwdcommitRequest{
+				Pagination: pageReq,
+			}
 
-            res, err := queryClient.FwdcommitAll(context.Background(), params)
-            if err != nil {
-                return err
-            }
+			res, err := queryClient.FwdcommitAll(context.Background(), params)
+			if err != nil {
+				return err
+			}
 
-            return clientCtx.PrintProto(res)
+			return clientCtx.PrintProto(res)
 		},
 	}
 
 	flags.AddPaginationFlagsToCmd(cmd, cmd.Use)
 	flags.AddQueryFlagsToCmd(cmd)
 
-    return cmd
+	return cmd
 }
 
 func CmdShowFwdcommit() *cobra.Command {
@@ -48,27 +48,26 @@ func CmdShowFwdcommit() *cobra.Command {
 		Short: "shows a fwdcommit",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-            clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx := client.GetClientContextFromCmd(cmd)
 
-            queryClient := types.NewQueryClient(clientCtx)
+			queryClient := types.NewQueryClient(clientCtx)
 
-             argIndex := args[0]
-            
-            params := &types.QueryGetFwdcommitRequest{
-                Index: argIndex,
-                
-            }
+			argIndex := args[0]
 
-            res, err := queryClient.Fwdcommit(context.Background(), params)
-            if err != nil {
-                return err
-            }
+			params := &types.QueryGetFwdcommitRequest{
+				Index: argIndex,
+			}
 
-            return clientCtx.PrintProto(res)
+			res, err := queryClient.Fwdcommit(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
 		},
 	}
 
 	flags.AddQueryFlagsToCmd(cmd)
 
-    return cmd
+	return cmd
 }

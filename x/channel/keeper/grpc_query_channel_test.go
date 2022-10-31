@@ -12,7 +12,7 @@ import (
 
 	keepertest "channel/testutil/keeper"
 	"channel/testutil/nullify"
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // Prevent strconv unused error

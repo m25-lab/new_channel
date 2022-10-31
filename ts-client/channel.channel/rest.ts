@@ -170,7 +170,7 @@ export interface ChannelQueryGetFwdcommitResponse {
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface ChannelQueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /** Params defines the parameters for the module. */
   params?: ChannelParams;
 }
 

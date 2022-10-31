@@ -1,7 +1,7 @@
 package keeper_test
 
 import (
-    "strconv"
+	"strconv"
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -10,9 +10,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"channel/x/channel/types"
-	"channel/testutil/nullify"
 	keepertest "channel/testutil/keeper"
+	"channel/testutil/nullify"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // Prevent strconv unused error
@@ -29,28 +29,25 @@ func TestFwdcommitQuerySingle(t *testing.T) {
 		err      error
 	}{
 		{
-			desc:     "First",
-			request:  &types.QueryGetFwdcommitRequest{
-			    Index: msgs[0].Index,
-                
+			desc: "First",
+			request: &types.QueryGetFwdcommitRequest{
+				Index: msgs[0].Index,
 			},
 			response: &types.QueryGetFwdcommitResponse{Fwdcommit: msgs[0]},
 		},
 		{
-			desc:     "Second",
-			request:  &types.QueryGetFwdcommitRequest{
-			    Index: msgs[1].Index,
-                
+			desc: "Second",
+			request: &types.QueryGetFwdcommitRequest{
+				Index: msgs[1].Index,
 			},
 			response: &types.QueryGetFwdcommitResponse{Fwdcommit: msgs[1]},
 		},
 		{
-			desc:    "KeyNotFound",
+			desc: "KeyNotFound",
 			request: &types.QueryGetFwdcommitRequest{
-			    Index:strconv.Itoa(100000),
-                
+				Index: strconv.Itoa(100000),
 			},
-			err:     status.Error(codes.NotFound, "not found"),
+			err: status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -94,9 +91,9 @@ func TestFwdcommitQueryPaginated(t *testing.T) {
 			require.NoError(t, err)
 			require.LessOrEqual(t, len(resp.Fwdcommit), step)
 			require.Subset(t,
-            	nullify.Fill(msgs),
-            	nullify.Fill(resp.Fwdcommit),
-            )
+				nullify.Fill(msgs),
+				nullify.Fill(resp.Fwdcommit),
+			)
 		}
 	})
 	t.Run("ByKey", func(t *testing.T) {
@@ -107,9 +104,9 @@ func TestFwdcommitQueryPaginated(t *testing.T) {
 			require.NoError(t, err)
 			require.LessOrEqual(t, len(resp.Fwdcommit), step)
 			require.Subset(t,
-            	nullify.Fill(msgs),
-            	nullify.Fill(resp.Fwdcommit),
-            )
+				nullify.Fill(msgs),
+				nullify.Fill(resp.Fwdcommit),
+			)
 			next = resp.Pagination.NextKey
 		}
 	})

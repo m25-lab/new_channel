@@ -6,9 +6,9 @@ import (
 
 	keepertest "channel/testutil/keeper"
 	"channel/testutil/nullify"
-	"channel/x/channel/keeper"
-	"channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/dungtran8tiki/channel/x/channel/keeper"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 	"github.com/stretchr/testify/require"
 )
 

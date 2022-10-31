@@ -1,11 +1,11 @@
 package keeper
 
 import (
-	"channel/x/channel/types"
 	"context"
 	"errors"
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 	"strconv"
 )
 

@@ -1,9 +1,9 @@
 package channel
 
 import (
-	"channel/x/channel/keeper"
-	"channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/dungtran8tiki/channel/x/channel/keeper"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
@@ -17,10 +17,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetChannel(ctx, elem)
 	}
 	// Set all the fwdcommit
-for _, elem := range genState.FwdcommitList {
-	k.SetFwdcommit(ctx, elem)
-}
-// this line is used by starport scaffolding # genesis/module/init
+	for _, elem := range genState.FwdcommitList {
+		k.SetFwdcommit(ctx, elem)
+	}
+	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
 
@@ -32,7 +32,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.CommitmentList = k.GetAllCommitment(ctx)
 	genesis.ChannelList = k.GetAllChannel(ctx)
 	genesis.FwdcommitList = k.GetAllFwdcommit(ctx)
-// this line is used by starport scaffolding # genesis/module/export
+	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
 }

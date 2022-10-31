@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 type msgServer struct {

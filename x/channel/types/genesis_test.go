@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -39,14 +39,14 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				FwdcommitList: []types.Fwdcommit{
-	{
-		Index: "0",
-},
-	{
-		Index: "1",
-},
-},
-// this line is used by starport scaffolding # types/genesis/validField
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
+				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
 		},
@@ -79,20 +79,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid: false,
 		},
 		{
-	desc:     "duplicated fwdcommit",
-	genState: &types.GenesisState{
-		FwdcommitList: []types.Fwdcommit{
-			{
-				Index: "0",
-},
-			{
-				Index: "0",
-},
+			desc: "duplicated fwdcommit",
+			genState: &types.GenesisState{
+				FwdcommitList: []types.Fwdcommit{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
 		},
-	},
-	valid:    false,
-},
-// this line is used by starport scaffolding # types/genesis/testcase
+		// this line is used by starport scaffolding # types/genesis/testcase
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
 			err := tc.genState.Validate()

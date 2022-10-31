@@ -14,8 +14,8 @@ import (
 
 	"channel/testutil/network"
 	"channel/testutil/nullify"
-	"channel/x/channel/client/cli"
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/client/cli"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // Prevent strconv unused error

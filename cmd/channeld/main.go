@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"channel/app"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
+	"github.com/dungtran8tiki/channel/app"
 	"github.com/ignite/cli/ignite/pkg/cosmoscmd"
 	"github.com/ignite/cli/ignite/pkg/xstrings"
 )

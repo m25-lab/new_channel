@@ -14,8 +14,8 @@ import (
 
 	"channel/testutil/network"
 	"channel/testutil/nullify"
-	"channel/x/channel/client/cli"
-    "channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/client/cli"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // Prevent strconv unused error
@@ -25,12 +25,11 @@ func networkWithFwdcommitObjects(t *testing.T, n int) (*network.Network, []types
 	t.Helper()
 	cfg := network.DefaultConfig()
 	state := types.GenesisState{}
-    require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], &state))
+	require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], &state))
 
 	for i := 0; i < n; i++ {
 		fwdcommit := types.Fwdcommit{
 			Index: strconv.Itoa(i),
-			
 		}
 		nullify.Fill(&fwdcommit)
 		state.FwdcommitList = append(state.FwdcommitList, fwdcommit)
@@ -49,32 +48,31 @@ func TestShowFwdcommit(t *testing.T) {
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
 	for _, tc := range []struct {
-		desc string
+		desc    string
 		idIndex string
-        
+
 		args []string
 		err  error
 		obj  types.Fwdcommit
 	}{
 		{
-			desc: "found",
+			desc:    "found",
 			idIndex: objs[0].Index,
-            
+
 			args: common,
 			obj:  objs[0],
 		},
 		{
-			desc: "not found",
+			desc:    "not found",
 			idIndex: strconv.Itoa(100000),
-            
+
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
-			    tc.idIndex,
-                
+				tc.idIndex,
 			}
 			args = append(args, tc.args...)
 			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowFwdcommit(), args)
@@ -125,9 +123,9 @@ func TestListFwdcommit(t *testing.T) {
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 			require.LessOrEqual(t, len(resp.Fwdcommit), step)
 			require.Subset(t,
-            	nullify.Fill(objs),
-            	nullify.Fill(resp.Fwdcommit),
-            )
+				nullify.Fill(objs),
+				nullify.Fill(resp.Fwdcommit),
+			)
 		}
 	})
 	t.Run("ByKey", func(t *testing.T) {
@@ -141,9 +139,9 @@ func TestListFwdcommit(t *testing.T) {
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 			require.LessOrEqual(t, len(resp.Fwdcommit), step)
 			require.Subset(t,
-            	nullify.Fill(objs),
-            	nullify.Fill(resp.Fwdcommit),
-            )
+				nullify.Fill(objs),
+				nullify.Fill(resp.Fwdcommit),
+			)
 			next = resp.Pagination.NextKey
 		}
 	})

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	testkeeper "channel/testutil/keeper"
-	"channel/x/channel/types"
+	"github.com/dungtran8tiki/channel/x/channel/types"
 	"github.com/stretchr/testify/require"
 )
 
