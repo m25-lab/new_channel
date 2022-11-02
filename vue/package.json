@@ -9,7 +9,7 @@
     "buffer": "^6.0.3",
     "channel-client-ts": "file:../ts-client",
     "core-js": "^3.18.2",
-    "dungtran8tiki-channel-client-ts": "file:../ts-client",
+    "astra-channel-client-ts": "file:../ts-client",
     "vue": "^3.2.6",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.2"

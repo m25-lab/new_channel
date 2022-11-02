@@ -1,9 +1,9 @@
-import { Client, registry, MissingWalletError } from 'dungtran8tiki-channel-client-ts'
+import { Client, registry, MissingWalletError } from 'astra-channel-client-ts'
 
-import { Channel } from "dungtran8tiki-channel-client-ts/channel.channel/types"
-import { Commitment } from "dungtran8tiki-channel-client-ts/channel.channel/types"
-import { Fwdcommit } from "dungtran8tiki-channel-client-ts/channel.channel/types"
-import { Params } from "dungtran8tiki-channel-client-ts/channel.channel/types"
+import { Channel } from "astra-channel-client-ts/channel.channel/types"
+import { Commitment } from "astra-channel-client-ts/channel.channel/types"
+import { Fwdcommit } from "astra-channel-client-ts/channel.channel/types"
+import { Params } from "astra-channel-client-ts/channel.channel/types"
 
 
 export { Channel, Commitment, Fwdcommit, Params };

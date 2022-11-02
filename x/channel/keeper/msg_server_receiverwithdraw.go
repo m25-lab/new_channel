@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/AstraProtocol/channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 func (k msgServer) Receiverwithdraw(goCtx context.Context, msg *types.MsgReceiverwithdraw) (*types.MsgReceiverwithdrawResponse, error) {

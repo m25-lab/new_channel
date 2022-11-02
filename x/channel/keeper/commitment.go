@@ -1,9 +1,9 @@
 package keeper
 
 import (
+	"github.com/AstraProtocol/channel/x/channel/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dungtran8tiki/channel/x/channel/types"
 )
 
 // SetCommitment set a specific commitment in the store from its index

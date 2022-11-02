@@ -3,9 +3,9 @@ package types
 import (
 	"testing"
 
+	"github.com/AstraProtocol/channel/testutil/sample"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
-	"channel/testutil/sample"
 )
 
 func TestMsgAcceptfund_ValidateBasic(t *testing.T) {
