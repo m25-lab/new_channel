@@ -16,12 +16,12 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgOpenChannel{}, "channel/OpenChannel", nil)
 	cdc.RegisterConcrete(&MsgFund{}, "channel/Fund", nil)
 	cdc.RegisterConcrete(&MsgAcceptfund{}, "channel/Acceptfund", nil)
-cdc.RegisterConcrete(&MsgSendercommit{}, "channel/Sendercommit", nil)
-cdc.RegisterConcrete(&MsgSenderwithdrawtimelock{}, "channel/Senderwithdrawtimelock", nil)
-cdc.RegisterConcrete(&MsgSenderwithdrawhashlock{}, "channel/Senderwithdrawhashlock", nil)
-cdc.RegisterConcrete(&MsgReceiverwithdraw{}, "channel/Receiverwithdraw", nil)
-cdc.RegisterConcrete(&MsgReceivercommit{}, "channel/Receivercommit", nil)
-// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgSendercommit{}, "channel/Sendercommit", nil)
+	cdc.RegisterConcrete(&MsgSenderwithdrawtimelock{}, "channel/Senderwithdrawtimelock", nil)
+	cdc.RegisterConcrete(&MsgSenderwithdrawhashlock{}, "channel/Senderwithdrawhashlock", nil)
+	cdc.RegisterConcrete(&MsgReceiverwithdraw{}, "channel/Receiverwithdraw", nil)
+	cdc.RegisterConcrete(&MsgReceivercommit{}, "channel/Receivercommit", nil)
+	// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
@@ -44,34 +44,35 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgFund{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgAcceptfund{},
-)
-registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgSendercommit{},
-)
-registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgSenderwithdrawtimelock{},
-)
-registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgSenderwithdrawhashlock{},
-)
-registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgReceiverwithdraw{},
-)
-registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgReceivercommit{},
-)
-// this line is used by starport scaffolding # 3
+		&MsgAcceptfund{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSendercommit{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSenderwithdrawtimelock{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSenderwithdrawhashlock{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgReceiverwithdraw{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgReceivercommit{},
+	)
+	// this line is used by starport scaffolding # 3
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
 
 var (
-	Amino     = codec.NewLegacyAmino()
-	ModuleCdc = codec.NewAminoCodec(Amino)
+	amino     = codec.NewLegacyAmino()
+	ModuleCdc = codec.NewAminoCodec(amino)
 )
 
 func init() {
-	RegisterCodec(Amino)
-	cryptocodec.RegisterCrypto(Amino)
+	RegisterCodec(amino)
+	cryptocodec.RegisterCrypto(amino)
+	amino.Seal()
 }
