@@ -16,7 +16,7 @@ func (k msgServer) Receiverwithdraw(goCtx context.Context, msg *types.MsgReceive
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
-	val, found := k.Keeper.GetFwdcommit(ctx, msg.Transferindex)
+	val, found := k.Keeper.GetFwdcommit(ctx, msg.TransferIndex)
 	if !found {
 		return nil, errors.New("commitment is not existing")
 	}
@@ -30,19 +30,19 @@ func (k msgServer) Receiverwithdraw(goCtx context.Context, msg *types.MsgReceive
 	if val.Creator == "receiver" {
 		// Receiver created this Forward Contract =>
 		// the withdrawer could provide either the destination secret or the sender secret
-		if val.Hashcodedest != base64.StdEncoding.EncodeToString(hash[:]) &&
-			val.Hashcodehtlc != base64.StdEncoding.EncodeToString(hash[:]) {
+		if val.HashcodeDest != base64.StdEncoding.EncodeToString(hash[:]) &&
+			val.HashcodeHtlc != base64.StdEncoding.EncodeToString(hash[:]) {
 			return nil, errors.New("Wrong hash !")
 		}
 	} else {
 		// sender created this Forward Contract =>
 		// the withdrawer has to provide the destination secret
-		if val.Hashcodedest != base64.StdEncoding.EncodeToString(hash[:]) {
+		if val.HashcodeDest != base64.StdEncoding.EncodeToString(hash[:]) {
 			return nil, errors.New("Wrong hash !")
 		}
 	}
 
-	timelockreceiver, err := strconv.ParseUint(val.Timelockreceiver, 10, 64)
+	timelockreceiver, err := strconv.ParseUint(val.TimelockReceiver, 10, 64)
 	if err != nil {
 		return nil, err
 	}
@@ -55,12 +55,12 @@ func (k msgServer) Receiverwithdraw(goCtx context.Context, msg *types.MsgReceive
 		return nil, err
 	}
 
-	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.Coin})
+	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.CoinTransfer})
 	if err != nil {
 		return nil, err
 	}
 
-	k.Keeper.RemoveFwdcommit(ctx, msg.Transferindex)
+	k.Keeper.RemoveFwdcommit(ctx, msg.TransferIndex)
 
 	return &types.MsgReceiverwithdrawResponse{}, nil
 }

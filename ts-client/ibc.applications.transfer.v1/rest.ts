@@ -220,13 +220,6 @@ export interface V1QueryDenomTracesResponse {
 }
 
 /**
- * QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
- */
-export interface V1QueryEscrowAddressResponse {
-  escrow_address?: string;
-}
-
-/**
  * QueryParamsResponse is the response type for the Query/Params RPC method.
  */
 export interface V1QueryParamsResponse {
@@ -282,13 +275,6 @@ export interface V1Beta1PageRequest {
    * is set.
    */
   count_total?: boolean;
-
-  /**
-   * reverse is set to true if results are to be returned in the descending order.
-   *
-   * Since: cosmos-sdk 0.43
-   */
-  reverse?: boolean;
 }
 
 /**
@@ -301,12 +287,7 @@ corresponding request message has used PageRequest.
  }
 */
 export interface V1Beta1PageResponse {
-  /**
-   * next_key is the key to be passed to PageRequest.key to
-   * query the next page most efficiently. It will be empty if
-   * there are no more results.
-   * @format byte
-   */
+  /** @format byte */
   next_key?: string;
 
   /** @format uint64 */
@@ -513,22 +494,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Query
-   * @name QueryEscrowAddress
-   * @summary EscrowAddress returns the escrow address for a particular port and channel id.
-   * @request GET:/ibc/apps/transfer/v1/channels/{channel_id}/ports/{port_id}/escrow_address
-   */
-  queryEscrowAddress = (channel_id: string, port_id: string, params: RequestParams = {}) =>
-    this.request<V1QueryEscrowAddressResponse, RpcStatus>({
-      path: `/ibc/apps/transfer/v1/channels/${channel_id}/ports/${port_id}/escrow_address`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
    * @name QueryDenomHash
    * @summary DenomHash queries a denomination hash information.
    * @request GET:/ibc/apps/transfer/v1/denom_hashes/{trace}
@@ -555,7 +520,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>

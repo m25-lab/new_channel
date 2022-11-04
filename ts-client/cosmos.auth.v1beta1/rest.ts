@@ -134,34 +134,6 @@ export interface RpcStatus {
 }
 
 /**
-* AddressBytesToStringResponse is the response type for AddressString rpc method.
-
-Since: cosmos-sdk 0.46
-*/
-export interface V1Beta1AddressBytesToStringResponse {
-  address_string?: string;
-}
-
-/**
-* AddressStringToBytesResponse is the response type for AddressBytes rpc method.
-
-Since: cosmos-sdk 0.46
-*/
-export interface V1Beta1AddressStringToBytesResponse {
-  /** @format byte */
-  address_bytes?: string;
-}
-
-/**
-* Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
-
-Since: cosmos-sdk 0.46
-*/
-export interface V1Beta1Bech32PrefixResponse {
-  bech32_prefix?: string;
-}
-
-/**
 * message SomeRequest {
          Foo some_parameter = 1;
          PageRequest pagination = 2;
@@ -217,12 +189,7 @@ corresponding request message has used PageRequest.
  }
 */
 export interface V1Beta1PageResponse {
-  /**
-   * next_key is the key to be passed to PageRequest.key to
-   * query the next page most efficiently. It will be empty if
-   * there are no more results.
-   * @format byte
-   */
+  /** @format byte */
   next_key?: string;
 
   /** @format uint64 */
@@ -249,10 +216,6 @@ export interface V1Beta1Params {
   sig_verify_cost_secp256k1?: string;
 }
 
-export interface V1Beta1QueryAccountAddressByIDResponse {
-  account_address?: string;
-}
-
 /**
  * QueryAccountResponse is the response type for the Query/Account RPC method.
  */
@@ -271,15 +234,6 @@ export interface V1Beta1QueryAccountsResponse {
 
   /** pagination defines the pagination in the response. */
   pagination?: V1Beta1PageResponse;
-}
-
-/**
-* QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
-
-Since: cosmos-sdk 0.46
-*/
-export interface V1Beta1QueryModuleAccountsResponse {
-  accounts?: ProtobufAny[];
 }
 
 /**
@@ -523,86 +477,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryAccount = (address: string, params: RequestParams = {}) =>
     this.request<V1Beta1QueryAccountResponse, RpcStatus>({
       path: `/cosmos/auth/v1beta1/accounts/${address}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryAccountAddressById
-   * @summary AccountAddressByID returns account address based on account id
-   * @request GET:/cosmos/auth/v1beta1/address_by_id/{id}
-   */
-  queryAccountAddressById = (id: string, params: RequestParams = {}) =>
-    this.request<V1Beta1QueryAccountAddressByIDResponse, RpcStatus>({
-      path: `/cosmos/auth/v1beta1/address_by_id/${id}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * @description Since: cosmos-sdk 0.46
-   *
-   * @tags Query
-   * @name QueryBech32Prefix
-   * @summary Bech32Prefix queries bech32Prefix
-   * @request GET:/cosmos/auth/v1beta1/bech32
-   */
-  queryBech32Prefix = (params: RequestParams = {}) =>
-    this.request<V1Beta1Bech32PrefixResponse, RpcStatus>({
-      path: `/cosmos/auth/v1beta1/bech32`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * @description Since: cosmos-sdk 0.46
-   *
-   * @tags Query
-   * @name QueryAddressBytesToString
-   * @summary AddressBytesToString converts Account Address bytes to string
-   * @request GET:/cosmos/auth/v1beta1/bech32/{address_bytes}
-   */
-  queryAddressBytesToString = (address_bytes: string, params: RequestParams = {}) =>
-    this.request<V1Beta1AddressBytesToStringResponse, RpcStatus>({
-      path: `/cosmos/auth/v1beta1/bech32/${address_bytes}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * @description Since: cosmos-sdk 0.46
-   *
-   * @tags Query
-   * @name QueryAddressStringToBytes
-   * @summary AddressStringToBytes converts Address string to bytes
-   * @request GET:/cosmos/auth/v1beta1/bech32/{address_string}
-   */
-  queryAddressStringToBytes = (address_string: string, params: RequestParams = {}) =>
-    this.request<V1Beta1AddressStringToBytesResponse, RpcStatus>({
-      path: `/cosmos/auth/v1beta1/bech32/${address_string}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * @description Since: cosmos-sdk 0.46
-   *
-   * @tags Query
-   * @name QueryModuleAccounts
-   * @summary ModuleAccounts returns all the existing module accounts.
-   * @request GET:/cosmos/auth/v1beta1/module_accounts
-   */
-  queryModuleAccounts = (params: RequestParams = {}) =>
-    this.request<V1Beta1QueryModuleAccountsResponse, RpcStatus>({
-      path: `/cosmos/auth/v1beta1/module_accounts`,
       method: "GET",
       format: "json",
       ...params,

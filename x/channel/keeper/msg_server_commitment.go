@@ -16,14 +16,14 @@ func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (
 		return nil, err
 	}
 
-	toA, err := sdk.AccAddressFromBech32(msg.ToTimelock)
+	toA, err := sdk.AccAddressFromBech32(msg.ToTimelockAddr)
 	if err != nil {
 		return nil, err
 	}
 
 	// Send coin to creator of commitment
-	if msg.Cointocreator.Amount.IsPositive() {
-		err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.Cointocreator})
+	if msg.CoinToCreator.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, toA, sdk.Coins{*msg.CoinToCreator})
 		if err != nil {
 			return nil, err
 		}
@@ -31,33 +31,33 @@ func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (
 
 	// Send to HTLC
 	indexStr := fmt.Sprintf("%s:%s", msg.From, msg.Hashcode)
-	if msg.Coinhtlc.Amount.IsPositive() {
+	if msg.CoinToHtlc.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{
 			sdk.Coin{
-				Denom:  msg.Coinhtlc.Denom,
-				Amount: msg.Coinhtlc.Amount,
+				Denom:  msg.CoinToHtlc.Denom,
+				Amount: msg.CoinToHtlc.Amount,
 			},
 		})
 		if err != nil {
 			return nil, err
 		}
 
-		unlockBlock := msg.Blockheight + uint64(ctx.BlockHeight())
+		unlockBlock := msg.Timelock + uint64(ctx.BlockHeight())
 
 		commitment := types.Commitment{
-			Index:         indexStr,
-			From:          msg.From,
-			Cointocreator: msg.Cointocreator,
-			ToTimelock:    msg.ToTimelock,
-			ToHashlock:    msg.ToHashlock,
-			Coinhtlc:      msg.Coinhtlc,
-			Blockheight:   unlockBlock,
-			Hashcode:      msg.Hashcode,
+			Index:          indexStr,
+			From:           msg.From,
+			CoinToCreator:  msg.CoinToCreator,
+			ToTimelockAddr: msg.ToTimelockAddr,
+			ToHashlockAddr: msg.ToHashlockAddr,
+			CoinToHtlc:     msg.CoinToHtlc,
+			Timelock:       unlockBlock,
+			Hashcode:       msg.Hashcode,
 		}
 		k.Keeper.SetCommitment(ctx, commitment)
 	}
 
-	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+	k.Keeper.RemoveChannel(ctx, msg.ChannelID)
 
 	return &types.MsgCommitmentResponse{
 		Index: indexStr,

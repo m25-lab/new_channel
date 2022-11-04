@@ -19,7 +19,7 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 		return nil, err
 	}
 
-	val, found := k.Keeper.GetChannel(ctx, msg.Channelid)
+	val, found := k.Keeper.GetChannel(ctx, msg.ChannelID)
 	if !found {
 		return nil, errors.New("ChannelID is not existing")
 	}
@@ -46,7 +46,7 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 		return nil, err
 	}
 
-	coin_acceptside := msg.Coin
+	coin_acceptside := msg.CoinToAcceptSide
 	coin_channel := k.Keeper.bankKeeper.GetBalance(ctx, from, coin_acceptside.Denom)
 
 	// Send coin to accepted side first
@@ -73,7 +73,7 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 		}
 	}
 
-	indexStr := fmt.Sprintf("%s:%s", msg.Channelid, msg.Hashcode)
+	indexStr := fmt.Sprintf("%s:%s", msg.ChannelID, msg.Hashcode)
 
 	numblock, err := strconv.ParseUint(msg.Timelock, 10, 64)
 	if err != nil {
@@ -83,14 +83,14 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 	unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
-		Index:         indexStr,
-		From:          msg.From,
-		Cointocreator: nil, // unused
-		ToTimelock:    toTimelock,
-		ToHashlock:    toHashlock,
-		Coinhtlc:      &coin_htlc,
-		Blockheight:   unlockBlock,
-		Hashcode:      msg.Hashcode,
+		Index:          indexStr,
+		From:           msg.From,
+		CoinToCreator:  nil, // unused
+		ToTimelockAddr: toTimelock,
+		ToHashlockAddr: toHashlock,
+		CoinToHtlc:     &coin_htlc,
+		Timelock:       unlockBlock,
+		Hashcode:       msg.Hashcode,
 	}
 	k.Keeper.SetCommitment(ctx, commitment)
 
@@ -98,7 +98,7 @@ func (k msgServer) Acceptfund(goCtx context.Context, msg *types.MsgAcceptfund) (
 		return nil, fmt.Errorf("not matching receiver address! expected:", toHashlock)
 	}
 
-	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+	k.Keeper.RemoveChannel(ctx, msg.ChannelID)
 
 	return &types.MsgAcceptfundResponse{
 		Index: indexStr,

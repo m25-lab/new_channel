@@ -180,11 +180,7 @@ export interface Stakingv1Beta1Validator {
   /** commission defines the commission parameters. */
   commission?: V1Beta1Commission;
 
-  /**
-   * min_self_delegation is the validator's self declared minimum self delegation.
-   *
-   * Since: cosmos-sdk 0.46
-   */
+  /** min_self_delegation is the validator's self declared minimum self delegation. */
   min_self_delegation?: string;
 }
 
@@ -213,13 +209,19 @@ export interface TypesHeader {
   time?: string;
   last_block_id?: TypesBlockID;
 
-  /** @format byte */
+  /**
+   * commit from validators from the last block
+   * @format byte
+   */
   last_commit_hash?: string;
 
   /** @format byte */
   data_hash?: string;
 
-  /** @format byte */
+  /**
+   * validators for the current block
+   * @format byte
+   */
   validators_hash?: string;
 
   /** @format byte */
@@ -234,7 +236,10 @@ export interface TypesHeader {
   /** @format byte */
   last_results_hash?: string;
 
-  /** @format byte */
+  /**
+   * evidence included in the block
+   * @format byte
+   */
   evidence_hash?: string;
 
   /** @format byte */
@@ -382,11 +387,6 @@ export interface V1Beta1MsgBeginRedelegateResponse {
 }
 
 /**
- * Since: cosmos-sdk 0.46
- */
-export type V1Beta1MsgCancelUnbondingDelegationResponse = object;
-
-/**
  * MsgCreateValidatorResponse defines the Msg/CreateValidator response type.
  */
 export type V1Beta1MsgCreateValidatorResponse = object;
@@ -465,12 +465,7 @@ corresponding request message has used PageRequest.
  }
 */
 export interface V1Beta1PageResponse {
-  /**
-   * next_key is the key to be passed to PageRequest.key to
-   * query the next page most efficiently. It will be empty if
-   * there are no more results.
-   * @format byte
-   */
+  /** @format byte */
   next_key?: string;
 
   /** @format uint64 */
@@ -504,7 +499,6 @@ export interface V1Beta1Params {
 
   /** bond_denom defines the bondable coin denomination. */
   bond_denom?: string;
-  min_commission_rate?: string;
 }
 
 /**
@@ -552,7 +546,7 @@ export interface V1Beta1QueryDelegatorUnbondingDelegationsResponse {
 Query/DelegatorValidator RPC method.
 */
 export interface V1Beta1QueryDelegatorValidatorResponse {
-  /** validator defines the validator info. */
+  /** validator defines the the validator info. */
   validator?: Stakingv1Beta1Validator;
 }
 
@@ -561,7 +555,7 @@ export interface V1Beta1QueryDelegatorValidatorResponse {
 Query/DelegatorValidators RPC method.
 */
 export interface V1Beta1QueryDelegatorValidatorsResponse {
-  /** validators defines the validators' info of a delegator. */
+  /** validators defines the the validators' info of a delegator. */
   validators?: Stakingv1Beta1Validator[];
 
   /** pagination defines the pagination in the response. */
@@ -621,7 +615,7 @@ export interface V1Beta1QueryValidatorDelegationsResponse {
 }
 
 export interface V1Beta1QueryValidatorResponse {
-  /** validator defines the validator info. */
+  /** validator defines the the validator info. */
   validator?: Stakingv1Beta1Validator;
 }
 
@@ -658,7 +652,11 @@ export interface V1Beta1Redelegation {
   /** validator_dst_address is the validator redelegation destination operator address. */
   validator_dst_address?: string;
 
-  /** entries are the redelegation entries. */
+  /**
+   * entries are the redelegation entries.
+   *
+   * redelegation entries
+   */
   entries?: V1Beta1RedelegationEntry[];
 }
 
@@ -721,7 +719,11 @@ export interface V1Beta1UnbondingDelegation {
   /** validator_address is the bech32-encoded address of the validator. */
   validator_address?: string;
 
-  /** entries are the unbonding delegation entries. */
+  /**
+   * entries are the unbonding delegation entries.
+   *
+   * unbonding delegation entries
+   */
   entries?: V1Beta1UnbondingDelegationEntry[];
 }
 

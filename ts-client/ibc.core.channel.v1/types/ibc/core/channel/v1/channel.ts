@@ -210,20 +210,6 @@ export interface PacketState {
 }
 
 /**
- * PacketId is an identifer for a unique Packet
- * Source chains refer to packets by source port/channel
- * Destination chains refer to packets by destination port/channel
- */
-export interface PacketId {
-  /** channel port identifier */
-  portId: string;
-  /** channel unique identifier */
-  channelId: string;
-  /** packet sequence */
-  sequence: number;
-}
-
-/**
  * Acknowledgement is the recommended acknowledgement format to be used by
  * app-specific protocols.
  * NOTE: The field numbers 21 and 22 were explicitly chosen to avoid accidental
@@ -938,95 +924,6 @@ export const PacketState = {
       message.data = object.data;
     } else {
       message.data = new Uint8Array();
-    }
-    return message;
-  },
-};
-
-const basePacketId: object = { portId: "", channelId: "", sequence: 0 };
-
-export const PacketId = {
-  encode(message: PacketId, writer: Writer = Writer.create()): Writer {
-    if (message.portId !== "") {
-      writer.uint32(10).string(message.portId);
-    }
-    if (message.channelId !== "") {
-      writer.uint32(18).string(message.channelId);
-    }
-    if (message.sequence !== 0) {
-      writer.uint32(24).uint64(message.sequence);
-    }
-    return writer;
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): PacketId {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePacketId } as PacketId;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.sequence = longToNumber(reader.uint64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PacketId {
-    const message = { ...basePacketId } as PacketId;
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = String(object.channelId);
-    } else {
-      message.channelId = "";
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Number(object.sequence);
-    } else {
-      message.sequence = 0;
-    }
-    return message;
-  },
-
-  toJSON(message: PacketId): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.sequence !== undefined && (obj.sequence = message.sequence);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<PacketId>): PacketId {
-    const message = { ...basePacketId } as PacketId;
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = object.portId;
-    } else {
-      message.portId = "";
-    }
-    if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = object.channelId;
-    } else {
-      message.channelId = "";
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence;
-    } else {
-      message.sequence = 0;
     }
     return message;
   },

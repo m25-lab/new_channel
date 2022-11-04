@@ -15,7 +15,7 @@ func (k msgServer) Senderwithdrawhashlock(goCtx context.Context, msg *types.MsgS
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
-	val, found := k.Keeper.GetFwdcommit(ctx, msg.Transferindex)
+	val, found := k.Keeper.GetFwdcommit(ctx, msg.TransferIndex)
 	if !found {
 		return nil, errors.New("commitment is not existing")
 	}
@@ -26,7 +26,7 @@ func (k msgServer) Senderwithdrawhashlock(goCtx context.Context, msg *types.MsgS
 	}
 
 	hash := sha256.Sum256([]byte(msg.Secret))
-	if val.Hashcodehtlc != base64.StdEncoding.EncodeToString(hash[:]) {
+	if val.HashcodeHtlc != base64.StdEncoding.EncodeToString(hash[:]) {
 		return nil, errors.New("Wrong hash !")
 	}
 
@@ -35,12 +35,12 @@ func (k msgServer) Senderwithdrawhashlock(goCtx context.Context, msg *types.MsgS
 		return nil, err
 	}
 
-	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.Coin})
+	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.CoinTransfer})
 	if err != nil {
 		return nil, err
 	}
 
-	k.Keeper.RemoveFwdcommit(ctx, msg.Transferindex)
+	k.Keeper.RemoveFwdcommit(ctx, msg.TransferIndex)
 
 	return &types.MsgSenderwithdrawhashlockResponse{}, nil
 }

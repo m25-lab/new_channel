@@ -10,17 +10,17 @@
  */
 
 export interface ChannelChannel {
-  index?: string;
-  multisigAddr?: string;
-  partA?: string;
-  partB?: string;
-  denom?: string;
-  sequence?: string;
+  Index?: string;
+  MultisigAddr?: string;
+  PartA?: string;
+  PartB?: string;
+  Denom?: string;
+  Sequence?: string;
 }
 
 export interface ChannelCommitment {
-  index?: string;
-  from?: string;
+  Index?: string;
+  From?: string;
 
   /**
    * Coin defines a token with a denomination and an amount.
@@ -28,9 +28,9 @@ export interface ChannelCommitment {
    * NOTE: The amount field is an Int which implements the custom method
    * signatures required by gogoproto.
    */
-  cointocreator?: V1Beta1Coin;
-  toTimelock?: string;
-  toHashlock?: string;
+  CoinToCreator?: V1Beta1Coin;
+  ToTimelockAddr?: string;
+  ToHashlockAddr?: string;
 
   /**
    * Coin defines a token with a denomination and an amount.
@@ -38,23 +38,23 @@ export interface ChannelCommitment {
    * NOTE: The amount field is an Int which implements the custom method
    * signatures required by gogoproto.
    */
-  coinhtlc?: V1Beta1Coin;
+  CoinToHtlc?: V1Beta1Coin;
 
   /** @format uint64 */
-  blockheight?: string;
-  hashcode?: string;
-  channelid?: string;
+  Timelock?: string;
+  Hashcode?: string;
+  ChannelID?: string;
 }
 
 export interface ChannelFwdcommit {
-  index?: string;
-  channelid?: string;
-  sender?: string;
-  receiver?: string;
-  hashcodedest?: string;
-  timelockreceiver?: string;
-  timelocksender?: string;
-  hashcodehtlc?: string;
+  Index?: string;
+  ChannelID?: string;
+  Sender?: string;
+  Receiver?: string;
+  HashcodeDest?: string;
+  TimelockReceiver?: string;
+  TimelockSender?: string;
+  HashcodeHtlc?: string;
 
   /**
    * Coin defines a token with a denomination and an amount.
@@ -62,38 +62,38 @@ export interface ChannelFwdcommit {
    * NOTE: The amount field is an Int which implements the custom method
    * signatures required by gogoproto.
    */
-  coin?: V1Beta1Coin;
-  creator?: string;
+  CoinTransfer?: V1Beta1Coin;
+  Creator?: string;
 }
 
 export interface ChannelMsgAcceptfundResponse {
-  index?: string;
+  Index?: string;
 }
 
 export type ChannelMsgCloseChannelResponse = object;
 
 export interface ChannelMsgCommitmentResponse {
-  index?: string;
+  Index?: string;
 }
 
 export interface ChannelMsgFundResponse {
-  index?: string;
+  Index?: string;
 }
 
 export interface ChannelMsgOpenChannelResponse {
-  index?: string;
+  Index?: string;
 }
 
 export interface ChannelMsgReceivercommitResponse {
-  indexhtlc?: string;
-  indextransfer?: string;
+  IndexHtlc?: string;
+  IndexTransfer?: string;
 }
 
 export type ChannelMsgReceiverwithdrawResponse = object;
 
 export interface ChannelMsgSendercommitResponse {
-  indexhtlc?: string;
-  indextransfer?: string;
+  IndexHtlc?: string;
+  IndexTransfer?: string;
 }
 
 export type ChannelMsgSenderwithdrawhashlockResponse = object;
@@ -170,7 +170,7 @@ export interface ChannelQueryGetFwdcommitResponse {
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface ChannelQueryParamsResponse {
-  /** Params defines the parameters for the module. */
+  /** params holds all the parameters of this module. */
   params?: ChannelParams;
 }
 
@@ -233,13 +233,6 @@ export interface V1Beta1PageRequest {
    * is set.
    */
   count_total?: boolean;
-
-  /**
-   * reverse is set to true if results are to be returned in the descending order.
-   *
-   * Since: cosmos-sdk 0.43
-   */
-  reverse?: boolean;
 }
 
 /**
@@ -252,12 +245,7 @@ corresponding request message has used PageRequest.
  }
 */
 export interface V1Beta1PageResponse {
-  /**
-   * next_key is the key to be passed to PageRequest.key to
-   * query the next page most efficiently. It will be empty if
-   * there are no more results.
-   * @format byte
-   */
+  /** @format byte */
   next_key?: string;
 
   /** @format uint64 */
@@ -474,7 +462,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -516,7 +503,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -558,7 +544,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>

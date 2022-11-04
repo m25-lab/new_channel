@@ -29,15 +29,15 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type MsgCommitment struct {
-	Creator       string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	From          string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	Cointocreator *types.Coin `protobuf:"bytes,3,opt,name=cointocreator,proto3" json:"cointocreator,omitempty"`
-	ToTimelock    string      `protobuf:"bytes,4,opt,name=toTimelock,proto3" json:"toTimelock,omitempty"`
-	Blockheight   uint64      `protobuf:"varint,5,opt,name=blockheight,proto3" json:"blockheight,omitempty"`
-	ToHashlock    string      `protobuf:"bytes,6,opt,name=toHashlock,proto3" json:"toHashlock,omitempty"`
-	Hashcode      string      `protobuf:"bytes,7,opt,name=hashcode,proto3" json:"hashcode,omitempty"`
-	Coinhtlc      *types.Coin `protobuf:"bytes,8,opt,name=coinhtlc,proto3" json:"coinhtlc,omitempty"`
-	Channelid     string      `protobuf:"bytes,9,opt,name=channelid,proto3" json:"channelid,omitempty"`
+	Creator        string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	From           string      `protobuf:"bytes,2,opt,name=From,proto3" json:"From,omitempty"`
+	CoinToCreator  *types.Coin `protobuf:"bytes,3,opt,name=CoinToCreator,proto3" json:"CoinToCreator,omitempty"`
+	ToTimelockAddr string      `protobuf:"bytes,4,opt,name=ToTimelockAddr,proto3" json:"ToTimelockAddr,omitempty"`
+	Timelock       uint64      `protobuf:"varint,5,opt,name=Timelock,proto3" json:"Timelock,omitempty"`
+	ToHashlockAddr string      `protobuf:"bytes,6,opt,name=ToHashlockAddr,proto3" json:"ToHashlockAddr,omitempty"`
+	Hashcode       string      `protobuf:"bytes,7,opt,name=Hashcode,proto3" json:"Hashcode,omitempty"`
+	CoinToHtlc     *types.Coin `protobuf:"bytes,8,opt,name=CoinToHtlc,proto3" json:"CoinToHtlc,omitempty"`
+	ChannelID      string      `protobuf:"bytes,9,opt,name=ChannelID,proto3" json:"ChannelID,omitempty"`
 }
 
 func (m *MsgCommitment) Reset()         { *m = MsgCommitment{} }
@@ -87,30 +87,30 @@ func (m *MsgCommitment) GetFrom() string {
 	return ""
 }
 
-func (m *MsgCommitment) GetCointocreator() *types.Coin {
+func (m *MsgCommitment) GetCoinToCreator() *types.Coin {
 	if m != nil {
-		return m.Cointocreator
+		return m.CoinToCreator
 	}
 	return nil
 }
 
-func (m *MsgCommitment) GetToTimelock() string {
+func (m *MsgCommitment) GetToTimelockAddr() string {
 	if m != nil {
-		return m.ToTimelock
+		return m.ToTimelockAddr
 	}
 	return ""
 }
 
-func (m *MsgCommitment) GetBlockheight() uint64 {
+func (m *MsgCommitment) GetTimelock() uint64 {
 	if m != nil {
-		return m.Blockheight
+		return m.Timelock
 	}
 	return 0
 }
 
-func (m *MsgCommitment) GetToHashlock() string {
+func (m *MsgCommitment) GetToHashlockAddr() string {
 	if m != nil {
-		return m.ToHashlock
+		return m.ToHashlockAddr
 	}
 	return ""
 }
@@ -122,22 +122,22 @@ func (m *MsgCommitment) GetHashcode() string {
 	return ""
 }
 
-func (m *MsgCommitment) GetCoinhtlc() *types.Coin {
+func (m *MsgCommitment) GetCoinToHtlc() *types.Coin {
 	if m != nil {
-		return m.Coinhtlc
+		return m.CoinToHtlc
 	}
 	return nil
 }
 
-func (m *MsgCommitment) GetChannelid() string {
+func (m *MsgCommitment) GetChannelID() string {
 	if m != nil {
-		return m.Channelid
+		return m.ChannelID
 	}
 	return ""
 }
 
 type MsgCommitmentResponse struct {
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Index string `protobuf:"bytes,1,opt,name=Index,proto3" json:"Index,omitempty"`
 }
 
 func (m *MsgCommitmentResponse) Reset()         { *m = MsgCommitmentResponse{} }
@@ -181,9 +181,9 @@ func (m *MsgCommitmentResponse) GetIndex() string {
 }
 
 type MsgWithdrawTimelock struct {
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	To      string `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
-	Index   string `protobuf:"bytes,3,opt,name=index,proto3" json:"index,omitempty"`
+	Creator string `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	To      string `protobuf:"bytes,2,opt,name=To,proto3" json:"To,omitempty"`
+	Index   string `protobuf:"bytes,3,opt,name=Index,proto3" json:"Index,omitempty"`
 }
 
 func (m *MsgWithdrawTimelock) Reset()         { *m = MsgWithdrawTimelock{} }
@@ -277,10 +277,10 @@ func (m *MsgWithdrawTimelockResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgWithdrawTimelockResponse proto.InternalMessageInfo
 
 type MsgWithdrawHashlock struct {
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	To      string `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
-	Index   string `protobuf:"bytes,3,opt,name=index,proto3" json:"index,omitempty"`
-	Secret  string `protobuf:"bytes,4,opt,name=secret,proto3" json:"secret,omitempty"`
+	Creator string `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	To      string `protobuf:"bytes,2,opt,name=To,proto3" json:"To,omitempty"`
+	Index   string `protobuf:"bytes,3,opt,name=Index,proto3" json:"Index,omitempty"`
+	Secret  string `protobuf:"bytes,4,opt,name=Secret,proto3" json:"Secret,omitempty"`
 }
 
 func (m *MsgWithdrawHashlock) Reset()         { *m = MsgWithdrawHashlock{} }
@@ -381,13 +381,13 @@ func (m *MsgWithdrawHashlockResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgWithdrawHashlockResponse proto.InternalMessageInfo
 
 type MsgCloseChannel struct {
-	Creator   string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	From      string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	ToA       string      `protobuf:"bytes,3,opt,name=toA,proto3" json:"toA,omitempty"`
-	CoinA     *types.Coin `protobuf:"bytes,4,opt,name=coinA,proto3" json:"coinA,omitempty"`
-	ToB       string      `protobuf:"bytes,5,opt,name=toB,proto3" json:"toB,omitempty"`
-	CoinB     *types.Coin `protobuf:"bytes,6,opt,name=coinB,proto3" json:"coinB,omitempty"`
-	Channelid string      `protobuf:"bytes,7,opt,name=channelid,proto3" json:"channelid,omitempty"`
+	Creator   string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	From      string      `protobuf:"bytes,2,opt,name=From,proto3" json:"From,omitempty"`
+	ToA       string      `protobuf:"bytes,3,opt,name=ToA,proto3" json:"ToA,omitempty"`
+	CoinA     *types.Coin `protobuf:"bytes,4,opt,name=CoinA,proto3" json:"CoinA,omitempty"`
+	ToB       string      `protobuf:"bytes,5,opt,name=ToB,proto3" json:"ToB,omitempty"`
+	CoinB     *types.Coin `protobuf:"bytes,6,opt,name=CoinB,proto3" json:"CoinB,omitempty"`
+	ChannelID string      `protobuf:"bytes,7,opt,name=ChannelID,proto3" json:"ChannelID,omitempty"`
 }
 
 func (m *MsgCloseChannel) Reset()         { *m = MsgCloseChannel{} }
@@ -465,9 +465,9 @@ func (m *MsgCloseChannel) GetCoinB() *types.Coin {
 	return nil
 }
 
-func (m *MsgCloseChannel) GetChannelid() string {
+func (m *MsgCloseChannel) GetChannelID() string {
 	if m != nil {
-		return m.Channelid
+		return m.ChannelID
 	}
 	return ""
 }
@@ -509,13 +509,13 @@ func (m *MsgCloseChannelResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgCloseChannelResponse proto.InternalMessageInfo
 
 type MsgOpenChannel struct {
-	Creator      string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	PartA        string      `protobuf:"bytes,2,opt,name=partA,proto3" json:"partA,omitempty"`
-	PartB        string      `protobuf:"bytes,3,opt,name=partB,proto3" json:"partB,omitempty"`
-	CoinA        *types.Coin `protobuf:"bytes,4,opt,name=coinA,proto3" json:"coinA,omitempty"`
-	CoinB        *types.Coin `protobuf:"bytes,5,opt,name=coinB,proto3" json:"coinB,omitempty"`
-	MultisigAddr string      `protobuf:"bytes,6,opt,name=multisigAddr,proto3" json:"multisigAddr,omitempty"`
-	Sequence     string      `protobuf:"bytes,7,opt,name=sequence,proto3" json:"sequence,omitempty"`
+	Creator      string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	PartA        string      `protobuf:"bytes,2,opt,name=PartA,proto3" json:"PartA,omitempty"`
+	PartB        string      `protobuf:"bytes,3,opt,name=PartB,proto3" json:"PartB,omitempty"`
+	CoinA        *types.Coin `protobuf:"bytes,4,opt,name=CoinA,proto3" json:"CoinA,omitempty"`
+	CoinB        *types.Coin `protobuf:"bytes,5,opt,name=CoinB,proto3" json:"CoinB,omitempty"`
+	MultisigAddr string      `protobuf:"bytes,6,opt,name=MultisigAddr,proto3" json:"MultisigAddr,omitempty"`
+	Sequence     string      `protobuf:"bytes,7,opt,name=Sequence,proto3" json:"Sequence,omitempty"`
 }
 
 func (m *MsgOpenChannel) Reset()         { *m = MsgOpenChannel{} }
@@ -601,7 +601,7 @@ func (m *MsgOpenChannel) GetSequence() string {
 }
 
 type MsgOpenChannelResponse struct {
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Index string `protobuf:"bytes,1,opt,name=Index,proto3" json:"Index,omitempty"`
 }
 
 func (m *MsgOpenChannelResponse) Reset()         { *m = MsgOpenChannelResponse{} }
@@ -645,13 +645,13 @@ func (m *MsgOpenChannelResponse) GetIndex() string {
 }
 
 type MsgFund struct {
-	Creator   string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	From      string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	Channelid string      `protobuf:"bytes,3,opt,name=channelid,proto3" json:"channelid,omitempty"`
-	Coinlock  *types.Coin `protobuf:"bytes,4,opt,name=coinlock,proto3" json:"coinlock,omitempty"`
-	Hashcode  string      `protobuf:"bytes,5,opt,name=hashcode,proto3" json:"hashcode,omitempty"`
-	Timelock  string      `protobuf:"bytes,6,opt,name=timelock,proto3" json:"timelock,omitempty"`
-	Multisig  string      `protobuf:"bytes,7,opt,name=multisig,proto3" json:"multisig,omitempty"`
+	Creator    string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	From       string      `protobuf:"bytes,2,opt,name=From,proto3" json:"From,omitempty"`
+	ChannelID  string      `protobuf:"bytes,3,opt,name=ChannelID,proto3" json:"ChannelID,omitempty"`
+	CoinToHtlc *types.Coin `protobuf:"bytes,4,opt,name=CoinToHtlc,proto3" json:"CoinToHtlc,omitempty"`
+	Hashcode   string      `protobuf:"bytes,5,opt,name=Hashcode,proto3" json:"Hashcode,omitempty"`
+	Timelock   string      `protobuf:"bytes,6,opt,name=Timelock,proto3" json:"Timelock,omitempty"`
+	Multisig   string      `protobuf:"bytes,7,opt,name=Multisig,proto3" json:"Multisig,omitempty"`
 }
 
 func (m *MsgFund) Reset()         { *m = MsgFund{} }
@@ -701,16 +701,16 @@ func (m *MsgFund) GetFrom() string {
 	return ""
 }
 
-func (m *MsgFund) GetChannelid() string {
+func (m *MsgFund) GetChannelID() string {
 	if m != nil {
-		return m.Channelid
+		return m.ChannelID
 	}
 	return ""
 }
 
-func (m *MsgFund) GetCoinlock() *types.Coin {
+func (m *MsgFund) GetCoinToHtlc() *types.Coin {
 	if m != nil {
-		return m.Coinlock
+		return m.CoinToHtlc
 	}
 	return nil
 }
@@ -737,7 +737,7 @@ func (m *MsgFund) GetMultisig() string {
 }
 
 type MsgFundResponse struct {
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Index string `protobuf:"bytes,1,opt,name=Index,proto3" json:"Index,omitempty"`
 }
 
 func (m *MsgFundResponse) Reset()         { *m = MsgFundResponse{} }
@@ -781,13 +781,13 @@ func (m *MsgFundResponse) GetIndex() string {
 }
 
 type MsgAcceptfund struct {
-	Creator   string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	From      string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	Channelid string      `protobuf:"bytes,3,opt,name=channelid,proto3" json:"channelid,omitempty"`
-	Coin      *types.Coin `protobuf:"bytes,4,opt,name=coin,proto3" json:"coin,omitempty"`
-	Hashcode  string      `protobuf:"bytes,5,opt,name=hashcode,proto3" json:"hashcode,omitempty"`
-	Timelock  string      `protobuf:"bytes,6,opt,name=timelock,proto3" json:"timelock,omitempty"`
-	Multisig  string      `protobuf:"bytes,7,opt,name=multisig,proto3" json:"multisig,omitempty"`
+	Creator          string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	From             string      `protobuf:"bytes,2,opt,name=From,proto3" json:"From,omitempty"`
+	ChannelID        string      `protobuf:"bytes,3,opt,name=ChannelID,proto3" json:"ChannelID,omitempty"`
+	CoinToAcceptSide *types.Coin `protobuf:"bytes,4,opt,name=CoinToAcceptSide,proto3" json:"CoinToAcceptSide,omitempty"`
+	Hashcode         string      `protobuf:"bytes,5,opt,name=Hashcode,proto3" json:"Hashcode,omitempty"`
+	Timelock         string      `protobuf:"bytes,6,opt,name=Timelock,proto3" json:"Timelock,omitempty"`
+	Multisig         string      `protobuf:"bytes,7,opt,name=Multisig,proto3" json:"Multisig,omitempty"`
 }
 
 func (m *MsgAcceptfund) Reset()         { *m = MsgAcceptfund{} }
@@ -837,16 +837,16 @@ func (m *MsgAcceptfund) GetFrom() string {
 	return ""
 }
 
-func (m *MsgAcceptfund) GetChannelid() string {
+func (m *MsgAcceptfund) GetChannelID() string {
 	if m != nil {
-		return m.Channelid
+		return m.ChannelID
 	}
 	return ""
 }
 
-func (m *MsgAcceptfund) GetCoin() *types.Coin {
+func (m *MsgAcceptfund) GetCoinToAcceptSide() *types.Coin {
 	if m != nil {
-		return m.Coin
+		return m.CoinToAcceptSide
 	}
 	return nil
 }
@@ -873,7 +873,7 @@ func (m *MsgAcceptfund) GetMultisig() string {
 }
 
 type MsgAcceptfundResponse struct {
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Index string `protobuf:"bytes,1,opt,name=Index,proto3" json:"Index,omitempty"`
 }
 
 func (m *MsgAcceptfundResponse) Reset()         { *m = MsgAcceptfundResponse{} }
@@ -917,18 +917,18 @@ func (m *MsgAcceptfundResponse) GetIndex() string {
 }
 
 type MsgSendercommit struct {
-	Creator          string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	From             string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	Channelid        string      `protobuf:"bytes,3,opt,name=channelid,proto3" json:"channelid,omitempty"`
-	Cointosender     *types.Coin `protobuf:"bytes,4,opt,name=cointosender,proto3" json:"cointosender,omitempty"`
-	Cointohtlc       *types.Coin `protobuf:"bytes,5,opt,name=cointohtlc,proto3" json:"cointohtlc,omitempty"`
-	Hashcodehtlc     string      `protobuf:"bytes,6,opt,name=hashcodehtlc,proto3" json:"hashcodehtlc,omitempty"`
-	Timelockhtlc     string      `protobuf:"bytes,7,opt,name=timelockhtlc,proto3" json:"timelockhtlc,omitempty"`
-	Cointransfer     *types.Coin `protobuf:"bytes,8,opt,name=cointransfer,proto3" json:"cointransfer,omitempty"`
-	Hashcodedest     string      `protobuf:"bytes,9,opt,name=hashcodedest,proto3" json:"hashcodedest,omitempty"`
-	Timelockreceiver string      `protobuf:"bytes,10,opt,name=timelockreceiver,proto3" json:"timelockreceiver,omitempty"`
-	Timelocksender   string      `protobuf:"bytes,11,opt,name=timelocksender,proto3" json:"timelocksender,omitempty"`
-	Multisig         string      `protobuf:"bytes,12,opt,name=multisig,proto3" json:"multisig,omitempty"`
+	Creator          string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	From             string      `protobuf:"bytes,2,opt,name=From,proto3" json:"From,omitempty"`
+	ChannelID        string      `protobuf:"bytes,3,opt,name=ChannelID,proto3" json:"ChannelID,omitempty"`
+	CoinToSender     *types.Coin `protobuf:"bytes,4,opt,name=CoinToSender,proto3" json:"CoinToSender,omitempty"`
+	CoinToHtlc       *types.Coin `protobuf:"bytes,5,opt,name=CoinToHtlc,proto3" json:"CoinToHtlc,omitempty"`
+	HashcodeHtlc     string      `protobuf:"bytes,6,opt,name=HashcodeHtlc,proto3" json:"HashcodeHtlc,omitempty"`
+	TimelockHtlc     string      `protobuf:"bytes,7,opt,name=TimelockHtlc,proto3" json:"TimelockHtlc,omitempty"`
+	CoinTransfer     *types.Coin `protobuf:"bytes,8,opt,name=CoinTransfer,proto3" json:"CoinTransfer,omitempty"`
+	HashcodeDest     string      `protobuf:"bytes,9,opt,name=HashcodeDest,proto3" json:"HashcodeDest,omitempty"`
+	TimelockReceiver string      `protobuf:"bytes,10,opt,name=TimelockReceiver,proto3" json:"TimelockReceiver,omitempty"`
+	TimelockSender   string      `protobuf:"bytes,11,opt,name=TimelockSender,proto3" json:"TimelockSender,omitempty"`
+	Multisig         string      `protobuf:"bytes,12,opt,name=Multisig,proto3" json:"Multisig,omitempty"`
 }
 
 func (m *MsgSendercommit) Reset()         { *m = MsgSendercommit{} }
@@ -978,65 +978,65 @@ func (m *MsgSendercommit) GetFrom() string {
 	return ""
 }
 
-func (m *MsgSendercommit) GetChannelid() string {
+func (m *MsgSendercommit) GetChannelID() string {
 	if m != nil {
-		return m.Channelid
+		return m.ChannelID
 	}
 	return ""
 }
 
-func (m *MsgSendercommit) GetCointosender() *types.Coin {
+func (m *MsgSendercommit) GetCoinToSender() *types.Coin {
 	if m != nil {
-		return m.Cointosender
+		return m.CoinToSender
 	}
 	return nil
 }
 
-func (m *MsgSendercommit) GetCointohtlc() *types.Coin {
+func (m *MsgSendercommit) GetCoinToHtlc() *types.Coin {
 	if m != nil {
-		return m.Cointohtlc
+		return m.CoinToHtlc
 	}
 	return nil
 }
 
-func (m *MsgSendercommit) GetHashcodehtlc() string {
+func (m *MsgSendercommit) GetHashcodeHtlc() string {
 	if m != nil {
-		return m.Hashcodehtlc
+		return m.HashcodeHtlc
 	}
 	return ""
 }
 
-func (m *MsgSendercommit) GetTimelockhtlc() string {
+func (m *MsgSendercommit) GetTimelockHtlc() string {
 	if m != nil {
-		return m.Timelockhtlc
+		return m.TimelockHtlc
 	}
 	return ""
 }
 
-func (m *MsgSendercommit) GetCointransfer() *types.Coin {
+func (m *MsgSendercommit) GetCoinTransfer() *types.Coin {
 	if m != nil {
-		return m.Cointransfer
+		return m.CoinTransfer
 	}
 	return nil
 }
 
-func (m *MsgSendercommit) GetHashcodedest() string {
+func (m *MsgSendercommit) GetHashcodeDest() string {
 	if m != nil {
-		return m.Hashcodedest
+		return m.HashcodeDest
 	}
 	return ""
 }
 
-func (m *MsgSendercommit) GetTimelockreceiver() string {
+func (m *MsgSendercommit) GetTimelockReceiver() string {
 	if m != nil {
-		return m.Timelockreceiver
+		return m.TimelockReceiver
 	}
 	return ""
 }
 
-func (m *MsgSendercommit) GetTimelocksender() string {
+func (m *MsgSendercommit) GetTimelockSender() string {
 	if m != nil {
-		return m.Timelocksender
+		return m.TimelockSender
 	}
 	return ""
 }
@@ -1049,8 +1049,8 @@ func (m *MsgSendercommit) GetMultisig() string {
 }
 
 type MsgSendercommitResponse struct {
-	Indexhtlc     string `protobuf:"bytes,1,opt,name=indexhtlc,proto3" json:"indexhtlc,omitempty"`
-	Indextransfer string `protobuf:"bytes,2,opt,name=indextransfer,proto3" json:"indextransfer,omitempty"`
+	IndexHtlc     string `protobuf:"bytes,1,opt,name=IndexHtlc,proto3" json:"IndexHtlc,omitempty"`
+	IndexTransfer string `protobuf:"bytes,2,opt,name=IndexTransfer,proto3" json:"IndexTransfer,omitempty"`
 }
 
 func (m *MsgSendercommitResponse) Reset()         { *m = MsgSendercommitResponse{} }
@@ -1086,24 +1086,24 @@ func (m *MsgSendercommitResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgSendercommitResponse proto.InternalMessageInfo
 
-func (m *MsgSendercommitResponse) GetIndexhtlc() string {
+func (m *MsgSendercommitResponse) GetIndexHtlc() string {
 	if m != nil {
-		return m.Indexhtlc
+		return m.IndexHtlc
 	}
 	return ""
 }
 
-func (m *MsgSendercommitResponse) GetIndextransfer() string {
+func (m *MsgSendercommitResponse) GetIndexTransfer() string {
 	if m != nil {
-		return m.Indextransfer
+		return m.IndexTransfer
 	}
 	return ""
 }
 
 type MsgSenderwithdrawtimelock struct {
-	Creator       string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Transferindex string `protobuf:"bytes,2,opt,name=transferindex,proto3" json:"transferindex,omitempty"`
-	To            string `protobuf:"bytes,3,opt,name=to,proto3" json:"to,omitempty"`
+	Creator       string `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	TransferIndex string `protobuf:"bytes,2,opt,name=TransferIndex,proto3" json:"TransferIndex,omitempty"`
+	To            string `protobuf:"bytes,3,opt,name=To,proto3" json:"To,omitempty"`
 }
 
 func (m *MsgSenderwithdrawtimelock) Reset()         { *m = MsgSenderwithdrawtimelock{} }
@@ -1146,9 +1146,9 @@ func (m *MsgSenderwithdrawtimelock) GetCreator() string {
 	return ""
 }
 
-func (m *MsgSenderwithdrawtimelock) GetTransferindex() string {
+func (m *MsgSenderwithdrawtimelock) GetTransferIndex() string {
 	if m != nil {
-		return m.Transferindex
+		return m.TransferIndex
 	}
 	return ""
 }
@@ -1197,10 +1197,10 @@ func (m *MsgSenderwithdrawtimelockResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgSenderwithdrawtimelockResponse proto.InternalMessageInfo
 
 type MsgSenderwithdrawhashlock struct {
-	Creator       string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Transferindex string `protobuf:"bytes,2,opt,name=transferindex,proto3" json:"transferindex,omitempty"`
-	To            string `protobuf:"bytes,3,opt,name=to,proto3" json:"to,omitempty"`
-	Secret        string `protobuf:"bytes,4,opt,name=secret,proto3" json:"secret,omitempty"`
+	Creator       string `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	TransferIndex string `protobuf:"bytes,2,opt,name=TransferIndex,proto3" json:"TransferIndex,omitempty"`
+	To            string `protobuf:"bytes,3,opt,name=To,proto3" json:"To,omitempty"`
+	Secret        string `protobuf:"bytes,4,opt,name=Secret,proto3" json:"Secret,omitempty"`
 }
 
 func (m *MsgSenderwithdrawhashlock) Reset()         { *m = MsgSenderwithdrawhashlock{} }
@@ -1243,9 +1243,9 @@ func (m *MsgSenderwithdrawhashlock) GetCreator() string {
 	return ""
 }
 
-func (m *MsgSenderwithdrawhashlock) GetTransferindex() string {
+func (m *MsgSenderwithdrawhashlock) GetTransferIndex() string {
 	if m != nil {
-		return m.Transferindex
+		return m.TransferIndex
 	}
 	return ""
 }
@@ -1301,10 +1301,10 @@ func (m *MsgSenderwithdrawhashlockResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgSenderwithdrawhashlockResponse proto.InternalMessageInfo
 
 type MsgReceiverwithdraw struct {
-	Creator       string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Transferindex string `protobuf:"bytes,2,opt,name=transferindex,proto3" json:"transferindex,omitempty"`
-	To            string `protobuf:"bytes,3,opt,name=to,proto3" json:"to,omitempty"`
-	Secret        string `protobuf:"bytes,4,opt,name=secret,proto3" json:"secret,omitempty"`
+	Creator       string `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	TransferIndex string `protobuf:"bytes,2,opt,name=TransferIndex,proto3" json:"TransferIndex,omitempty"`
+	To            string `protobuf:"bytes,3,opt,name=To,proto3" json:"To,omitempty"`
+	Secret        string `protobuf:"bytes,4,opt,name=Secret,proto3" json:"Secret,omitempty"`
 }
 
 func (m *MsgReceiverwithdraw) Reset()         { *m = MsgReceiverwithdraw{} }
@@ -1347,9 +1347,9 @@ func (m *MsgReceiverwithdraw) GetCreator() string {
 	return ""
 }
 
-func (m *MsgReceiverwithdraw) GetTransferindex() string {
+func (m *MsgReceiverwithdraw) GetTransferIndex() string {
 	if m != nil {
-		return m.Transferindex
+		return m.TransferIndex
 	}
 	return ""
 }
@@ -1405,17 +1405,17 @@ func (m *MsgReceiverwithdrawResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgReceiverwithdrawResponse proto.InternalMessageInfo
 
 type MsgReceivercommit struct {
-	Creator        string      `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	From           string      `protobuf:"bytes,2,opt,name=from,proto3" json:"from,omitempty"`
-	Channelid      string      `protobuf:"bytes,3,opt,name=channelid,proto3" json:"channelid,omitempty"`
-	Cointoreceiver *types.Coin `protobuf:"bytes,4,opt,name=cointoreceiver,proto3" json:"cointoreceiver,omitempty"`
-	Cointohtlc     *types.Coin `protobuf:"bytes,5,opt,name=cointohtlc,proto3" json:"cointohtlc,omitempty"`
-	Hashcodehtlc   string      `protobuf:"bytes,6,opt,name=hashcodehtlc,proto3" json:"hashcodehtlc,omitempty"`
-	Timelockhtlc   string      `protobuf:"bytes,7,opt,name=timelockhtlc,proto3" json:"timelockhtlc,omitempty"`
-	Cointransfer   *types.Coin `protobuf:"bytes,8,opt,name=cointransfer,proto3" json:"cointransfer,omitempty"`
-	Hashcodedest   string      `protobuf:"bytes,9,opt,name=hashcodedest,proto3" json:"hashcodedest,omitempty"`
-	Timelocksender string      `protobuf:"bytes,10,opt,name=timelocksender,proto3" json:"timelocksender,omitempty"`
-	Multisig       string      `protobuf:"bytes,11,opt,name=multisig,proto3" json:"multisig,omitempty"`
+	Creator        string      `protobuf:"bytes,1,opt,name=Creator,proto3" json:"Creator,omitempty"`
+	From           string      `protobuf:"bytes,2,opt,name=From,proto3" json:"From,omitempty"`
+	ChannelID      string      `protobuf:"bytes,3,opt,name=ChannelID,proto3" json:"ChannelID,omitempty"`
+	CoinToReceiver *types.Coin `protobuf:"bytes,4,opt,name=CoinToReceiver,proto3" json:"CoinToReceiver,omitempty"`
+	CoinToHtlc     *types.Coin `protobuf:"bytes,5,opt,name=CoinToHtlc,proto3" json:"CoinToHtlc,omitempty"`
+	HashcodeHtlc   string      `protobuf:"bytes,6,opt,name=HashcodeHtlc,proto3" json:"HashcodeHtlc,omitempty"`
+	TimelockHtlc   string      `protobuf:"bytes,7,opt,name=TimelockHtlc,proto3" json:"TimelockHtlc,omitempty"`
+	CoinTransfer   *types.Coin `protobuf:"bytes,8,opt,name=CoinTransfer,proto3" json:"CoinTransfer,omitempty"`
+	HashcodeDest   string      `protobuf:"bytes,9,opt,name=HashcodeDest,proto3" json:"HashcodeDest,omitempty"`
+	TimelockSender string      `protobuf:"bytes,10,opt,name=TimelockSender,proto3" json:"TimelockSender,omitempty"`
+	Multisig       string      `protobuf:"bytes,11,opt,name=Multisig,proto3" json:"Multisig,omitempty"`
 }
 
 func (m *MsgReceivercommit) Reset()         { *m = MsgReceivercommit{} }
@@ -1465,58 +1465,58 @@ func (m *MsgReceivercommit) GetFrom() string {
 	return ""
 }
 
-func (m *MsgReceivercommit) GetChannelid() string {
+func (m *MsgReceivercommit) GetChannelID() string {
 	if m != nil {
-		return m.Channelid
+		return m.ChannelID
 	}
 	return ""
 }
 
-func (m *MsgReceivercommit) GetCointoreceiver() *types.Coin {
+func (m *MsgReceivercommit) GetCoinToReceiver() *types.Coin {
 	if m != nil {
-		return m.Cointoreceiver
+		return m.CoinToReceiver
 	}
 	return nil
 }
 
-func (m *MsgReceivercommit) GetCointohtlc() *types.Coin {
+func (m *MsgReceivercommit) GetCoinToHtlc() *types.Coin {
 	if m != nil {
-		return m.Cointohtlc
+		return m.CoinToHtlc
 	}
 	return nil
 }
 
-func (m *MsgReceivercommit) GetHashcodehtlc() string {
+func (m *MsgReceivercommit) GetHashcodeHtlc() string {
 	if m != nil {
-		return m.Hashcodehtlc
+		return m.HashcodeHtlc
 	}
 	return ""
 }
 
-func (m *MsgReceivercommit) GetTimelockhtlc() string {
+func (m *MsgReceivercommit) GetTimelockHtlc() string {
 	if m != nil {
-		return m.Timelockhtlc
+		return m.TimelockHtlc
 	}
 	return ""
 }
 
-func (m *MsgReceivercommit) GetCointransfer() *types.Coin {
+func (m *MsgReceivercommit) GetCoinTransfer() *types.Coin {
 	if m != nil {
-		return m.Cointransfer
+		return m.CoinTransfer
 	}
 	return nil
 }
 
-func (m *MsgReceivercommit) GetHashcodedest() string {
+func (m *MsgReceivercommit) GetHashcodeDest() string {
 	if m != nil {
-		return m.Hashcodedest
+		return m.HashcodeDest
 	}
 	return ""
 }
 
-func (m *MsgReceivercommit) GetTimelocksender() string {
+func (m *MsgReceivercommit) GetTimelockSender() string {
 	if m != nil {
-		return m.Timelocksender
+		return m.TimelockSender
 	}
 	return ""
 }
@@ -1529,8 +1529,8 @@ func (m *MsgReceivercommit) GetMultisig() string {
 }
 
 type MsgReceivercommitResponse struct {
-	Indexhtlc     string `protobuf:"bytes,1,opt,name=indexhtlc,proto3" json:"indexhtlc,omitempty"`
-	Indextransfer string `protobuf:"bytes,2,opt,name=indextransfer,proto3" json:"indextransfer,omitempty"`
+	IndexHtlc     string `protobuf:"bytes,1,opt,name=IndexHtlc,proto3" json:"IndexHtlc,omitempty"`
+	IndexTransfer string `protobuf:"bytes,2,opt,name=IndexTransfer,proto3" json:"IndexTransfer,omitempty"`
 }
 
 func (m *MsgReceivercommitResponse) Reset()         { *m = MsgReceivercommitResponse{} }
@@ -1566,16 +1566,16 @@ func (m *MsgReceivercommitResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgReceivercommitResponse proto.InternalMessageInfo
 
-func (m *MsgReceivercommitResponse) GetIndexhtlc() string {
+func (m *MsgReceivercommitResponse) GetIndexHtlc() string {
 	if m != nil {
-		return m.Indexhtlc
+		return m.IndexHtlc
 	}
 	return ""
 }
 
-func (m *MsgReceivercommitResponse) GetIndextransfer() string {
+func (m *MsgReceivercommitResponse) GetIndexTransfer() string {
 	if m != nil {
-		return m.Indextransfer
+		return m.IndexTransfer
 	}
 	return ""
 }
@@ -1610,77 +1610,76 @@ func init() {
 func init() { proto.RegisterFile("channel/tx.proto", fileDescriptor_82d382f6faba5dbf) }
 
 var fileDescriptor_82d382f6faba5dbf = []byte{
-	// 1106 bytes of a gzipped FileDescriptorProto
+	// 1100 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x58, 0x4f, 0x6f, 0xe3, 0x44,
-	0x14, 0xaf, 0x9b, 0xa6, 0x6d, 0x5e, 0xd2, 0x6c, 0x19, 0x96, 0x92, 0x86, 0x25, 0x04, 0x53, 0xed,
-	0x56, 0x15, 0xeb, 0xb0, 0x45, 0x1c, 0x38, 0x20, 0x94, 0x54, 0x42, 0x08, 0x29, 0x02, 0x85, 0xa2,
-	0x95, 0x2a, 0x21, 0x70, 0x9c, 0x69, 0x6c, 0x6d, 0xec, 0x09, 0x9e, 0xe9, 0x6e, 0x39, 0x70, 0xe2,
-	0x0b, 0x70, 0xe0, 0x43, 0x71, 0xe0, 0xb0, 0xdc, 0x38, 0xa1, 0x55, 0xfb, 0x0d, 0x38, 0x71, 0x44,
-	0x9e, 0x7f, 0xb1, 0x1d, 0x27, 0x93, 0x42, 0x97, 0x0b, 0xa7, 0x7a, 0xde, 0xfc, 0xe6, 0xbd, 0x37,
-	0xbf, 0xf7, 0x6f, 0x52, 0xd8, 0xf5, 0x7c, 0x37, 0x8a, 0xf0, 0xa4, 0xc3, 0x2e, 0x9d, 0x69, 0x4c,
-	0x18, 0x41, 0x77, 0xa4, 0xc4, 0x91, 0x7f, 0x9b, 0x2d, 0x8f, 0xd0, 0x90, 0xd0, 0xce, 0xd0, 0xa5,
-	0xb8, 0xf3, 0xf4, 0xd1, 0x10, 0x33, 0xf7, 0x51, 0xc7, 0x23, 0x41, 0x24, 0x0e, 0xd8, 0xbf, 0xad,
-	0xc3, 0x4e, 0x9f, 0x8e, 0x4f, 0x48, 0x18, 0x06, 0x2c, 0xc4, 0x11, 0x43, 0x0d, 0xd8, 0xf2, 0x62,
-	0xec, 0x32, 0x12, 0x37, 0xac, 0xb6, 0x75, 0x58, 0x19, 0xa8, 0x25, 0x42, 0xb0, 0x71, 0x1e, 0x93,
-	0xb0, 0xb1, 0xce, 0xc5, 0xfc, 0x1b, 0x7d, 0x0c, 0x3b, 0x89, 0x36, 0x46, 0xd4, 0x99, 0x52, 0xdb,
-	0x3a, 0xac, 0x1e, 0xef, 0x3b, 0xc2, 0xae, 0x93, 0xd8, 0x75, 0xa4, 0x5d, 0xe7, 0x84, 0x04, 0xd1,
-	0x20, 0x8b, 0x47, 0x2d, 0x00, 0x46, 0x4e, 0x83, 0x10, 0x4f, 0x88, 0xf7, 0xa4, 0xb1, 0xc1, 0x55,
-	0xa7, 0x24, 0xa8, 0x0d, 0xd5, 0x61, 0xf2, 0xe1, 0xe3, 0x60, 0xec, 0xb3, 0x46, 0xb9, 0x6d, 0x1d,
-	0x6e, 0x0c, 0xd2, 0x22, 0xa1, 0xe1, 0x53, 0x97, 0xfa, 0x5c, 0xc3, 0xa6, 0xd2, 0xa0, 0x24, 0xa8,
-	0x09, 0xdb, 0xbe, 0x4b, 0x7d, 0x8f, 0x8c, 0x70, 0x63, 0x8b, 0xef, 0xea, 0x35, 0xfa, 0x00, 0xb6,
-	0x13, 0x77, 0x7c, 0x36, 0xf1, 0x1a, 0xdb, 0x26, 0xcf, 0x35, 0x14, 0xdd, 0x83, 0x8a, 0x24, 0x38,
-	0x18, 0x35, 0x2a, 0x5c, 0xe7, 0x4c, 0x60, 0x3f, 0x84, 0xd7, 0x32, 0x94, 0x0e, 0x30, 0x9d, 0x92,
-	0x88, 0x62, 0x74, 0x17, 0xca, 0x41, 0x34, 0xc2, 0x97, 0x92, 0x58, 0xb1, 0xb0, 0xbf, 0x82, 0x57,
-	0xfb, 0x74, 0xfc, 0x38, 0x60, 0xfe, 0x28, 0x76, 0x9f, 0xe9, 0x8b, 0x2f, 0x8e, 0x43, 0x1d, 0xd6,
-	0x19, 0x91, 0x51, 0x58, 0x67, 0x64, 0xa6, 0xb6, 0x94, 0x56, 0xfb, 0x26, 0xbc, 0x51, 0xa0, 0x56,
-	0xf9, 0x62, 0x87, 0x19, 0xab, 0x9a, 0xac, 0x7f, 0x69, 0x15, 0xed, 0xc1, 0x26, 0xc5, 0x5e, 0x8c,
-	0x99, 0x0c, 0xa5, 0x5c, 0xe5, 0xbc, 0x51, 0xe6, 0xb4, 0x37, 0xd7, 0x16, 0xdc, 0x49, 0x38, 0x9b,
-	0x10, 0x8a, 0x4f, 0x04, 0x91, 0x37, 0x4c, 0xc4, 0x5d, 0x28, 0x31, 0xd2, 0x95, 0xce, 0x24, 0x9f,
-	0xa8, 0x03, 0xe5, 0x24, 0x60, 0x5d, 0xee, 0xc9, 0xd2, 0xc0, 0x0a, 0x9c, 0x50, 0xd1, 0xe3, 0x29,
-	0xc6, 0x55, 0xf4, 0x94, 0x8a, 0x1e, 0xcf, 0x2a, 0xb3, 0x8a, 0x5e, 0x36, 0x31, 0xb6, 0xf2, 0x89,
-	0xb1, 0x0f, 0xaf, 0xe7, 0x2e, 0xa9, 0x09, 0xf8, 0xcb, 0x82, 0x7a, 0x9f, 0x8e, 0x3f, 0x9f, 0xe2,
-	0xc8, 0x7c, 0xff, 0xbb, 0x50, 0x9e, 0xba, 0x31, 0xeb, 0x4a, 0x02, 0xc4, 0x42, 0x49, 0x7b, 0x2a,
-	0x20, 0x7c, 0x71, 0x73, 0x16, 0xf4, 0x9d, 0xcb, 0x2b, 0xde, 0xd9, 0x86, 0x5a, 0x78, 0x31, 0x61,
-	0x01, 0x0d, 0xc6, 0xdd, 0xd1, 0x28, 0x96, 0x15, 0x98, 0x91, 0x25, 0x35, 0x48, 0xf1, 0x77, 0x17,
-	0x38, 0xf2, 0x74, 0x0d, 0xaa, 0xb5, 0xed, 0xc0, 0x5e, 0xf6, 0xe6, 0x86, 0x7a, 0x79, 0x61, 0xc1,
-	0x56, 0x9f, 0x8e, 0x3f, 0xb9, 0x88, 0x46, 0x37, 0xcc, 0x91, 0x4c, 0x74, 0x4a, 0xb9, 0xe8, 0xa8,
-	0x5e, 0xa0, 0xfb, 0x90, 0xb9, 0x17, 0xcc, 0xb5, 0x97, 0x72, 0xae, 0xbd, 0x34, 0x61, 0x9b, 0xa9,
-	0xd6, 0x26, 0x68, 0xd1, 0xeb, 0x64, 0x4f, 0x51, 0xa4, 0x28, 0x51, 0x6b, 0xfb, 0x01, 0xaf, 0x86,
-	0xe4, 0x86, 0x06, 0x2e, 0xfe, 0xb0, 0x78, 0xfb, 0xee, 0x7a, 0x1e, 0x9e, 0xb2, 0xf3, 0xdb, 0x66,
-	0xe4, 0x21, 0x6c, 0x24, 0xd7, 0x34, 0xb3, 0xc1, 0x61, 0x2f, 0x85, 0x09, 0xd1, 0x4b, 0x67, 0xf7,
-	0x33, 0xf0, 0xf1, 0x67, 0x89, 0x33, 0xf7, 0x25, 0x8e, 0x46, 0x38, 0xf6, 0x78, 0x07, 0xbe, 0x55,
-	0x46, 0x3e, 0x82, 0x9a, 0x18, 0x5f, 0x94, 0x5b, 0x30, 0x33, 0x93, 0x81, 0xa3, 0x0f, 0x01, 0xc4,
-	0x9a, 0x0f, 0x1c, 0x63, 0x81, 0xa5, 0xc0, 0x49, 0x95, 0x29, 0x32, 0xf9, 0x61, 0x59, 0x65, 0x69,
-	0x59, 0x82, 0x51, 0xa4, 0x72, 0x8c, 0x20, 0x33, 0x23, 0xd3, 0x37, 0x88, 0xdd, 0x88, 0x9e, 0xe3,
-	0xd8, 0x3c, 0xf5, 0x32, 0xf0, 0xb4, 0x1b, 0x23, 0x4c, 0x99, 0x1c, 0x7e, 0x19, 0x19, 0x3a, 0x82,
-	0x5d, 0x65, 0x32, 0xc6, 0x1e, 0x0e, 0x9e, 0xe2, 0xb8, 0x01, 0x1c, 0x37, 0x27, 0x47, 0xf7, 0xa1,
-	0xae, 0x64, 0x92, 0xd2, 0x2a, 0x47, 0xe6, 0xa4, 0x99, 0x1c, 0xa9, 0xe5, 0x72, 0xe4, 0x6b, 0xde,
-	0x56, 0xd3, 0x31, 0xd7, 0x59, 0x72, 0x0f, 0x2a, 0x3c, 0x31, 0x38, 0x1d, 0x22, 0xfa, 0x33, 0x01,
-	0x3a, 0x80, 0x1d, 0xbe, 0xd0, 0x64, 0x88, 0x44, 0xc8, 0x0a, 0xed, 0x27, 0xb0, 0xaf, 0xd5, 0x3f,
-	0x93, 0x03, 0x8c, 0x99, 0xa7, 0xf4, 0x01, 0xec, 0x28, 0x15, 0x22, 0x51, 0xa5, 0xf2, 0x8c, 0x50,
-	0x4e, 0xd5, 0x92, 0x9a, 0xaa, 0xf6, 0x3b, 0xf0, 0xf6, 0x42, 0x63, 0x7a, 0x58, 0xfc, 0x68, 0x15,
-	0xb8, 0xe4, 0x9b, 0x47, 0xf8, 0x3f, 0x72, 0x69, 0xe1, 0x48, 0x2f, 0x72, 0xd5, 0xcf, 0x0f, 0xf6,
-	0x1f, 0xf8, 0x33, 0x63, 0x20, 0xc3, 0xad, 0x60, 0xff, 0x99, 0x8f, 0xe2, 0xd9, 0x91, 0x37, 0xaf,
-	0xbd, 0xfb, 0xb5, 0x04, 0xaf, 0xa4, 0xf6, 0x5f, 0x42, 0xc3, 0xe8, 0x42, 0x5d, 0x14, 0xb1, 0xae,
-	0x04, 0x63, 0xcb, 0xc8, 0x1d, 0xf8, 0x9f, 0x34, 0x8d, 0xf9, 0x46, 0x00, 0xc6, 0x46, 0x50, 0xcd,
-	0x35, 0x82, 0x6f, 0x78, 0x59, 0x64, 0xa3, 0x79, 0x9b, 0xad, 0xe0, 0xf8, 0xe7, 0x0a, 0x94, 0xfa,
-	0x74, 0x8c, 0x4e, 0x01, 0x52, 0xbf, 0x98, 0x5a, 0x4e, 0xee, 0x57, 0x97, 0x93, 0x79, 0xfe, 0x37,
-	0xef, 0x2f, 0xdf, 0xd7, 0x1e, 0x9e, 0xc3, 0xee, 0xdc, 0xaf, 0x80, 0x83, 0xa2, 0xb3, 0x79, 0x54,
-	0xf3, 0xdd, 0x55, 0x50, 0x45, 0x76, 0xf4, 0xbb, 0x7f, 0xa9, 0x1d, 0x85, 0x5a, 0x6e, 0x27, 0xff,
-	0xa8, 0x47, 0x67, 0x50, 0xcb, 0x3c, 0xe8, 0xdb, 0x85, 0x3c, 0xa4, 0x10, 0xcd, 0x43, 0x13, 0x42,
-	0xeb, 0x7e, 0x0c, 0xd5, 0xf4, 0x5b, 0xf9, 0xad, 0xa2, 0x83, 0x29, 0x40, 0xf3, 0x81, 0x01, 0xa0,
-	0x15, 0xf7, 0x60, 0x43, 0xbc, 0x2c, 0x8b, 0x0e, 0x24, 0x3b, 0xcd, 0xf6, 0xa2, 0x1d, 0xad, 0xe3,
-	0x14, 0x20, 0xf5, 0x22, 0x2b, 0x4c, 0x8f, 0xd9, 0x7e, 0x71, 0x7a, 0x14, 0xbc, 0x78, 0xce, 0xa0,
-	0x96, 0x79, 0xd7, 0x14, 0xfa, 0x91, 0x46, 0x14, 0xd3, 0x59, 0x38, 0x27, 0x2f, 0x61, 0x6f, 0xc1,
-	0x80, 0x3b, 0x5a, 0xac, 0x23, 0x8f, 0x6d, 0x1e, 0xaf, 0x8e, 0x5d, 0x6c, 0x59, 0xcf, 0xb1, 0x15,
-	0x2c, 0x2b, 0xec, 0x2a, 0x96, 0xf3, 0xa3, 0x29, 0x29, 0x83, 0xb9, 0xb9, 0x54, 0x58, 0x06, 0x79,
-	0x54, 0x71, 0x19, 0x2c, 0x1a, 0x32, 0xe8, 0x5b, 0xa8, 0xe7, 0x06, 0x8c, 0xbd, 0xec, 0xbc, 0x8c,
-	0xdd, 0x91, 0x19, 0xa3, 0x2c, 0xf4, 0x3e, 0xfb, 0xe5, 0xaa, 0x65, 0x3d, 0xbf, 0x6a, 0x59, 0x2f,
-	0xae, 0x5a, 0xd6, 0x4f, 0xd7, 0xad, 0xb5, 0xe7, 0xd7, 0xad, 0xb5, 0xdf, 0xaf, 0x5b, 0x6b, 0x67,
-	0xef, 0x8d, 0x03, 0xe6, 0x5f, 0x0c, 0x1d, 0x8f, 0x84, 0x9d, 0x2e, 0x65, 0xb1, 0xfb, 0x45, 0x4c,
-	0x18, 0xf1, 0xc8, 0xa4, 0xa3, 0xfe, 0x75, 0x74, 0xa9, 0xbf, 0xd8, 0xf7, 0x53, 0x4c, 0x87, 0x9b,
-	0xfc, 0xff, 0x42, 0xef, 0xff, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x7e, 0x0b, 0x2c, 0x4e, 0x5c, 0x12,
-	0x00, 0x00,
+	0x14, 0xaf, 0x9b, 0xa4, 0x6d, 0x5e, 0xd3, 0x6c, 0x30, 0x4b, 0x71, 0xcd, 0x12, 0x82, 0xa9, 0x76,
+	0xab, 0x0a, 0x1c, 0xb6, 0x9c, 0x38, 0x20, 0x94, 0x74, 0x59, 0xed, 0x22, 0x45, 0xac, 0xda, 0xa0,
+	0x95, 0x2a, 0x21, 0x70, 0x9d, 0x69, 0x62, 0x6d, 0xe2, 0x09, 0xf6, 0x74, 0xb7, 0x1c, 0x38, 0xf1,
+	0x05, 0x38, 0xf0, 0xa1, 0x38, 0x70, 0xd8, 0x23, 0x37, 0x50, 0xcb, 0x27, 0xe0, 0x80, 0x38, 0x22,
+	0xcf, 0xbf, 0x78, 0x26, 0x4e, 0x9c, 0x40, 0xcb, 0x65, 0x4f, 0xf1, 0x3c, 0xff, 0xe6, 0xbd, 0x37,
+	0xbf, 0xf7, 0x6f, 0x1c, 0xa8, 0xf9, 0x03, 0x2f, 0x0c, 0xd1, 0xb0, 0x49, 0x2e, 0xdc, 0x71, 0x84,
+	0x09, 0x36, 0x6f, 0x71, 0x89, 0xcb, 0x7f, 0xed, 0xba, 0x8f, 0xe3, 0x11, 0x8e, 0x9b, 0xa7, 0x5e,
+	0x8c, 0x9a, 0xcf, 0xef, 0x9f, 0x22, 0xe2, 0xdd, 0x6f, 0xfa, 0x38, 0x08, 0xd9, 0x06, 0xe7, 0xb7,
+	0x55, 0xd8, 0xea, 0xc4, 0xfd, 0x43, 0x3c, 0x1a, 0x05, 0x64, 0x84, 0x42, 0x62, 0x5a, 0xb0, 0x7e,
+	0x18, 0x21, 0x8f, 0xe0, 0xc8, 0x32, 0x1a, 0xc6, 0x5e, 0xf9, 0x48, 0x2c, 0x4d, 0x13, 0x8a, 0x0f,
+	0x23, 0x3c, 0xb2, 0x56, 0xa9, 0x98, 0x3e, 0x9b, 0x9f, 0xc2, 0xd6, 0x21, 0x0e, 0xc2, 0x2e, 0x16,
+	0x7b, 0x0a, 0x0d, 0x63, 0x6f, 0xf3, 0x60, 0xc7, 0x65, 0x76, 0xdd, 0xc4, 0xae, 0xcb, 0xed, 0xba,
+	0x09, 0xf2, 0x48, 0xc5, 0x9b, 0x77, 0xa1, 0xda, 0xc5, 0xdd, 0x60, 0x84, 0x86, 0xd8, 0x7f, 0xd6,
+	0xea, 0xf5, 0x22, 0xab, 0x48, 0xd5, 0x6b, 0x52, 0xd3, 0x86, 0x0d, 0xb1, 0xb6, 0x4a, 0x0d, 0x63,
+	0xaf, 0x78, 0x24, 0xd7, 0x4c, 0xc7, 0x23, 0x2f, 0x1e, 0x48, 0x1d, 0x6b, 0x42, 0x47, 0x5a, 0x9a,
+	0xe8, 0x48, 0xd6, 0x3e, 0xee, 0x21, 0x6b, 0x9d, 0x22, 0xe4, 0xda, 0xfc, 0x18, 0x80, 0x39, 0xf6,
+	0x88, 0x0c, 0x7d, 0x6b, 0x23, 0xef, 0x14, 0x29, 0xb0, 0x79, 0x07, 0xca, 0x87, 0x8c, 0xee, 0xc7,
+	0x0f, 0xac, 0x32, 0xd5, 0x3b, 0x11, 0x38, 0x1f, 0xc0, 0x1b, 0x0a, 0xc1, 0x47, 0x28, 0x1e, 0xe3,
+	0x30, 0x46, 0xe6, 0x6d, 0x28, 0x3d, 0x0e, 0x7b, 0xe8, 0x82, 0xd3, 0xcc, 0x16, 0xce, 0x97, 0xf0,
+	0x7a, 0x27, 0xee, 0x3f, 0x0d, 0xc8, 0xa0, 0x17, 0x79, 0x2f, 0xe4, 0x11, 0x67, 0x47, 0xa5, 0x0a,
+	0xab, 0x5d, 0xcc, 0x63, 0xb2, 0xda, 0xc5, 0x13, 0xb5, 0x85, 0xb4, 0xda, 0xb7, 0xe1, 0xad, 0x0c,
+	0xb5, 0xc2, 0x17, 0x67, 0xa4, 0x58, 0x15, 0xa4, 0xfd, 0x57, 0xab, 0xe6, 0x36, 0xac, 0x1d, 0x23,
+	0x3f, 0x42, 0x84, 0x07, 0x95, 0xaf, 0x34, 0x6f, 0x84, 0x39, 0xe9, 0xcd, 0x95, 0x01, 0xb7, 0x12,
+	0xce, 0x86, 0x38, 0x46, 0x9c, 0xc8, 0x25, 0xd3, 0xb2, 0x06, 0x85, 0x2e, 0x6e, 0x71, 0x67, 0x92,
+	0x47, 0xb3, 0x09, 0xa5, 0x24, 0x64, 0x2d, 0xea, 0xc9, 0xdc, 0xd0, 0x32, 0x1c, 0x53, 0xd1, 0xa6,
+	0xb9, 0x46, 0x55, 0xb4, 0x85, 0x8a, 0x36, 0xcd, 0xae, 0x7c, 0x15, 0x6d, 0x35, 0x31, 0xd6, 0xf5,
+	0xc4, 0xd8, 0x81, 0x37, 0xb5, 0x43, 0x4a, 0x02, 0xfe, 0x36, 0xa0, 0xda, 0x89, 0xfb, 0x5f, 0x8c,
+	0x51, 0x98, 0x7f, 0xfe, 0xdb, 0x50, 0x7a, 0xe2, 0x45, 0xa4, 0xc5, 0x09, 0x60, 0x0b, 0x21, 0x6d,
+	0x8b, 0x80, 0xd0, 0xc5, 0xf2, 0x2c, 0xc8, 0x33, 0x97, 0x16, 0x3c, 0xb3, 0x03, 0x95, 0xce, 0xf9,
+	0x90, 0x04, 0x71, 0xd0, 0x4f, 0x55, 0xa2, 0x22, 0x4b, 0xea, 0xf0, 0x18, 0x7d, 0x7b, 0x8e, 0x42,
+	0x5f, 0xd6, 0xa1, 0x58, 0x3b, 0x2e, 0x6c, 0xab, 0x27, 0xcf, 0xa9, 0x97, 0x3f, 0x0c, 0x58, 0xef,
+	0xc4, 0xfd, 0x87, 0xe7, 0x61, 0x6f, 0xc9, 0x1c, 0x51, 0xa2, 0x53, 0xd0, 0xa2, 0xa3, 0xf5, 0x83,
+	0xe2, 0x32, 0xfd, 0x20, 0xdd, 0x66, 0x4a, 0x5a, 0x9b, 0x49, 0xb7, 0x31, 0x46, 0xcd, 0xa4, 0x8d,
+	0xd9, 0xb0, 0x21, 0x68, 0x12, 0xb4, 0x88, 0xb5, 0x73, 0x8f, 0x56, 0x44, 0x72, 0xca, 0x1c, 0x3e,
+	0xfe, 0x32, 0x68, 0x43, 0x6f, 0xf9, 0x3e, 0x1a, 0x93, 0xb3, 0xeb, 0x66, 0xe5, 0x33, 0xa8, 0xb1,
+	0x83, 0x32, 0xfd, 0xc7, 0x41, 0x0f, 0xe5, 0x73, 0x33, 0xb5, 0xe5, 0x46, 0x18, 0x62, 0x7d, 0x76,
+	0x72, 0xee, 0x1c, 0x9e, 0xfe, 0x2c, 0x50, 0x46, 0x8f, 0x51, 0xd8, 0x43, 0x91, 0x4f, 0xbb, 0xf3,
+	0xb5, 0x32, 0xf5, 0x09, 0x54, 0xd8, 0xb1, 0x99, 0x85, 0x7c, 0x96, 0x14, 0xb8, 0x96, 0x7e, 0xa5,
+	0x65, 0xd2, 0xcf, 0x81, 0x8a, 0x20, 0x93, 0x6e, 0xe6, 0x15, 0x98, 0x96, 0x25, 0x18, 0x41, 0x2a,
+	0xc5, 0x30, 0x32, 0x15, 0x99, 0x3c, 0x41, 0xe4, 0x85, 0xf1, 0x19, 0x8a, 0xf2, 0x67, 0xa2, 0x02,
+	0x4f, 0xbb, 0xf1, 0x00, 0xc5, 0x84, 0x0f, 0x46, 0x45, 0x66, 0xee, 0x43, 0x6d, 0x32, 0x8a, 0x7c,
+	0x14, 0x3c, 0x47, 0x91, 0x05, 0x14, 0x37, 0x25, 0xa7, 0x43, 0x9e, 0xcb, 0x38, 0xa5, 0x9b, 0x7c,
+	0xc8, 0x2b, 0x52, 0x25, 0x47, 0x2a, 0x5a, 0x8e, 0x7c, 0x45, 0x5b, 0x6e, 0x3a, 0xe6, 0x32, 0x4b,
+	0xee, 0x40, 0x99, 0x26, 0x06, 0xa5, 0x83, 0x45, 0x7f, 0x22, 0x30, 0x77, 0x61, 0x8b, 0x2e, 0x24,
+	0x19, 0x2c, 0x11, 0x54, 0xa1, 0xf3, 0x0c, 0x76, 0xa4, 0xfa, 0x17, 0x7c, 0xb8, 0x91, 0xfc, 0x09,
+	0xbe, 0x0b, 0x5b, 0x42, 0x05, 0x4b, 0x54, 0xae, 0x5c, 0x11, 0xf2, 0x89, 0x5b, 0x10, 0x13, 0xd7,
+	0x79, 0x0f, 0xde, 0x9d, 0x69, 0x4c, 0x0e, 0x92, 0x1f, 0x8c, 0x0c, 0x97, 0x06, 0xf9, 0xe3, 0xfd,
+	0x5f, 0xb9, 0x34, 0x73, 0xdc, 0x67, 0xb9, 0x3a, 0xd0, 0x87, 0xfe, 0xf7, 0xf4, 0x0a, 0x22, 0xc2,
+	0x2d, 0x60, 0xff, 0x9b, 0x8f, 0xec, 0x4a, 0xa2, 0x9b, 0x97, 0xde, 0xfd, 0x52, 0x80, 0xd7, 0x52,
+	0xef, 0x6f, 0xa0, 0x61, 0xb4, 0xa0, 0xca, 0x8a, 0x58, 0x56, 0x42, 0x6e, 0xcb, 0xd0, 0x36, 0xbc,
+	0x22, 0x4d, 0x63, 0xba, 0x11, 0x40, 0x6e, 0x23, 0xd8, 0xd4, 0x1a, 0xc1, 0xd7, 0xb4, 0x2c, 0xd4,
+	0x68, 0x5e, 0x67, 0x2b, 0x38, 0xf8, 0xa9, 0x0c, 0x85, 0x4e, 0xdc, 0x37, 0xbb, 0x49, 0x48, 0xe4,
+	0xb7, 0x55, 0xdd, 0xd5, 0xbe, 0xcf, 0x5c, 0xe5, 0xd3, 0xc0, 0xbe, 0x3b, 0xff, 0xbd, 0xf4, 0xf0,
+	0x0c, 0x6a, 0x53, 0x5f, 0x08, 0xbb, 0x59, 0x7b, 0x75, 0x94, 0xfd, 0xfe, 0x22, 0xa8, 0x2c, 0x3b,
+	0xf2, 0x9b, 0x60, 0xae, 0x1d, 0x81, 0x9a, 0x6f, 0x47, 0xbf, 0xf0, 0x9b, 0x27, 0x50, 0x51, 0x2e,
+	0xfb, 0x8d, 0x4c, 0x1e, 0x52, 0x08, 0x7b, 0x2f, 0x0f, 0x21, 0x75, 0x3f, 0x85, 0xcd, 0xf4, 0x3d,
+	0xfa, 0x9d, 0xac, 0x8d, 0x29, 0x80, 0x7d, 0x2f, 0x07, 0x20, 0x15, 0xb7, 0xa1, 0xc8, 0x6e, 0x9d,
+	0x59, 0x1b, 0x92, 0x37, 0x76, 0x63, 0xd6, 0x1b, 0xa9, 0xa3, 0x0b, 0x90, 0xba, 0xa9, 0x65, 0xa6,
+	0xc7, 0xe4, 0x7d, 0x76, 0x7a, 0x64, 0xdc, 0x78, 0x4e, 0xa0, 0xa2, 0xdc, 0x6b, 0x32, 0xfd, 0x48,
+	0x23, 0xb2, 0xe9, 0xcc, 0x9c, 0x93, 0x17, 0xb0, 0x3d, 0x63, 0xc0, 0xed, 0xcf, 0xd6, 0xa1, 0x63,
+	0xed, 0x83, 0xc5, 0xb1, 0xb3, 0x2d, 0xcb, 0x39, 0xb6, 0x80, 0x65, 0x81, 0x5d, 0xc4, 0xb2, 0x3e,
+	0x9a, 0x92, 0x32, 0x98, 0x9a, 0x4b, 0x99, 0x65, 0xa0, 0xa3, 0xb2, 0xcb, 0x60, 0xd6, 0x90, 0x31,
+	0xbf, 0x81, 0xaa, 0x36, 0x60, 0x9c, 0x79, 0xfb, 0x79, 0xec, 0xf6, 0xf3, 0x31, 0xc2, 0x42, 0xfb,
+	0xf3, 0x9f, 0x2f, 0xeb, 0xc6, 0xcb, 0xcb, 0xba, 0xf1, 0xfb, 0x65, 0xdd, 0xf8, 0xf1, 0xaa, 0xbe,
+	0xf2, 0xf2, 0xaa, 0xbe, 0xf2, 0xeb, 0x55, 0x7d, 0xe5, 0xe4, 0xc3, 0x7e, 0x40, 0x06, 0xe7, 0xa7,
+	0xae, 0x8f, 0x47, 0xcd, 0x56, 0x4c, 0x22, 0xef, 0x49, 0x84, 0x09, 0xf6, 0xf1, 0xb0, 0x29, 0xfe,
+	0x64, 0xba, 0x90, 0x4f, 0xe4, 0xbb, 0x31, 0x8a, 0x4f, 0xd7, 0xe8, 0x3f, 0x48, 0x1f, 0xfd, 0x13,
+	0x00, 0x00, 0xff, 0xff, 0xe9, 0xd7, 0xc2, 0xda, 0x86, 0x12, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2179,16 +2178,16 @@ func (m *MsgCommitment) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Channelid) > 0 {
-		i -= len(m.Channelid)
-		copy(dAtA[i:], m.Channelid)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Channelid)))
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
 		i--
 		dAtA[i] = 0x4a
 	}
-	if m.Coinhtlc != nil {
+	if m.CoinToHtlc != nil {
 		{
-			size, err := m.Coinhtlc.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToHtlc.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2205,28 +2204,28 @@ func (m *MsgCommitment) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x3a
 	}
-	if len(m.ToHashlock) > 0 {
-		i -= len(m.ToHashlock)
-		copy(dAtA[i:], m.ToHashlock)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.ToHashlock)))
+	if len(m.ToHashlockAddr) > 0 {
+		i -= len(m.ToHashlockAddr)
+		copy(dAtA[i:], m.ToHashlockAddr)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ToHashlockAddr)))
 		i--
 		dAtA[i] = 0x32
 	}
-	if m.Blockheight != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Blockheight))
+	if m.Timelock != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Timelock))
 		i--
 		dAtA[i] = 0x28
 	}
-	if len(m.ToTimelock) > 0 {
-		i -= len(m.ToTimelock)
-		copy(dAtA[i:], m.ToTimelock)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.ToTimelock)))
+	if len(m.ToTimelockAddr) > 0 {
+		i -= len(m.ToTimelockAddr)
+		copy(dAtA[i:], m.ToTimelockAddr)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ToTimelockAddr)))
 		i--
 		dAtA[i] = 0x22
 	}
-	if m.Cointocreator != nil {
+	if m.CoinToCreator != nil {
 		{
-			size, err := m.Cointocreator.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToCreator.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2444,10 +2443,10 @@ func (m *MsgCloseChannel) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Channelid) > 0 {
-		i -= len(m.Channelid)
-		copy(dAtA[i:], m.Channelid)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Channelid)))
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
 		i--
 		dAtA[i] = 0x3a
 	}
@@ -2682,9 +2681,9 @@ func (m *MsgFund) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x2a
 	}
-	if m.Coinlock != nil {
+	if m.CoinToHtlc != nil {
 		{
-			size, err := m.Coinlock.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToHtlc.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2694,10 +2693,10 @@ func (m *MsgFund) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x22
 	}
-	if len(m.Channelid) > 0 {
-		i -= len(m.Channelid)
-		copy(dAtA[i:], m.Channelid)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Channelid)))
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -2789,9 +2788,9 @@ func (m *MsgAcceptfund) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x2a
 	}
-	if m.Coin != nil {
+	if m.CoinToAcceptSide != nil {
 		{
-			size, err := m.Coin.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToAcceptSide.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2801,10 +2800,10 @@ func (m *MsgAcceptfund) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x22
 	}
-	if len(m.Channelid) > 0 {
-		i -= len(m.Channelid)
-		copy(dAtA[i:], m.Channelid)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Channelid)))
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -2882,30 +2881,30 @@ func (m *MsgSendercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x62
 	}
-	if len(m.Timelocksender) > 0 {
-		i -= len(m.Timelocksender)
-		copy(dAtA[i:], m.Timelocksender)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Timelocksender)))
+	if len(m.TimelockSender) > 0 {
+		i -= len(m.TimelockSender)
+		copy(dAtA[i:], m.TimelockSender)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TimelockSender)))
 		i--
 		dAtA[i] = 0x5a
 	}
-	if len(m.Timelockreceiver) > 0 {
-		i -= len(m.Timelockreceiver)
-		copy(dAtA[i:], m.Timelockreceiver)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Timelockreceiver)))
+	if len(m.TimelockReceiver) > 0 {
+		i -= len(m.TimelockReceiver)
+		copy(dAtA[i:], m.TimelockReceiver)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TimelockReceiver)))
 		i--
 		dAtA[i] = 0x52
 	}
-	if len(m.Hashcodedest) > 0 {
-		i -= len(m.Hashcodedest)
-		copy(dAtA[i:], m.Hashcodedest)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Hashcodedest)))
+	if len(m.HashcodeDest) > 0 {
+		i -= len(m.HashcodeDest)
+		copy(dAtA[i:], m.HashcodeDest)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.HashcodeDest)))
 		i--
 		dAtA[i] = 0x4a
 	}
-	if m.Cointransfer != nil {
+	if m.CoinTransfer != nil {
 		{
-			size, err := m.Cointransfer.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinTransfer.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2915,23 +2914,23 @@ func (m *MsgSendercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x42
 	}
-	if len(m.Timelockhtlc) > 0 {
-		i -= len(m.Timelockhtlc)
-		copy(dAtA[i:], m.Timelockhtlc)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Timelockhtlc)))
+	if len(m.TimelockHtlc) > 0 {
+		i -= len(m.TimelockHtlc)
+		copy(dAtA[i:], m.TimelockHtlc)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TimelockHtlc)))
 		i--
 		dAtA[i] = 0x3a
 	}
-	if len(m.Hashcodehtlc) > 0 {
-		i -= len(m.Hashcodehtlc)
-		copy(dAtA[i:], m.Hashcodehtlc)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Hashcodehtlc)))
+	if len(m.HashcodeHtlc) > 0 {
+		i -= len(m.HashcodeHtlc)
+		copy(dAtA[i:], m.HashcodeHtlc)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.HashcodeHtlc)))
 		i--
 		dAtA[i] = 0x32
 	}
-	if m.Cointohtlc != nil {
+	if m.CoinToHtlc != nil {
 		{
-			size, err := m.Cointohtlc.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToHtlc.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2941,9 +2940,9 @@ func (m *MsgSendercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x2a
 	}
-	if m.Cointosender != nil {
+	if m.CoinToSender != nil {
 		{
-			size, err := m.Cointosender.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToSender.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -2953,10 +2952,10 @@ func (m *MsgSendercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x22
 	}
-	if len(m.Channelid) > 0 {
-		i -= len(m.Channelid)
-		copy(dAtA[i:], m.Channelid)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Channelid)))
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -2997,17 +2996,17 @@ func (m *MsgSendercommitResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Indextransfer) > 0 {
-		i -= len(m.Indextransfer)
-		copy(dAtA[i:], m.Indextransfer)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Indextransfer)))
+	if len(m.IndexTransfer) > 0 {
+		i -= len(m.IndexTransfer)
+		copy(dAtA[i:], m.IndexTransfer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.IndexTransfer)))
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Indexhtlc) > 0 {
-		i -= len(m.Indexhtlc)
-		copy(dAtA[i:], m.Indexhtlc)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Indexhtlc)))
+	if len(m.IndexHtlc) > 0 {
+		i -= len(m.IndexHtlc)
+		copy(dAtA[i:], m.IndexHtlc)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.IndexHtlc)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -3041,10 +3040,10 @@ func (m *MsgSenderwithdrawtimelock) MarshalToSizedBuffer(dAtA []byte) (int, erro
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.Transferindex) > 0 {
-		i -= len(m.Transferindex)
-		copy(dAtA[i:], m.Transferindex)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Transferindex)))
+	if len(m.TransferIndex) > 0 {
+		i -= len(m.TransferIndex)
+		copy(dAtA[i:], m.TransferIndex)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TransferIndex)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -3115,10 +3114,10 @@ func (m *MsgSenderwithdrawhashlock) MarshalToSizedBuffer(dAtA []byte) (int, erro
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.Transferindex) > 0 {
-		i -= len(m.Transferindex)
-		copy(dAtA[i:], m.Transferindex)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Transferindex)))
+	if len(m.TransferIndex) > 0 {
+		i -= len(m.TransferIndex)
+		copy(dAtA[i:], m.TransferIndex)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TransferIndex)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -3189,10 +3188,10 @@ func (m *MsgReceiverwithdraw) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if len(m.Transferindex) > 0 {
-		i -= len(m.Transferindex)
-		copy(dAtA[i:], m.Transferindex)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Transferindex)))
+	if len(m.TransferIndex) > 0 {
+		i -= len(m.TransferIndex)
+		copy(dAtA[i:], m.TransferIndex)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TransferIndex)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -3256,23 +3255,23 @@ func (m *MsgReceivercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x5a
 	}
-	if len(m.Timelocksender) > 0 {
-		i -= len(m.Timelocksender)
-		copy(dAtA[i:], m.Timelocksender)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Timelocksender)))
+	if len(m.TimelockSender) > 0 {
+		i -= len(m.TimelockSender)
+		copy(dAtA[i:], m.TimelockSender)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TimelockSender)))
 		i--
 		dAtA[i] = 0x52
 	}
-	if len(m.Hashcodedest) > 0 {
-		i -= len(m.Hashcodedest)
-		copy(dAtA[i:], m.Hashcodedest)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Hashcodedest)))
+	if len(m.HashcodeDest) > 0 {
+		i -= len(m.HashcodeDest)
+		copy(dAtA[i:], m.HashcodeDest)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.HashcodeDest)))
 		i--
 		dAtA[i] = 0x4a
 	}
-	if m.Cointransfer != nil {
+	if m.CoinTransfer != nil {
 		{
-			size, err := m.Cointransfer.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinTransfer.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -3282,23 +3281,23 @@ func (m *MsgReceivercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x42
 	}
-	if len(m.Timelockhtlc) > 0 {
-		i -= len(m.Timelockhtlc)
-		copy(dAtA[i:], m.Timelockhtlc)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Timelockhtlc)))
+	if len(m.TimelockHtlc) > 0 {
+		i -= len(m.TimelockHtlc)
+		copy(dAtA[i:], m.TimelockHtlc)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TimelockHtlc)))
 		i--
 		dAtA[i] = 0x3a
 	}
-	if len(m.Hashcodehtlc) > 0 {
-		i -= len(m.Hashcodehtlc)
-		copy(dAtA[i:], m.Hashcodehtlc)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Hashcodehtlc)))
+	if len(m.HashcodeHtlc) > 0 {
+		i -= len(m.HashcodeHtlc)
+		copy(dAtA[i:], m.HashcodeHtlc)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.HashcodeHtlc)))
 		i--
 		dAtA[i] = 0x32
 	}
-	if m.Cointohtlc != nil {
+	if m.CoinToHtlc != nil {
 		{
-			size, err := m.Cointohtlc.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToHtlc.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -3308,9 +3307,9 @@ func (m *MsgReceivercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x2a
 	}
-	if m.Cointoreceiver != nil {
+	if m.CoinToReceiver != nil {
 		{
-			size, err := m.Cointoreceiver.MarshalToSizedBuffer(dAtA[:i])
+			size, err := m.CoinToReceiver.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -3320,10 +3319,10 @@ func (m *MsgReceivercommit) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x22
 	}
-	if len(m.Channelid) > 0 {
-		i -= len(m.Channelid)
-		copy(dAtA[i:], m.Channelid)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Channelid)))
+	if len(m.ChannelID) > 0 {
+		i -= len(m.ChannelID)
+		copy(dAtA[i:], m.ChannelID)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ChannelID)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -3364,17 +3363,17 @@ func (m *MsgReceivercommitResponse) MarshalToSizedBuffer(dAtA []byte) (int, erro
 	_ = i
 	var l int
 	_ = l
-	if len(m.Indextransfer) > 0 {
-		i -= len(m.Indextransfer)
-		copy(dAtA[i:], m.Indextransfer)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Indextransfer)))
+	if len(m.IndexTransfer) > 0 {
+		i -= len(m.IndexTransfer)
+		copy(dAtA[i:], m.IndexTransfer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.IndexTransfer)))
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Indexhtlc) > 0 {
-		i -= len(m.Indexhtlc)
-		copy(dAtA[i:], m.Indexhtlc)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Indexhtlc)))
+	if len(m.IndexHtlc) > 0 {
+		i -= len(m.IndexHtlc)
+		copy(dAtA[i:], m.IndexHtlc)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.IndexHtlc)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -3406,18 +3405,18 @@ func (m *MsgCommitment) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointocreator != nil {
-		l = m.Cointocreator.Size()
+	if m.CoinToCreator != nil {
+		l = m.CoinToCreator.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.ToTimelock)
+	l = len(m.ToTimelockAddr)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Blockheight != 0 {
-		n += 1 + sovTx(uint64(m.Blockheight))
+	if m.Timelock != 0 {
+		n += 1 + sovTx(uint64(m.Timelock))
 	}
-	l = len(m.ToHashlock)
+	l = len(m.ToHashlockAddr)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3425,11 +3424,11 @@ func (m *MsgCommitment) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Coinhtlc != nil {
-		l = m.Coinhtlc.Size()
+	if m.CoinToHtlc != nil {
+		l = m.CoinToHtlc.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Channelid)
+	l = len(m.ChannelID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3543,7 +3542,7 @@ func (m *MsgCloseChannel) Size() (n int) {
 		l = m.CoinB.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Channelid)
+	l = len(m.ChannelID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3623,12 +3622,12 @@ func (m *MsgFund) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Channelid)
+	l = len(m.ChannelID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Coinlock != nil {
-		l = m.Coinlock.Size()
+	if m.CoinToHtlc != nil {
+		l = m.CoinToHtlc.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
 	l = len(m.Hashcode)
@@ -3673,12 +3672,12 @@ func (m *MsgAcceptfund) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Channelid)
+	l = len(m.ChannelID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Coin != nil {
-		l = m.Coin.Size()
+	if m.CoinToAcceptSide != nil {
+		l = m.CoinToAcceptSide.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
 	l = len(m.Hashcode)
@@ -3723,39 +3722,39 @@ func (m *MsgSendercommit) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Channelid)
+	l = len(m.ChannelID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointosender != nil {
-		l = m.Cointosender.Size()
+	if m.CoinToSender != nil {
+		l = m.CoinToSender.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointohtlc != nil {
-		l = m.Cointohtlc.Size()
+	if m.CoinToHtlc != nil {
+		l = m.CoinToHtlc.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Hashcodehtlc)
+	l = len(m.HashcodeHtlc)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Timelockhtlc)
+	l = len(m.TimelockHtlc)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointransfer != nil {
-		l = m.Cointransfer.Size()
+	if m.CoinTransfer != nil {
+		l = m.CoinTransfer.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Hashcodedest)
+	l = len(m.HashcodeDest)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Timelockreceiver)
+	l = len(m.TimelockReceiver)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Timelocksender)
+	l = len(m.TimelockSender)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3772,11 +3771,11 @@ func (m *MsgSendercommitResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Indexhtlc)
+	l = len(m.IndexHtlc)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Indextransfer)
+	l = len(m.IndexTransfer)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3793,7 +3792,7 @@ func (m *MsgSenderwithdrawtimelock) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Transferindex)
+	l = len(m.TransferIndex)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3823,7 +3822,7 @@ func (m *MsgSenderwithdrawhashlock) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Transferindex)
+	l = len(m.TransferIndex)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3857,7 +3856,7 @@ func (m *MsgReceiverwithdraw) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Transferindex)
+	l = len(m.TransferIndex)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3895,35 +3894,35 @@ func (m *MsgReceivercommit) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Channelid)
+	l = len(m.ChannelID)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointoreceiver != nil {
-		l = m.Cointoreceiver.Size()
+	if m.CoinToReceiver != nil {
+		l = m.CoinToReceiver.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointohtlc != nil {
-		l = m.Cointohtlc.Size()
+	if m.CoinToHtlc != nil {
+		l = m.CoinToHtlc.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Hashcodehtlc)
+	l = len(m.HashcodeHtlc)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Timelockhtlc)
+	l = len(m.TimelockHtlc)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Cointransfer != nil {
-		l = m.Cointransfer.Size()
+	if m.CoinTransfer != nil {
+		l = m.CoinTransfer.Size()
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Hashcodedest)
+	l = len(m.HashcodeDest)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Timelocksender)
+	l = len(m.TimelockSender)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -3940,11 +3939,11 @@ func (m *MsgReceivercommitResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.Indexhtlc)
+	l = len(m.IndexHtlc)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Indextransfer)
+	l = len(m.IndexTransfer)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -4052,7 +4051,7 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointocreator", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToCreator", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -4079,16 +4078,16 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointocreator == nil {
-				m.Cointocreator = &types.Coin{}
+			if m.CoinToCreator == nil {
+				m.CoinToCreator = &types.Coin{}
 			}
-			if err := m.Cointocreator.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToCreator.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ToTimelock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ToTimelockAddr", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4116,13 +4115,13 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ToTimelock = string(dAtA[iNdEx:postIndex])
+			m.ToTimelockAddr = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Blockheight", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Timelock", wireType)
 			}
-			m.Blockheight = 0
+			m.Timelock = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -4132,14 +4131,14 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Blockheight |= uint64(b&0x7F) << shift
+				m.Timelock |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ToHashlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ToHashlockAddr", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4167,7 +4166,7 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ToHashlock = string(dAtA[iNdEx:postIndex])
+			m.ToHashlockAddr = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
@@ -4203,7 +4202,7 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 8:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Coinhtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToHtlc", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -4230,16 +4229,16 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Coinhtlc == nil {
-				m.Coinhtlc = &types.Coin{}
+			if m.CoinToHtlc == nil {
+				m.CoinToHtlc = &types.Coin{}
 			}
-			if err := m.Coinhtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToHtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 9:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4267,7 +4266,7 @@ func (m *MsgCommitment) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Channelid = string(dAtA[iNdEx:postIndex])
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -5027,7 +5026,7 @@ func (m *MsgCloseChannel) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -5055,7 +5054,7 @@ func (m *MsgCloseChannel) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Channelid = string(dAtA[iNdEx:postIndex])
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -5587,7 +5586,7 @@ func (m *MsgFund) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -5615,11 +5614,11 @@ func (m *MsgFund) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Channelid = string(dAtA[iNdEx:postIndex])
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Coinlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToHtlc", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -5646,10 +5645,10 @@ func (m *MsgFund) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Coinlock == nil {
-				m.Coinlock = &types.Coin{}
+			if m.CoinToHtlc == nil {
+				m.CoinToHtlc = &types.Coin{}
 			}
-			if err := m.Coinlock.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToHtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -5947,7 +5946,7 @@ func (m *MsgAcceptfund) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -5975,11 +5974,11 @@ func (m *MsgAcceptfund) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Channelid = string(dAtA[iNdEx:postIndex])
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Coin", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToAcceptSide", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6006,10 +6005,10 @@ func (m *MsgAcceptfund) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Coin == nil {
-				m.Coin = &types.Coin{}
+			if m.CoinToAcceptSide == nil {
+				m.CoinToAcceptSide = &types.Coin{}
 			}
-			if err := m.Coin.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToAcceptSide.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -6307,7 +6306,7 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6335,11 +6334,11 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Channelid = string(dAtA[iNdEx:postIndex])
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointosender", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToSender", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6366,16 +6365,16 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointosender == nil {
-				m.Cointosender = &types.Coin{}
+			if m.CoinToSender == nil {
+				m.CoinToSender = &types.Coin{}
 			}
-			if err := m.Cointosender.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToSender.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointohtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToHtlc", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6402,16 +6401,16 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointohtlc == nil {
-				m.Cointohtlc = &types.Coin{}
+			if m.CoinToHtlc == nil {
+				m.CoinToHtlc = &types.Coin{}
 			}
-			if err := m.Cointohtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToHtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hashcodehtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field HashcodeHtlc", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6439,11 +6438,11 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hashcodehtlc = string(dAtA[iNdEx:postIndex])
+			m.HashcodeHtlc = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Timelockhtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TimelockHtlc", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6471,11 +6470,11 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Timelockhtlc = string(dAtA[iNdEx:postIndex])
+			m.TimelockHtlc = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 8:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointransfer", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinTransfer", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6502,16 +6501,16 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointransfer == nil {
-				m.Cointransfer = &types.Coin{}
+			if m.CoinTransfer == nil {
+				m.CoinTransfer = &types.Coin{}
 			}
-			if err := m.Cointransfer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinTransfer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 9:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hashcodedest", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field HashcodeDest", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6539,11 +6538,11 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hashcodedest = string(dAtA[iNdEx:postIndex])
+			m.HashcodeDest = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 10:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Timelockreceiver", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TimelockReceiver", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6571,11 +6570,11 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Timelockreceiver = string(dAtA[iNdEx:postIndex])
+			m.TimelockReceiver = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 11:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Timelocksender", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TimelockSender", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6603,7 +6602,7 @@ func (m *MsgSendercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Timelocksender = string(dAtA[iNdEx:postIndex])
+			m.TimelockSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 12:
 			if wireType != 2 {
@@ -6689,7 +6688,7 @@ func (m *MsgSendercommitResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Indexhtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexHtlc", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6717,11 +6716,11 @@ func (m *MsgSendercommitResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Indexhtlc = string(dAtA[iNdEx:postIndex])
+			m.IndexHtlc = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Indextransfer", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexTransfer", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6749,7 +6748,7 @@ func (m *MsgSendercommitResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Indextransfer = string(dAtA[iNdEx:postIndex])
+			m.IndexTransfer = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -6835,7 +6834,7 @@ func (m *MsgSenderwithdrawtimelock) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Transferindex", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TransferIndex", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -6863,7 +6862,7 @@ func (m *MsgSenderwithdrawtimelock) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Transferindex = string(dAtA[iNdEx:postIndex])
+			m.TransferIndex = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -7031,7 +7030,7 @@ func (m *MsgSenderwithdrawhashlock) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Transferindex", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TransferIndex", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7059,7 +7058,7 @@ func (m *MsgSenderwithdrawhashlock) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Transferindex = string(dAtA[iNdEx:postIndex])
+			m.TransferIndex = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -7259,7 +7258,7 @@ func (m *MsgReceiverwithdraw) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Transferindex", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TransferIndex", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7287,7 +7286,7 @@ func (m *MsgReceiverwithdraw) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Transferindex = string(dAtA[iNdEx:postIndex])
+			m.TransferIndex = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -7519,7 +7518,7 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Channelid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7547,11 +7546,11 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Channelid = string(dAtA[iNdEx:postIndex])
+			m.ChannelID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointoreceiver", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToReceiver", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -7578,16 +7577,16 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointoreceiver == nil {
-				m.Cointoreceiver = &types.Coin{}
+			if m.CoinToReceiver == nil {
+				m.CoinToReceiver = &types.Coin{}
 			}
-			if err := m.Cointoreceiver.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToReceiver.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointohtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinToHtlc", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -7614,16 +7613,16 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointohtlc == nil {
-				m.Cointohtlc = &types.Coin{}
+			if m.CoinToHtlc == nil {
+				m.CoinToHtlc = &types.Coin{}
 			}
-			if err := m.Cointohtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinToHtlc.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hashcodehtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field HashcodeHtlc", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7651,11 +7650,11 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hashcodehtlc = string(dAtA[iNdEx:postIndex])
+			m.HashcodeHtlc = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Timelockhtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TimelockHtlc", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7683,11 +7682,11 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Timelockhtlc = string(dAtA[iNdEx:postIndex])
+			m.TimelockHtlc = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 8:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cointransfer", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CoinTransfer", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -7714,16 +7713,16 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Cointransfer == nil {
-				m.Cointransfer = &types.Coin{}
+			if m.CoinTransfer == nil {
+				m.CoinTransfer = &types.Coin{}
 			}
-			if err := m.Cointransfer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.CoinTransfer.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		case 9:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hashcodedest", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field HashcodeDest", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7751,11 +7750,11 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hashcodedest = string(dAtA[iNdEx:postIndex])
+			m.HashcodeDest = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 10:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Timelocksender", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field TimelockSender", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7783,7 +7782,7 @@ func (m *MsgReceivercommit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Timelocksender = string(dAtA[iNdEx:postIndex])
+			m.TimelockSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 11:
 			if wireType != 2 {
@@ -7869,7 +7868,7 @@ func (m *MsgReceivercommitResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Indexhtlc", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexHtlc", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7897,11 +7896,11 @@ func (m *MsgReceivercommitResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Indexhtlc = string(dAtA[iNdEx:postIndex])
+			m.IndexHtlc = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Indextransfer", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IndexTransfer", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -7929,7 +7928,7 @@ func (m *MsgReceivercommitResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Indextransfer = string(dAtA[iNdEx:postIndex])
+			m.IndexTransfer = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

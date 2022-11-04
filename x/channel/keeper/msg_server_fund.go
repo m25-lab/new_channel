@@ -19,7 +19,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, err
 	}
 
-	val, found := k.Keeper.GetChannel(ctx, msg.Channelid)
+	val, found := k.Keeper.GetChannel(ctx, msg.ChannelID)
 	if !found {
 		return nil, errors.New("ChannelID is not existing")
 	}
@@ -46,22 +46,19 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, err
 	}
 
-	coinLock := msg.Coinlock
+	coinToHtlc := msg.CoinToHtlc
 
-	coin_channel := k.Keeper.bankKeeper.GetBalance(ctx, from, coinLock.Denom)
-
-	ctx.Logger().Info("@@@@ balance of addr", val.MultisigAddr,
-		" balance:", coin_channel.Amount.Uint64(), "coinlock", coinLock.Amount.Uint64())
+	coin_channel := k.Keeper.bankKeeper.GetBalance(ctx, from, coinToHtlc.Denom)
 
 	// Send to LockTx (other) or HashTx (creator)
-	if coinLock.Amount.IsPositive() {
-		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinLock})
+	if coinToHtlc.Amount.IsPositive() {
+		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*coinToHtlc})
 		if err != nil {
-			return nil, fmt.Errorf("@@@ SendCoinsFromAccountToModule failed balance of addr", val.MultisigAddr, " balance:", coinLock.Amount.Uint64())
+			return nil, fmt.Errorf("SendCoinsFromAccountToModule failed, balance of addr", val.MultisigAddr, " balance:", coinToHtlc.Amount.Uint64())
 		}
 	}
 
-	indexStr := fmt.Sprintf("%s:%s", msg.Channelid, msg.Hashcode)
+	indexStr := fmt.Sprintf("%s:%s", msg.ChannelID, msg.Hashcode)
 
 	numblock, err := strconv.ParseUint(msg.Timelock, 10, 64)
 	if err != nil {
@@ -71,14 +68,14 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 	unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 	commitment := types.Commitment{
-		Index:         indexStr,
-		From:          msg.From,
-		Cointocreator: nil, // unused
-		ToTimelock:    toTimelock,
-		ToHashlock:    toHashlock,
-		Coinhtlc:      coinLock,
-		Blockheight:   unlockBlock,
-		Hashcode:      msg.Hashcode,
+		Index:          indexStr,
+		From:           msg.From,
+		CoinToCreator:  nil, // unused
+		ToTimelockAddr: toTimelock,
+		ToHashlockAddr: toHashlock,
+		CoinToHtlc:     coinToHtlc,
+		Timelock:       unlockBlock,
+		Hashcode:       msg.Hashcode,
 	}
 	k.Keeper.SetCommitment(ctx, commitment)
 
@@ -92,7 +89,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		return nil, err
 	}
 
-	coin_fundside := coin_channel.Sub(*coinLock)
+	coin_fundside := coin_channel.Sub(*coinToHtlc)
 	if coin_fundside.Amount.IsPositive() {
 		err = k.bankKeeper.SendCoins(ctx, from, to, sdk.Coins{sdk.Coin{coin_fundside.Denom, coin_fundside.Amount}})
 		if err != nil {
@@ -101,7 +98,7 @@ func (k msgServer) Fund(goCtx context.Context, msg *types.MsgFund) (*types.MsgFu
 		}
 	}
 
-	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+	k.Keeper.RemoveChannel(ctx, msg.ChannelID)
 
 	return &types.MsgFundResponse{
 		Index: indexStr,

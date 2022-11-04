@@ -5,61 +5,61 @@ import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "channel.channel";
 
 export interface Fwdcommit {
-  index: string;
-  channelid: string;
-  sender: string;
-  receiver: string;
-  hashcodedest: string;
-  timelockreceiver: string;
-  timelocksender: string;
-  hashcodehtlc: string;
-  coin: Coin | undefined;
-  creator: string;
+  Index: string;
+  ChannelID: string;
+  Sender: string;
+  Receiver: string;
+  HashcodeDest: string;
+  TimelockReceiver: string;
+  TimelockSender: string;
+  HashcodeHtlc: string;
+  CoinTransfer: Coin | undefined;
+  Creator: string;
 }
 
 const baseFwdcommit: object = {
-  index: "",
-  channelid: "",
-  sender: "",
-  receiver: "",
-  hashcodedest: "",
-  timelockreceiver: "",
-  timelocksender: "",
-  hashcodehtlc: "",
-  creator: "",
+  Index: "",
+  ChannelID: "",
+  Sender: "",
+  Receiver: "",
+  HashcodeDest: "",
+  TimelockReceiver: "",
+  TimelockSender: "",
+  HashcodeHtlc: "",
+  Creator: "",
 };
 
 export const Fwdcommit = {
   encode(message: Fwdcommit, writer: Writer = Writer.create()): Writer {
-    if (message.index !== "") {
-      writer.uint32(10).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(10).string(message.Index);
     }
-    if (message.channelid !== "") {
-      writer.uint32(18).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(18).string(message.ChannelID);
     }
-    if (message.sender !== "") {
-      writer.uint32(26).string(message.sender);
+    if (message.Sender !== "") {
+      writer.uint32(26).string(message.Sender);
     }
-    if (message.receiver !== "") {
-      writer.uint32(34).string(message.receiver);
+    if (message.Receiver !== "") {
+      writer.uint32(34).string(message.Receiver);
     }
-    if (message.hashcodedest !== "") {
-      writer.uint32(42).string(message.hashcodedest);
+    if (message.HashcodeDest !== "") {
+      writer.uint32(42).string(message.HashcodeDest);
     }
-    if (message.timelockreceiver !== "") {
-      writer.uint32(50).string(message.timelockreceiver);
+    if (message.TimelockReceiver !== "") {
+      writer.uint32(50).string(message.TimelockReceiver);
     }
-    if (message.timelocksender !== "") {
-      writer.uint32(58).string(message.timelocksender);
+    if (message.TimelockSender !== "") {
+      writer.uint32(58).string(message.TimelockSender);
     }
-    if (message.hashcodehtlc !== "") {
-      writer.uint32(66).string(message.hashcodehtlc);
+    if (message.HashcodeHtlc !== "") {
+      writer.uint32(66).string(message.HashcodeHtlc);
     }
-    if (message.coin !== undefined) {
-      Coin.encode(message.coin, writer.uint32(74).fork()).ldelim();
+    if (message.CoinTransfer !== undefined) {
+      Coin.encode(message.CoinTransfer, writer.uint32(74).fork()).ldelim();
     }
-    if (message.creator !== "") {
-      writer.uint32(82).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(82).string(message.Creator);
     }
     return writer;
   },
@@ -72,34 +72,34 @@ export const Fwdcommit = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         case 2:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         case 3:
-          message.sender = reader.string();
+          message.Sender = reader.string();
           break;
         case 4:
-          message.receiver = reader.string();
+          message.Receiver = reader.string();
           break;
         case 5:
-          message.hashcodedest = reader.string();
+          message.HashcodeDest = reader.string();
           break;
         case 6:
-          message.timelockreceiver = reader.string();
+          message.TimelockReceiver = reader.string();
           break;
         case 7:
-          message.timelocksender = reader.string();
+          message.TimelockSender = reader.string();
           break;
         case 8:
-          message.hashcodehtlc = reader.string();
+          message.HashcodeHtlc = reader.string();
           break;
         case 9:
-          message.coin = Coin.decode(reader, reader.uint32());
+          message.CoinTransfer = Coin.decode(reader, reader.uint32());
           break;
         case 10:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -111,136 +111,138 @@ export const Fwdcommit = {
 
   fromJSON(object: any): Fwdcommit {
     const message = { ...baseFwdcommit } as Fwdcommit;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
+    if (object.Sender !== undefined && object.Sender !== null) {
+      message.Sender = String(object.Sender);
     } else {
-      message.sender = "";
+      message.Sender = "";
     }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = String(object.receiver);
+    if (object.Receiver !== undefined && object.Receiver !== null) {
+      message.Receiver = String(object.Receiver);
     } else {
-      message.receiver = "";
+      message.Receiver = "";
     }
-    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
-      message.hashcodedest = String(object.hashcodedest);
+    if (object.HashcodeDest !== undefined && object.HashcodeDest !== null) {
+      message.HashcodeDest = String(object.HashcodeDest);
     } else {
-      message.hashcodedest = "";
+      message.HashcodeDest = "";
     }
     if (
-      object.timelockreceiver !== undefined &&
-      object.timelockreceiver !== null
+      object.TimelockReceiver !== undefined &&
+      object.TimelockReceiver !== null
     ) {
-      message.timelockreceiver = String(object.timelockreceiver);
+      message.TimelockReceiver = String(object.TimelockReceiver);
     } else {
-      message.timelockreceiver = "";
+      message.TimelockReceiver = "";
     }
-    if (object.timelocksender !== undefined && object.timelocksender !== null) {
-      message.timelocksender = String(object.timelocksender);
+    if (object.TimelockSender !== undefined && object.TimelockSender !== null) {
+      message.TimelockSender = String(object.TimelockSender);
     } else {
-      message.timelocksender = "";
+      message.TimelockSender = "";
     }
-    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
-      message.hashcodehtlc = String(object.hashcodehtlc);
+    if (object.HashcodeHtlc !== undefined && object.HashcodeHtlc !== null) {
+      message.HashcodeHtlc = String(object.HashcodeHtlc);
     } else {
-      message.hashcodehtlc = "";
+      message.HashcodeHtlc = "";
     }
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromJSON(object.coin);
+    if (object.CoinTransfer !== undefined && object.CoinTransfer !== null) {
+      message.CoinTransfer = Coin.fromJSON(object.CoinTransfer);
     } else {
-      message.coin = undefined;
+      message.CoinTransfer = undefined;
     }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
     return message;
   },
 
   toJSON(message: Fwdcommit): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.receiver !== undefined && (obj.receiver = message.receiver);
-    message.hashcodedest !== undefined &&
-      (obj.hashcodedest = message.hashcodedest);
-    message.timelockreceiver !== undefined &&
-      (obj.timelockreceiver = message.timelockreceiver);
-    message.timelocksender !== undefined &&
-      (obj.timelocksender = message.timelocksender);
-    message.hashcodehtlc !== undefined &&
-      (obj.hashcodehtlc = message.hashcodehtlc);
-    message.coin !== undefined &&
-      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
-    message.creator !== undefined && (obj.creator = message.creator);
+    message.Index !== undefined && (obj.Index = message.Index);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
+    message.Sender !== undefined && (obj.Sender = message.Sender);
+    message.Receiver !== undefined && (obj.Receiver = message.Receiver);
+    message.HashcodeDest !== undefined &&
+      (obj.HashcodeDest = message.HashcodeDest);
+    message.TimelockReceiver !== undefined &&
+      (obj.TimelockReceiver = message.TimelockReceiver);
+    message.TimelockSender !== undefined &&
+      (obj.TimelockSender = message.TimelockSender);
+    message.HashcodeHtlc !== undefined &&
+      (obj.HashcodeHtlc = message.HashcodeHtlc);
+    message.CoinTransfer !== undefined &&
+      (obj.CoinTransfer = message.CoinTransfer
+        ? Coin.toJSON(message.CoinTransfer)
+        : undefined);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Fwdcommit>): Fwdcommit {
     const message = { ...baseFwdcommit } as Fwdcommit;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
+    if (object.Sender !== undefined && object.Sender !== null) {
+      message.Sender = object.Sender;
     } else {
-      message.sender = "";
+      message.Sender = "";
     }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = object.receiver;
+    if (object.Receiver !== undefined && object.Receiver !== null) {
+      message.Receiver = object.Receiver;
     } else {
-      message.receiver = "";
+      message.Receiver = "";
     }
-    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
-      message.hashcodedest = object.hashcodedest;
+    if (object.HashcodeDest !== undefined && object.HashcodeDest !== null) {
+      message.HashcodeDest = object.HashcodeDest;
     } else {
-      message.hashcodedest = "";
+      message.HashcodeDest = "";
     }
     if (
-      object.timelockreceiver !== undefined &&
-      object.timelockreceiver !== null
+      object.TimelockReceiver !== undefined &&
+      object.TimelockReceiver !== null
     ) {
-      message.timelockreceiver = object.timelockreceiver;
+      message.TimelockReceiver = object.TimelockReceiver;
     } else {
-      message.timelockreceiver = "";
+      message.TimelockReceiver = "";
     }
-    if (object.timelocksender !== undefined && object.timelocksender !== null) {
-      message.timelocksender = object.timelocksender;
+    if (object.TimelockSender !== undefined && object.TimelockSender !== null) {
+      message.TimelockSender = object.TimelockSender;
     } else {
-      message.timelocksender = "";
+      message.TimelockSender = "";
     }
-    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
-      message.hashcodehtlc = object.hashcodehtlc;
+    if (object.HashcodeHtlc !== undefined && object.HashcodeHtlc !== null) {
+      message.HashcodeHtlc = object.HashcodeHtlc;
     } else {
-      message.hashcodehtlc = "";
+      message.HashcodeHtlc = "";
     }
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromPartial(object.coin);
+    if (object.CoinTransfer !== undefined && object.CoinTransfer !== null) {
+      message.CoinTransfer = Coin.fromPartial(object.CoinTransfer);
     } else {
-      message.coin = undefined;
+      message.CoinTransfer = undefined;
     }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
     return message;
   },

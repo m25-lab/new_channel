@@ -18,7 +18,7 @@ func (k msgServer) Senderwithdrawtimelock(goCtx context.Context, msg *types.MsgS
 		return nil, err
 	}
 
-	val, found := k.Keeper.GetFwdcommit(ctx, msg.Transferindex)
+	val, found := k.Keeper.GetFwdcommit(ctx, msg.TransferIndex)
 	if !found {
 		return nil, errors.New("time lock is not existing")
 	}
@@ -27,7 +27,7 @@ func (k msgServer) Senderwithdrawtimelock(goCtx context.Context, msg *types.MsgS
 		return nil, errors.New("not matching address!")
 	}
 
-	timelocksender, err := strconv.ParseUint(val.Timelocksender, 10, 64)
+	timelocksender, err := strconv.ParseUint(val.TimelockSender, 10, 64)
 	if err != nil {
 		return nil, err
 	}
@@ -35,12 +35,12 @@ func (k msgServer) Senderwithdrawtimelock(goCtx context.Context, msg *types.MsgS
 		return nil, errors.New("wait until valid blokcheight")
 	}
 
-	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.Coin})
+	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.CoinTransfer})
 	if err != nil {
 		return nil, err
 	}
 
-	k.Keeper.RemoveFwdcommit(ctx, msg.Transferindex)
+	k.Keeper.RemoveFwdcommit(ctx, msg.TransferIndex)
 
 	return &types.MsgSenderwithdrawtimelockResponse{}, nil
 }

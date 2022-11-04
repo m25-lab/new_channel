@@ -13,7 +13,7 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
-	val, found := k.Keeper.GetChannel(ctx, msg.Channelid)
+	val, found := k.Keeper.GetChannel(ctx, msg.ChannelID)
 	if !found {
 		return nil, errors.New("ChannelID is not existing")
 	}
@@ -38,8 +38,8 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	}
 
 	// Send coin to creator of commitment
-	if msg.Cointosender.Amount.IsPositive() {
-		err = k.bankKeeper.SendCoins(ctx, from, toSender, sdk.Coins{*msg.Cointosender})
+	if msg.CoinToSender.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, toSender, sdk.Coins{*msg.CoinToSender})
 		if err != nil {
 			return nil, err
 		}
@@ -47,36 +47,36 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 
 	// Send to HTLC
 	indexHtlc := ""
-	CointoHTLC := msg.Cointohtlc
+	CointoHTLC := msg.CoinToHtlc
 	if CointoHTLC.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*CointoHTLC})
 		if err != nil {
 			return nil, err
 		}
 
-		indexHtlc = fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
+		indexHtlc = fmt.Sprintf("%s:%s", msg.Multisig, msg.HashcodeHtlc)
 
-		numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
+		numblock, err := strconv.ParseUint(msg.TimelockHtlc, 10, 64)
 		if err != nil {
 			return nil, err
 		}
 		unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 		commitment := types.Commitment{
-			Index:         indexHtlc,
-			From:          msg.From,
-			Cointocreator: msg.Cointosender,
-			ToTimelock:    toTimelock,
-			ToHashlock:    toHashlock,
-			Coinhtlc:      msg.Cointohtlc,
-			Blockheight:   unlockBlock,
-			Hashcode:      msg.Hashcodehtlc,
+			Index:          indexHtlc,
+			From:           msg.From,
+			CoinToCreator:  msg.CoinToSender,
+			ToTimelockAddr: toTimelock,
+			ToHashlockAddr: toHashlock,
+			CoinToHtlc:     msg.CoinToHtlc,
+			Timelock:       unlockBlock,
+			Hashcode:       msg.HashcodeHtlc,
 		}
 		k.Keeper.SetCommitment(ctx, commitment)
 	}
 
 	// Send to FwdContract
-	CointoFC := msg.Cointransfer
+	CointoFC := msg.CoinTransfer
 	if CointoFC.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*CointoFC})
 		if err != nil {
@@ -85,15 +85,15 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 	}
 
 	creator := "sender"
-	indexTransfer := fmt.Sprintf("%s:%s:%s", msg.Channelid, msg.Hashcodedest, creator)
+	indexTransfer := fmt.Sprintf("%s:%s:%s", msg.ChannelID, msg.HashcodeDest, creator)
 
-	Timelocksender, err := strconv.ParseUint(msg.Timelocksender, 10, 64)
+	Timelocksender, err := strconv.ParseUint(msg.TimelockSender, 10, 64)
 	if err != nil {
 		return nil, err
 	}
 	Timelocksender = Timelocksender + uint64(ctx.BlockHeight())
 
-	Timelockreceiver, err := strconv.ParseUint(msg.Timelockreceiver, 10, 64)
+	Timelockreceiver, err := strconv.ParseUint(msg.TimelockReceiver, 10, 64)
 	if err != nil {
 		return nil, err
 	}
@@ -101,23 +101,23 @@ func (k msgServer) Sendercommit(goCtx context.Context, msg *types.MsgSendercommi
 
 	fwscommitment := types.Fwdcommit{
 		Index:            indexTransfer,
-		Channelid:        msg.Channelid,
+		ChannelID:        msg.ChannelID,
 		Sender:           toHashlock,
 		Receiver:         toTimelock,
-		Hashcodedest:     msg.Hashcodedest,
-		Timelockreceiver: strconv.FormatUint(Timelockreceiver, 10),
-		Timelocksender:   strconv.FormatUint(Timelocksender, 10),
-		Hashcodehtlc:     msg.Hashcodehtlc,
-		Coin:             msg.Cointransfer,
+		HashcodeDest:     msg.HashcodeDest,
+		TimelockReceiver: strconv.FormatUint(Timelockreceiver, 10),
+		TimelockSender:   strconv.FormatUint(Timelocksender, 10),
+		HashcodeHtlc:     msg.HashcodeHtlc,
+		CoinTransfer:     msg.CoinTransfer,
 		Creator:          creator,
 	}
 	k.Keeper.SetFwdcommit(ctx, fwscommitment)
 
-	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+	k.Keeper.RemoveChannel(ctx, msg.ChannelID)
 
 	return &types.MsgSendercommitResponse{
-		Indexhtlc:     indexHtlc,
-		Indextransfer: indexTransfer,
+		IndexHtlc:     indexHtlc,
+		IndexTransfer: indexTransfer,
 	}, nil
 
 }

@@ -20,8 +20,8 @@ func (k msgServer) WithdrawHashlock(goCtx context.Context, msg *types.MsgWithdra
 		return nil, errors.New("commitment is not existing")
 	}
 
-	if val.ToHashlock != msg.To {
-		return nil, fmt.Errorf("not matching receiver address! expected:", val.ToHashlock)
+	if val.ToHashlockAddr != msg.To {
+		return nil, fmt.Errorf("not matching receiver address! expected:", val.ToHashlockAddr)
 		//return nil, errors.New("not matching receiver address!")
 	}
 
@@ -35,7 +35,7 @@ func (k msgServer) WithdrawHashlock(goCtx context.Context, msg *types.MsgWithdra
 		return nil, err
 	}
 
-	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.Coinhtlc})
+	err = k.Keeper.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, to, sdk.Coins{*val.CoinToHtlc})
 	if err != nil {
 		return nil, err
 	}

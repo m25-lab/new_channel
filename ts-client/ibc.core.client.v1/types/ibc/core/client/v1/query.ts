@@ -113,28 +113,6 @@ export interface QueryConsensusStatesResponse {
 }
 
 /**
- * QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
- * RPC method.
- */
-export interface QueryConsensusStateHeightsRequest {
-  /** client identifier */
-  clientId: string;
-  /** pagination request */
-  pagination: PageRequest | undefined;
-}
-
-/**
- * QueryConsensusStateHeightsResponse is the response type for the
- * Query/ConsensusStateHeights RPC method
- */
-export interface QueryConsensusStateHeightsResponse {
-  /** consensus state heights */
-  consensusStateHeights: Height[];
-  /** pagination response */
-  pagination: PageResponse | undefined;
-}
-
-/**
  * QueryClientStatusRequest is the request type for the Query/ClientStatus RPC
  * method
  */
@@ -983,204 +961,6 @@ export const QueryConsensusStatesResponse = {
   },
 };
 
-const baseQueryConsensusStateHeightsRequest: object = { clientId: "" };
-
-export const QueryConsensusStateHeightsRequest = {
-  encode(
-    message: QueryConsensusStateHeightsRequest,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.clientId !== "") {
-      writer.uint32(10).string(message.clientId);
-    }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): QueryConsensusStateHeightsRequest {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseQueryConsensusStateHeightsRequest,
-    } as QueryConsensusStateHeightsRequest;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryConsensusStateHeightsRequest {
-    const message = {
-      ...baseQueryConsensusStateHeightsRequest,
-    } as QueryConsensusStateHeightsRequest;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = String(object.clientId);
-    } else {
-      message.clientId = "";
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    return message;
-  },
-
-  toJSON(message: QueryConsensusStateHeightsRequest): unknown {
-    const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<QueryConsensusStateHeightsRequest>
-  ): QueryConsensusStateHeightsRequest {
-    const message = {
-      ...baseQueryConsensusStateHeightsRequest,
-    } as QueryConsensusStateHeightsRequest;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    return message;
-  },
-};
-
-const baseQueryConsensusStateHeightsResponse: object = {};
-
-export const QueryConsensusStateHeightsResponse = {
-  encode(
-    message: QueryConsensusStateHeightsResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
-    for (const v of message.consensusStateHeights) {
-      Height.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): QueryConsensusStateHeightsResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseQueryConsensusStateHeightsResponse,
-    } as QueryConsensusStateHeightsResponse;
-    message.consensusStateHeights = [];
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.consensusStateHeights.push(
-            Height.decode(reader, reader.uint32())
-          );
-          break;
-        case 2:
-          message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryConsensusStateHeightsResponse {
-    const message = {
-      ...baseQueryConsensusStateHeightsResponse,
-    } as QueryConsensusStateHeightsResponse;
-    message.consensusStateHeights = [];
-    if (
-      object.consensusStateHeights !== undefined &&
-      object.consensusStateHeights !== null
-    ) {
-      for (const e of object.consensusStateHeights) {
-        message.consensusStateHeights.push(Height.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    return message;
-  },
-
-  toJSON(message: QueryConsensusStateHeightsResponse): unknown {
-    const obj: any = {};
-    if (message.consensusStateHeights) {
-      obj.consensusStateHeights = message.consensusStateHeights.map((e) =>
-        e ? Height.toJSON(e) : undefined
-      );
-    } else {
-      obj.consensusStateHeights = [];
-    }
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<QueryConsensusStateHeightsResponse>
-  ): QueryConsensusStateHeightsResponse {
-    const message = {
-      ...baseQueryConsensusStateHeightsResponse,
-    } as QueryConsensusStateHeightsResponse;
-    message.consensusStateHeights = [];
-    if (
-      object.consensusStateHeights !== undefined &&
-      object.consensusStateHeights !== null
-    ) {
-      for (const e of object.consensusStateHeights) {
-        message.consensusStateHeights.push(Height.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    return message;
-  },
-};
-
 const baseQueryClientStatusRequest: object = { clientId: "" };
 
 export const QueryClientStatusRequest = {
@@ -1735,10 +1515,6 @@ export interface Query {
   ConsensusStates(
     request: QueryConsensusStatesRequest
   ): Promise<QueryConsensusStatesResponse>;
-  /** ConsensusStateHeights queries the height of every consensus states associated with a given client. */
-  ConsensusStateHeights(
-    request: QueryConsensusStateHeightsRequest
-  ): Promise<QueryConsensusStateHeightsResponse>;
   /** Status queries the status of an IBC client. */
   ClientStatus(
     request: QueryClientStatusRequest
@@ -1815,20 +1591,6 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryConsensusStatesResponse.decode(new Reader(data))
-    );
-  }
-
-  ConsensusStateHeights(
-    request: QueryConsensusStateHeightsRequest
-  ): Promise<QueryConsensusStateHeightsResponse> {
-    const data = QueryConsensusStateHeightsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.core.client.v1.Query",
-      "ConsensusStateHeights",
-      data
-    );
-    return promise.then((data) =>
-      QueryConsensusStateHeightsResponse.decode(new Reader(data))
     );
   }
 

@@ -14,7 +14,7 @@ func (k msgServer) Receivercommit(goCtx context.Context, msg *types.MsgReceiverc
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
-	val, found := k.Keeper.GetChannel(ctx, msg.Channelid)
+	val, found := k.Keeper.GetChannel(ctx, msg.ChannelID)
 	if !found {
 		return nil, errors.New("ChannelID is not existing")
 	}
@@ -39,43 +39,43 @@ func (k msgServer) Receivercommit(goCtx context.Context, msg *types.MsgReceiverc
 	}
 
 	// Send coin to creator of commitment
-	if msg.Cointoreceiver.Amount.IsPositive() {
-		err = k.bankKeeper.SendCoins(ctx, from, toReceiver, sdk.Coins{*msg.Cointoreceiver})
+	if msg.CoinToReceiver.Amount.IsPositive() {
+		err = k.bankKeeper.SendCoins(ctx, from, toReceiver, sdk.Coins{*msg.CoinToReceiver})
 		if err != nil {
 			return nil, err
 		}
 	}
 
 	// Send to HTLC
-	indexHtlc := fmt.Sprintf("%s:%s", msg.Multisig, msg.Hashcodehtlc)
-	Cointohtlc := msg.Cointohtlc
-	if Cointohtlc.Amount.IsPositive() {
-		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*Cointohtlc})
+	indexHtlc := fmt.Sprintf("%s:%s", msg.Multisig, msg.HashcodeHtlc)
+	CoinToHtlc := msg.CoinToHtlc
+	if CoinToHtlc.Amount.IsPositive() {
+		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*CoinToHtlc})
 		if err != nil {
 			return nil, err
 		}
 
-		numblock, err := strconv.ParseUint(msg.Timelockhtlc, 10, 64)
+		numblock, err := strconv.ParseUint(msg.TimelockHtlc, 10, 64)
 		if err != nil {
 			return nil, err
 		}
 		unlockBlock := numblock + uint64(ctx.BlockHeight())
 
 		commitment := types.Commitment{
-			Index:         indexHtlc,
-			From:          msg.From,
-			Cointocreator: msg.Cointoreceiver,
-			ToTimelock:    toTimelock,
-			ToHashlock:    toHashlock,
-			Coinhtlc:      msg.Cointohtlc,
-			Blockheight:   unlockBlock,
-			Hashcode:      msg.Hashcodehtlc,
+			Index:          indexHtlc,
+			From:           msg.From,
+			CoinToCreator:  msg.CoinToReceiver,
+			ToTimelockAddr: toTimelock,
+			ToHashlockAddr: toHashlock,
+			CoinToHtlc:     msg.CoinToHtlc,
+			Timelock:       unlockBlock,
+			Hashcode:       msg.HashcodeHtlc,
 		}
 		k.Keeper.SetCommitment(ctx, commitment)
 	}
 
 	// Send to FwdContract
-	CointoFC := msg.Cointransfer
+	CointoFC := msg.CoinTransfer
 	if CointoFC.Amount.IsPositive() {
 		err = k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, from, types.ModuleName, sdk.Coins{*CointoFC})
 		if err != nil {
@@ -84,9 +84,9 @@ func (k msgServer) Receivercommit(goCtx context.Context, msg *types.MsgReceiverc
 	}
 
 	creator := "receiver"
-	indexTransfer := fmt.Sprintf("%s:%s:%s", msg.Channelid, msg.Hashcodedest, creator)
+	indexTransfer := fmt.Sprintf("%s:%s:%s", msg.ChannelID, msg.HashcodeDest, creator)
 
-	Timelocksender, err := strconv.ParseUint(msg.Timelocksender, 10, 64)
+	Timelocksender, err := strconv.ParseUint(msg.TimelockSender, 10, 64)
 	if err != nil {
 		return nil, err
 	}
@@ -94,23 +94,23 @@ func (k msgServer) Receivercommit(goCtx context.Context, msg *types.MsgReceiverc
 
 	fwscommitment := types.Fwdcommit{
 		Index:            indexTransfer,
-		Channelid:        msg.Channelid,
+		ChannelID:        msg.ChannelID,
 		Sender:           toTimelock,
 		Receiver:         toHashlock,
-		Hashcodedest:     msg.Hashcodedest,
-		Timelockreceiver: string(0),
-		Timelocksender:   string(Timelocksender),
-		Hashcodehtlc:     msg.Hashcodehtlc,
-		Coin:             msg.Cointransfer,
+		HashcodeDest:     msg.HashcodeDest,
+		TimelockReceiver: string(0),
+		TimelockSender:   string(Timelocksender),
+		HashcodeHtlc:     msg.HashcodeHtlc,
+		CoinTransfer:     msg.CoinTransfer,
 		Creator:          creator,
 	}
 	k.Keeper.SetFwdcommit(ctx, fwscommitment)
 
-	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+	k.Keeper.RemoveChannel(ctx, msg.ChannelID)
 
 	return &types.MsgReceivercommitResponse{
-		Indexhtlc:     indexHtlc,
-		Indextransfer: indexTransfer,
+		IndexHtlc:     indexHtlc,
+		IndexTransfer: indexTransfer,
 	}, nil
 
 }

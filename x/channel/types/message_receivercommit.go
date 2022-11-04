@@ -13,14 +13,14 @@ func NewMsgReceivercommit(creator string, from string, channelid string, cointor
 	return &MsgReceivercommit{
 		Creator:        creator,
 		From:           from,
-		Channelid:      channelid,
-		Cointoreceiver: cointoreceiver,
-		Cointohtlc:     cointohtlc,
-		Hashcodehtlc:   hashcodehtlc,
-		Timelockhtlc:   timelockhtlc,
-		Cointransfer:   cointransfer,
-		Hashcodedest:   hashcodedest,
-		Timelocksender: timelocksender,
+		ChannelID:      channelid,
+		CoinToReceiver: cointoreceiver,
+		CoinToHtlc:     cointohtlc,
+		HashcodeHtlc:   hashcodehtlc,
+		TimelockHtlc:   timelockhtlc,
+		CoinTransfer:   cointransfer,
+		HashcodeDest:   hashcodedest,
+		TimelockSender: timelocksender,
 		Multisig:       multisig,
 	}
 }

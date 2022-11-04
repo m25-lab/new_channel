@@ -51,7 +51,7 @@ func (k msgServer) CloseChannel(goCtx context.Context, msg *types.MsgCloseChanne
 		return nil, err
 	}
 
-	k.Keeper.RemoveChannel(ctx, msg.Channelid)
+	k.Keeper.RemoveChannel(ctx, msg.ChannelID)
 
 	return &types.MsgCloseChannelResponse{}, nil
 }

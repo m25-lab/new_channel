@@ -11,13 +11,13 @@ var _ sdk.Msg = &MsgAcceptfund{}
 
 func NewMsgAcceptfund(creator string, from string, channelid string, coin *sdk.Coin, hashcode string, timelock string, multisig string) *MsgAcceptfund {
 	return &MsgAcceptfund{
-		Creator:   creator,
-		From:      from,
-		Channelid: channelid,
-		Coin:      coin,
-		Hashcode:  hashcode,
-		Timelock:  timelock,
-		Multisig:  multisig,
+		Creator:          creator,
+		From:             from,
+		ChannelID:        channelid,
+		CoinToAcceptSide: coin,
+		Hashcode:         hashcode,
+		Timelock:         timelock,
+		Multisig:         multisig,
 	}
 }
 

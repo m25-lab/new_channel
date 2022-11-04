@@ -6,195 +6,195 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 export const protobufPackage = "channel.channel";
 
 export interface MsgCommitment {
-  creator: string;
-  from: string;
-  cointocreator: Coin | undefined;
-  toTimelock: string;
-  blockheight: number;
-  toHashlock: string;
-  hashcode: string;
-  coinhtlc: Coin | undefined;
-  channelid: string;
+  Creator: string;
+  From: string;
+  CoinToCreator: Coin | undefined;
+  ToTimelockAddr: string;
+  Timelock: number;
+  ToHashlockAddr: string;
+  Hashcode: string;
+  CoinToHtlc: Coin | undefined;
+  ChannelID: string;
 }
 
 export interface MsgCommitmentResponse {
-  index: string;
+  Index: string;
 }
 
 export interface MsgWithdrawTimelock {
-  creator: string;
-  to: string;
-  index: string;
+  Creator: string;
+  To: string;
+  Index: string;
 }
 
 export interface MsgWithdrawTimelockResponse {}
 
 export interface MsgWithdrawHashlock {
-  creator: string;
-  to: string;
-  index: string;
-  secret: string;
+  Creator: string;
+  To: string;
+  Index: string;
+  Secret: string;
 }
 
 export interface MsgWithdrawHashlockResponse {}
 
 export interface MsgCloseChannel {
-  creator: string;
-  from: string;
-  toA: string;
-  coinA: Coin | undefined;
-  toB: string;
-  coinB: Coin | undefined;
-  channelid: string;
+  Creator: string;
+  From: string;
+  ToA: string;
+  CoinA: Coin | undefined;
+  ToB: string;
+  CoinB: Coin | undefined;
+  ChannelID: string;
 }
 
 export interface MsgCloseChannelResponse {}
 
 export interface MsgOpenChannel {
-  creator: string;
-  partA: string;
-  partB: string;
-  coinA: Coin | undefined;
-  coinB: Coin | undefined;
-  multisigAddr: string;
-  sequence: string;
+  Creator: string;
+  PartA: string;
+  PartB: string;
+  CoinA: Coin | undefined;
+  CoinB: Coin | undefined;
+  MultisigAddr: string;
+  Sequence: string;
 }
 
 export interface MsgOpenChannelResponse {
-  index: string;
+  Index: string;
 }
 
 export interface MsgFund {
-  creator: string;
-  from: string;
-  channelid: string;
-  coinlock: Coin | undefined;
-  hashcode: string;
-  timelock: string;
-  multisig: string;
+  Creator: string;
+  From: string;
+  ChannelID: string;
+  CoinToHtlc: Coin | undefined;
+  Hashcode: string;
+  Timelock: string;
+  Multisig: string;
 }
 
 export interface MsgFundResponse {
-  index: string;
+  Index: string;
 }
 
 export interface MsgAcceptfund {
-  creator: string;
-  from: string;
-  channelid: string;
-  coin: Coin | undefined;
-  hashcode: string;
-  timelock: string;
-  multisig: string;
+  Creator: string;
+  From: string;
+  ChannelID: string;
+  CoinToAcceptSide: Coin | undefined;
+  Hashcode: string;
+  Timelock: string;
+  Multisig: string;
 }
 
 export interface MsgAcceptfundResponse {
-  index: string;
+  Index: string;
 }
 
 export interface MsgSendercommit {
-  creator: string;
-  from: string;
-  channelid: string;
-  cointosender: Coin | undefined;
-  cointohtlc: Coin | undefined;
-  hashcodehtlc: string;
-  timelockhtlc: string;
-  cointransfer: Coin | undefined;
-  hashcodedest: string;
-  timelockreceiver: string;
-  timelocksender: string;
-  multisig: string;
+  Creator: string;
+  From: string;
+  ChannelID: string;
+  CoinToSender: Coin | undefined;
+  CoinToHtlc: Coin | undefined;
+  HashcodeHtlc: string;
+  TimelockHtlc: string;
+  CoinTransfer: Coin | undefined;
+  HashcodeDest: string;
+  TimelockReceiver: string;
+  TimelockSender: string;
+  Multisig: string;
 }
 
 export interface MsgSendercommitResponse {
-  indexhtlc: string;
-  indextransfer: string;
+  IndexHtlc: string;
+  IndexTransfer: string;
 }
 
 export interface MsgSenderwithdrawtimelock {
-  creator: string;
-  transferindex: string;
-  to: string;
+  Creator: string;
+  TransferIndex: string;
+  To: string;
 }
 
 export interface MsgSenderwithdrawtimelockResponse {}
 
 export interface MsgSenderwithdrawhashlock {
-  creator: string;
-  transferindex: string;
-  to: string;
-  secret: string;
+  Creator: string;
+  TransferIndex: string;
+  To: string;
+  Secret: string;
 }
 
 export interface MsgSenderwithdrawhashlockResponse {}
 
 export interface MsgReceiverwithdraw {
-  creator: string;
-  transferindex: string;
-  to: string;
-  secret: string;
+  Creator: string;
+  TransferIndex: string;
+  To: string;
+  Secret: string;
 }
 
 export interface MsgReceiverwithdrawResponse {}
 
 export interface MsgReceivercommit {
-  creator: string;
-  from: string;
-  channelid: string;
-  cointoreceiver: Coin | undefined;
-  cointohtlc: Coin | undefined;
-  hashcodehtlc: string;
-  timelockhtlc: string;
-  cointransfer: Coin | undefined;
-  hashcodedest: string;
-  timelocksender: string;
-  multisig: string;
+  Creator: string;
+  From: string;
+  ChannelID: string;
+  CoinToReceiver: Coin | undefined;
+  CoinToHtlc: Coin | undefined;
+  HashcodeHtlc: string;
+  TimelockHtlc: string;
+  CoinTransfer: Coin | undefined;
+  HashcodeDest: string;
+  TimelockSender: string;
+  Multisig: string;
 }
 
 export interface MsgReceivercommitResponse {
-  indexhtlc: string;
-  indextransfer: string;
+  IndexHtlc: string;
+  IndexTransfer: string;
 }
 
 const baseMsgCommitment: object = {
-  creator: "",
-  from: "",
-  toTimelock: "",
-  blockheight: 0,
-  toHashlock: "",
-  hashcode: "",
-  channelid: "",
+  Creator: "",
+  From: "",
+  ToTimelockAddr: "",
+  Timelock: 0,
+  ToHashlockAddr: "",
+  Hashcode: "",
+  ChannelID: "",
 };
 
 export const MsgCommitment = {
   encode(message: MsgCommitment, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.cointocreator !== undefined) {
-      Coin.encode(message.cointocreator, writer.uint32(26).fork()).ldelim();
+    if (message.CoinToCreator !== undefined) {
+      Coin.encode(message.CoinToCreator, writer.uint32(26).fork()).ldelim();
     }
-    if (message.toTimelock !== "") {
-      writer.uint32(34).string(message.toTimelock);
+    if (message.ToTimelockAddr !== "") {
+      writer.uint32(34).string(message.ToTimelockAddr);
     }
-    if (message.blockheight !== 0) {
-      writer.uint32(40).uint64(message.blockheight);
+    if (message.Timelock !== 0) {
+      writer.uint32(40).uint64(message.Timelock);
     }
-    if (message.toHashlock !== "") {
-      writer.uint32(50).string(message.toHashlock);
+    if (message.ToHashlockAddr !== "") {
+      writer.uint32(50).string(message.ToHashlockAddr);
     }
-    if (message.hashcode !== "") {
-      writer.uint32(58).string(message.hashcode);
+    if (message.Hashcode !== "") {
+      writer.uint32(58).string(message.Hashcode);
     }
-    if (message.coinhtlc !== undefined) {
-      Coin.encode(message.coinhtlc, writer.uint32(66).fork()).ldelim();
+    if (message.CoinToHtlc !== undefined) {
+      Coin.encode(message.CoinToHtlc, writer.uint32(66).fork()).ldelim();
     }
-    if (message.channelid !== "") {
-      writer.uint32(74).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(74).string(message.ChannelID);
     }
     return writer;
   },
@@ -207,31 +207,31 @@ export const MsgCommitment = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.cointocreator = Coin.decode(reader, reader.uint32());
+          message.CoinToCreator = Coin.decode(reader, reader.uint32());
           break;
         case 4:
-          message.toTimelock = reader.string();
+          message.ToTimelockAddr = reader.string();
           break;
         case 5:
-          message.blockheight = longToNumber(reader.uint64() as Long);
+          message.Timelock = longToNumber(reader.uint64() as Long);
           break;
         case 6:
-          message.toHashlock = reader.string();
+          message.ToHashlockAddr = reader.string();
           break;
         case 7:
-          message.hashcode = reader.string();
+          message.Hashcode = reader.string();
           break;
         case 8:
-          message.coinhtlc = Coin.decode(reader, reader.uint32());
+          message.CoinToHtlc = Coin.decode(reader, reader.uint32());
           break;
         case 9:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -243,135 +243,136 @@ export const MsgCommitment = {
 
   fromJSON(object: any): MsgCommitment {
     const message = { ...baseMsgCommitment } as MsgCommitment;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.cointocreator !== undefined && object.cointocreator !== null) {
-      message.cointocreator = Coin.fromJSON(object.cointocreator);
+    if (object.CoinToCreator !== undefined && object.CoinToCreator !== null) {
+      message.CoinToCreator = Coin.fromJSON(object.CoinToCreator);
     } else {
-      message.cointocreator = undefined;
+      message.CoinToCreator = undefined;
     }
-    if (object.toTimelock !== undefined && object.toTimelock !== null) {
-      message.toTimelock = String(object.toTimelock);
+    if (object.ToTimelockAddr !== undefined && object.ToTimelockAddr !== null) {
+      message.ToTimelockAddr = String(object.ToTimelockAddr);
     } else {
-      message.toTimelock = "";
+      message.ToTimelockAddr = "";
     }
-    if (object.blockheight !== undefined && object.blockheight !== null) {
-      message.blockheight = Number(object.blockheight);
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = Number(object.Timelock);
     } else {
-      message.blockheight = 0;
+      message.Timelock = 0;
     }
-    if (object.toHashlock !== undefined && object.toHashlock !== null) {
-      message.toHashlock = String(object.toHashlock);
+    if (object.ToHashlockAddr !== undefined && object.ToHashlockAddr !== null) {
+      message.ToHashlockAddr = String(object.ToHashlockAddr);
     } else {
-      message.toHashlock = "";
+      message.ToHashlockAddr = "";
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = String(object.hashcode);
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = String(object.Hashcode);
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.coinhtlc !== undefined && object.coinhtlc !== null) {
-      message.coinhtlc = Coin.fromJSON(object.coinhtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromJSON(object.CoinToHtlc);
     } else {
-      message.coinhtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
     return message;
   },
 
   toJSON(message: MsgCommitment): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.from !== undefined && (obj.from = message.from);
-    message.cointocreator !== undefined &&
-      (obj.cointocreator = message.cointocreator
-        ? Coin.toJSON(message.cointocreator)
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.From !== undefined && (obj.From = message.From);
+    message.CoinToCreator !== undefined &&
+      (obj.CoinToCreator = message.CoinToCreator
+        ? Coin.toJSON(message.CoinToCreator)
         : undefined);
-    message.toTimelock !== undefined && (obj.toTimelock = message.toTimelock);
-    message.blockheight !== undefined &&
-      (obj.blockheight = message.blockheight);
-    message.toHashlock !== undefined && (obj.toHashlock = message.toHashlock);
-    message.hashcode !== undefined && (obj.hashcode = message.hashcode);
-    message.coinhtlc !== undefined &&
-      (obj.coinhtlc = message.coinhtlc
-        ? Coin.toJSON(message.coinhtlc)
+    message.ToTimelockAddr !== undefined &&
+      (obj.ToTimelockAddr = message.ToTimelockAddr);
+    message.Timelock !== undefined && (obj.Timelock = message.Timelock);
+    message.ToHashlockAddr !== undefined &&
+      (obj.ToHashlockAddr = message.ToHashlockAddr);
+    message.Hashcode !== undefined && (obj.Hashcode = message.Hashcode);
+    message.CoinToHtlc !== undefined &&
+      (obj.CoinToHtlc = message.CoinToHtlc
+        ? Coin.toJSON(message.CoinToHtlc)
         : undefined);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgCommitment>): MsgCommitment {
     const message = { ...baseMsgCommitment } as MsgCommitment;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.cointocreator !== undefined && object.cointocreator !== null) {
-      message.cointocreator = Coin.fromPartial(object.cointocreator);
+    if (object.CoinToCreator !== undefined && object.CoinToCreator !== null) {
+      message.CoinToCreator = Coin.fromPartial(object.CoinToCreator);
     } else {
-      message.cointocreator = undefined;
+      message.CoinToCreator = undefined;
     }
-    if (object.toTimelock !== undefined && object.toTimelock !== null) {
-      message.toTimelock = object.toTimelock;
+    if (object.ToTimelockAddr !== undefined && object.ToTimelockAddr !== null) {
+      message.ToTimelockAddr = object.ToTimelockAddr;
     } else {
-      message.toTimelock = "";
+      message.ToTimelockAddr = "";
     }
-    if (object.blockheight !== undefined && object.blockheight !== null) {
-      message.blockheight = object.blockheight;
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = object.Timelock;
     } else {
-      message.blockheight = 0;
+      message.Timelock = 0;
     }
-    if (object.toHashlock !== undefined && object.toHashlock !== null) {
-      message.toHashlock = object.toHashlock;
+    if (object.ToHashlockAddr !== undefined && object.ToHashlockAddr !== null) {
+      message.ToHashlockAddr = object.ToHashlockAddr;
     } else {
-      message.toHashlock = "";
+      message.ToHashlockAddr = "";
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = object.hashcode;
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = object.Hashcode;
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.coinhtlc !== undefined && object.coinhtlc !== null) {
-      message.coinhtlc = Coin.fromPartial(object.coinhtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromPartial(object.CoinToHtlc);
     } else {
-      message.coinhtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
     return message;
   },
 };
 
-const baseMsgCommitmentResponse: object = { index: "" };
+const baseMsgCommitmentResponse: object = { Index: "" };
 
 export const MsgCommitmentResponse = {
   encode(
     message: MsgCommitmentResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.index !== "") {
-      writer.uint32(10).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(10).string(message.Index);
     }
     return writer;
   },
@@ -384,7 +385,7 @@ export const MsgCommitmentResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -396,17 +397,17 @@ export const MsgCommitmentResponse = {
 
   fromJSON(object: any): MsgCommitmentResponse {
     const message = { ...baseMsgCommitmentResponse } as MsgCommitmentResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 
   toJSON(message: MsgCommitmentResponse): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
+    message.Index !== undefined && (obj.Index = message.Index);
     return obj;
   },
 
@@ -414,30 +415,30 @@ export const MsgCommitmentResponse = {
     object: DeepPartial<MsgCommitmentResponse>
   ): MsgCommitmentResponse {
     const message = { ...baseMsgCommitmentResponse } as MsgCommitmentResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 };
 
-const baseMsgWithdrawTimelock: object = { creator: "", to: "", index: "" };
+const baseMsgWithdrawTimelock: object = { Creator: "", To: "", Index: "" };
 
 export const MsgWithdrawTimelock = {
   encode(
     message: MsgWithdrawTimelock,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.to !== "") {
-      writer.uint32(18).string(message.to);
+    if (message.To !== "") {
+      writer.uint32(18).string(message.To);
     }
-    if (message.index !== "") {
-      writer.uint32(26).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(26).string(message.Index);
     }
     return writer;
   },
@@ -450,13 +451,13 @@ export const MsgWithdrawTimelock = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.to = reader.string();
+          message.To = reader.string();
           break;
         case 3:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -468,48 +469,48 @@ export const MsgWithdrawTimelock = {
 
   fromJSON(object: any): MsgWithdrawTimelock {
     const message = { ...baseMsgWithdrawTimelock } as MsgWithdrawTimelock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = String(object.to);
+    if (object.To !== undefined && object.To !== null) {
+      message.To = String(object.To);
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 
   toJSON(message: MsgWithdrawTimelock): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.to !== undefined && (obj.to = message.to);
-    message.index !== undefined && (obj.index = message.index);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.To !== undefined && (obj.To = message.To);
+    message.Index !== undefined && (obj.Index = message.Index);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgWithdrawTimelock>): MsgWithdrawTimelock {
     const message = { ...baseMsgWithdrawTimelock } as MsgWithdrawTimelock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = object.to;
+    if (object.To !== undefined && object.To !== null) {
+      message.To = object.To;
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
@@ -568,10 +569,10 @@ export const MsgWithdrawTimelockResponse = {
 };
 
 const baseMsgWithdrawHashlock: object = {
-  creator: "",
-  to: "",
-  index: "",
-  secret: "",
+  Creator: "",
+  To: "",
+  Index: "",
+  Secret: "",
 };
 
 export const MsgWithdrawHashlock = {
@@ -579,17 +580,17 @@ export const MsgWithdrawHashlock = {
     message: MsgWithdrawHashlock,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.to !== "") {
-      writer.uint32(18).string(message.to);
+    if (message.To !== "") {
+      writer.uint32(18).string(message.To);
     }
-    if (message.index !== "") {
-      writer.uint32(26).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(26).string(message.Index);
     }
-    if (message.secret !== "") {
-      writer.uint32(34).string(message.secret);
+    if (message.Secret !== "") {
+      writer.uint32(34).string(message.Secret);
     }
     return writer;
   },
@@ -602,16 +603,16 @@ export const MsgWithdrawHashlock = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.to = reader.string();
+          message.To = reader.string();
           break;
         case 3:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         case 4:
-          message.secret = reader.string();
+          message.Secret = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -623,59 +624,59 @@ export const MsgWithdrawHashlock = {
 
   fromJSON(object: any): MsgWithdrawHashlock {
     const message = { ...baseMsgWithdrawHashlock } as MsgWithdrawHashlock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = String(object.to);
+    if (object.To !== undefined && object.To !== null) {
+      message.To = String(object.To);
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
-    if (object.secret !== undefined && object.secret !== null) {
-      message.secret = String(object.secret);
+    if (object.Secret !== undefined && object.Secret !== null) {
+      message.Secret = String(object.Secret);
     } else {
-      message.secret = "";
+      message.Secret = "";
     }
     return message;
   },
 
   toJSON(message: MsgWithdrawHashlock): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.to !== undefined && (obj.to = message.to);
-    message.index !== undefined && (obj.index = message.index);
-    message.secret !== undefined && (obj.secret = message.secret);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.To !== undefined && (obj.To = message.To);
+    message.Index !== undefined && (obj.Index = message.Index);
+    message.Secret !== undefined && (obj.Secret = message.Secret);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgWithdrawHashlock>): MsgWithdrawHashlock {
     const message = { ...baseMsgWithdrawHashlock } as MsgWithdrawHashlock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = object.to;
+    if (object.To !== undefined && object.To !== null) {
+      message.To = object.To;
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
-    if (object.secret !== undefined && object.secret !== null) {
-      message.secret = object.secret;
+    if (object.Secret !== undefined && object.Secret !== null) {
+      message.Secret = object.Secret;
     } else {
-      message.secret = "";
+      message.Secret = "";
     }
     return message;
   },
@@ -734,35 +735,35 @@ export const MsgWithdrawHashlockResponse = {
 };
 
 const baseMsgCloseChannel: object = {
-  creator: "",
-  from: "",
-  toA: "",
-  toB: "",
-  channelid: "",
+  Creator: "",
+  From: "",
+  ToA: "",
+  ToB: "",
+  ChannelID: "",
 };
 
 export const MsgCloseChannel = {
   encode(message: MsgCloseChannel, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.toA !== "") {
-      writer.uint32(26).string(message.toA);
+    if (message.ToA !== "") {
+      writer.uint32(26).string(message.ToA);
     }
-    if (message.coinA !== undefined) {
-      Coin.encode(message.coinA, writer.uint32(34).fork()).ldelim();
+    if (message.CoinA !== undefined) {
+      Coin.encode(message.CoinA, writer.uint32(34).fork()).ldelim();
     }
-    if (message.toB !== "") {
-      writer.uint32(42).string(message.toB);
+    if (message.ToB !== "") {
+      writer.uint32(42).string(message.ToB);
     }
-    if (message.coinB !== undefined) {
-      Coin.encode(message.coinB, writer.uint32(50).fork()).ldelim();
+    if (message.CoinB !== undefined) {
+      Coin.encode(message.CoinB, writer.uint32(50).fork()).ldelim();
     }
-    if (message.channelid !== "") {
-      writer.uint32(58).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(58).string(message.ChannelID);
     }
     return writer;
   },
@@ -775,25 +776,25 @@ export const MsgCloseChannel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.toA = reader.string();
+          message.ToA = reader.string();
           break;
         case 4:
-          message.coinA = Coin.decode(reader, reader.uint32());
+          message.CoinA = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.toB = reader.string();
+          message.ToB = reader.string();
           break;
         case 6:
-          message.coinB = Coin.decode(reader, reader.uint32());
+          message.CoinB = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -805,94 +806,94 @@ export const MsgCloseChannel = {
 
   fromJSON(object: any): MsgCloseChannel {
     const message = { ...baseMsgCloseChannel } as MsgCloseChannel;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.toA !== undefined && object.toA !== null) {
-      message.toA = String(object.toA);
+    if (object.ToA !== undefined && object.ToA !== null) {
+      message.ToA = String(object.ToA);
     } else {
-      message.toA = "";
+      message.ToA = "";
     }
-    if (object.coinA !== undefined && object.coinA !== null) {
-      message.coinA = Coin.fromJSON(object.coinA);
+    if (object.CoinA !== undefined && object.CoinA !== null) {
+      message.CoinA = Coin.fromJSON(object.CoinA);
     } else {
-      message.coinA = undefined;
+      message.CoinA = undefined;
     }
-    if (object.toB !== undefined && object.toB !== null) {
-      message.toB = String(object.toB);
+    if (object.ToB !== undefined && object.ToB !== null) {
+      message.ToB = String(object.ToB);
     } else {
-      message.toB = "";
+      message.ToB = "";
     }
-    if (object.coinB !== undefined && object.coinB !== null) {
-      message.coinB = Coin.fromJSON(object.coinB);
+    if (object.CoinB !== undefined && object.CoinB !== null) {
+      message.CoinB = Coin.fromJSON(object.CoinB);
     } else {
-      message.coinB = undefined;
+      message.CoinB = undefined;
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
     return message;
   },
 
   toJSON(message: MsgCloseChannel): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.from !== undefined && (obj.from = message.from);
-    message.toA !== undefined && (obj.toA = message.toA);
-    message.coinA !== undefined &&
-      (obj.coinA = message.coinA ? Coin.toJSON(message.coinA) : undefined);
-    message.toB !== undefined && (obj.toB = message.toB);
-    message.coinB !== undefined &&
-      (obj.coinB = message.coinB ? Coin.toJSON(message.coinB) : undefined);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.From !== undefined && (obj.From = message.From);
+    message.ToA !== undefined && (obj.ToA = message.ToA);
+    message.CoinA !== undefined &&
+      (obj.CoinA = message.CoinA ? Coin.toJSON(message.CoinA) : undefined);
+    message.ToB !== undefined && (obj.ToB = message.ToB);
+    message.CoinB !== undefined &&
+      (obj.CoinB = message.CoinB ? Coin.toJSON(message.CoinB) : undefined);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgCloseChannel>): MsgCloseChannel {
     const message = { ...baseMsgCloseChannel } as MsgCloseChannel;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.toA !== undefined && object.toA !== null) {
-      message.toA = object.toA;
+    if (object.ToA !== undefined && object.ToA !== null) {
+      message.ToA = object.ToA;
     } else {
-      message.toA = "";
+      message.ToA = "";
     }
-    if (object.coinA !== undefined && object.coinA !== null) {
-      message.coinA = Coin.fromPartial(object.coinA);
+    if (object.CoinA !== undefined && object.CoinA !== null) {
+      message.CoinA = Coin.fromPartial(object.CoinA);
     } else {
-      message.coinA = undefined;
+      message.CoinA = undefined;
     }
-    if (object.toB !== undefined && object.toB !== null) {
-      message.toB = object.toB;
+    if (object.ToB !== undefined && object.ToB !== null) {
+      message.ToB = object.ToB;
     } else {
-      message.toB = "";
+      message.ToB = "";
     }
-    if (object.coinB !== undefined && object.coinB !== null) {
-      message.coinB = Coin.fromPartial(object.coinB);
+    if (object.CoinB !== undefined && object.CoinB !== null) {
+      message.CoinB = Coin.fromPartial(object.CoinB);
     } else {
-      message.coinB = undefined;
+      message.CoinB = undefined;
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
     return message;
   },
@@ -945,35 +946,35 @@ export const MsgCloseChannelResponse = {
 };
 
 const baseMsgOpenChannel: object = {
-  creator: "",
-  partA: "",
-  partB: "",
-  multisigAddr: "",
-  sequence: "",
+  Creator: "",
+  PartA: "",
+  PartB: "",
+  MultisigAddr: "",
+  Sequence: "",
 };
 
 export const MsgOpenChannel = {
   encode(message: MsgOpenChannel, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.partA !== "") {
-      writer.uint32(18).string(message.partA);
+    if (message.PartA !== "") {
+      writer.uint32(18).string(message.PartA);
     }
-    if (message.partB !== "") {
-      writer.uint32(26).string(message.partB);
+    if (message.PartB !== "") {
+      writer.uint32(26).string(message.PartB);
     }
-    if (message.coinA !== undefined) {
-      Coin.encode(message.coinA, writer.uint32(34).fork()).ldelim();
+    if (message.CoinA !== undefined) {
+      Coin.encode(message.CoinA, writer.uint32(34).fork()).ldelim();
     }
-    if (message.coinB !== undefined) {
-      Coin.encode(message.coinB, writer.uint32(42).fork()).ldelim();
+    if (message.CoinB !== undefined) {
+      Coin.encode(message.CoinB, writer.uint32(42).fork()).ldelim();
     }
-    if (message.multisigAddr !== "") {
-      writer.uint32(50).string(message.multisigAddr);
+    if (message.MultisigAddr !== "") {
+      writer.uint32(50).string(message.MultisigAddr);
     }
-    if (message.sequence !== "") {
-      writer.uint32(58).string(message.sequence);
+    if (message.Sequence !== "") {
+      writer.uint32(58).string(message.Sequence);
     }
     return writer;
   },
@@ -986,25 +987,25 @@ export const MsgOpenChannel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.partA = reader.string();
+          message.PartA = reader.string();
           break;
         case 3:
-          message.partB = reader.string();
+          message.PartB = reader.string();
           break;
         case 4:
-          message.coinA = Coin.decode(reader, reader.uint32());
+          message.CoinA = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.coinB = Coin.decode(reader, reader.uint32());
+          message.CoinB = Coin.decode(reader, reader.uint32());
           break;
         case 6:
-          message.multisigAddr = reader.string();
+          message.MultisigAddr = reader.string();
           break;
         case 7:
-          message.sequence = reader.string();
+          message.Sequence = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1016,109 +1017,109 @@ export const MsgOpenChannel = {
 
   fromJSON(object: any): MsgOpenChannel {
     const message = { ...baseMsgOpenChannel } as MsgOpenChannel;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.partA !== undefined && object.partA !== null) {
-      message.partA = String(object.partA);
+    if (object.PartA !== undefined && object.PartA !== null) {
+      message.PartA = String(object.PartA);
     } else {
-      message.partA = "";
+      message.PartA = "";
     }
-    if (object.partB !== undefined && object.partB !== null) {
-      message.partB = String(object.partB);
+    if (object.PartB !== undefined && object.PartB !== null) {
+      message.PartB = String(object.PartB);
     } else {
-      message.partB = "";
+      message.PartB = "";
     }
-    if (object.coinA !== undefined && object.coinA !== null) {
-      message.coinA = Coin.fromJSON(object.coinA);
+    if (object.CoinA !== undefined && object.CoinA !== null) {
+      message.CoinA = Coin.fromJSON(object.CoinA);
     } else {
-      message.coinA = undefined;
+      message.CoinA = undefined;
     }
-    if (object.coinB !== undefined && object.coinB !== null) {
-      message.coinB = Coin.fromJSON(object.coinB);
+    if (object.CoinB !== undefined && object.CoinB !== null) {
+      message.CoinB = Coin.fromJSON(object.CoinB);
     } else {
-      message.coinB = undefined;
+      message.CoinB = undefined;
     }
-    if (object.multisigAddr !== undefined && object.multisigAddr !== null) {
-      message.multisigAddr = String(object.multisigAddr);
+    if (object.MultisigAddr !== undefined && object.MultisigAddr !== null) {
+      message.MultisigAddr = String(object.MultisigAddr);
     } else {
-      message.multisigAddr = "";
+      message.MultisigAddr = "";
     }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = String(object.sequence);
+    if (object.Sequence !== undefined && object.Sequence !== null) {
+      message.Sequence = String(object.Sequence);
     } else {
-      message.sequence = "";
+      message.Sequence = "";
     }
     return message;
   },
 
   toJSON(message: MsgOpenChannel): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.partA !== undefined && (obj.partA = message.partA);
-    message.partB !== undefined && (obj.partB = message.partB);
-    message.coinA !== undefined &&
-      (obj.coinA = message.coinA ? Coin.toJSON(message.coinA) : undefined);
-    message.coinB !== undefined &&
-      (obj.coinB = message.coinB ? Coin.toJSON(message.coinB) : undefined);
-    message.multisigAddr !== undefined &&
-      (obj.multisigAddr = message.multisigAddr);
-    message.sequence !== undefined && (obj.sequence = message.sequence);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.PartA !== undefined && (obj.PartA = message.PartA);
+    message.PartB !== undefined && (obj.PartB = message.PartB);
+    message.CoinA !== undefined &&
+      (obj.CoinA = message.CoinA ? Coin.toJSON(message.CoinA) : undefined);
+    message.CoinB !== undefined &&
+      (obj.CoinB = message.CoinB ? Coin.toJSON(message.CoinB) : undefined);
+    message.MultisigAddr !== undefined &&
+      (obj.MultisigAddr = message.MultisigAddr);
+    message.Sequence !== undefined && (obj.Sequence = message.Sequence);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgOpenChannel>): MsgOpenChannel {
     const message = { ...baseMsgOpenChannel } as MsgOpenChannel;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.partA !== undefined && object.partA !== null) {
-      message.partA = object.partA;
+    if (object.PartA !== undefined && object.PartA !== null) {
+      message.PartA = object.PartA;
     } else {
-      message.partA = "";
+      message.PartA = "";
     }
-    if (object.partB !== undefined && object.partB !== null) {
-      message.partB = object.partB;
+    if (object.PartB !== undefined && object.PartB !== null) {
+      message.PartB = object.PartB;
     } else {
-      message.partB = "";
+      message.PartB = "";
     }
-    if (object.coinA !== undefined && object.coinA !== null) {
-      message.coinA = Coin.fromPartial(object.coinA);
+    if (object.CoinA !== undefined && object.CoinA !== null) {
+      message.CoinA = Coin.fromPartial(object.CoinA);
     } else {
-      message.coinA = undefined;
+      message.CoinA = undefined;
     }
-    if (object.coinB !== undefined && object.coinB !== null) {
-      message.coinB = Coin.fromPartial(object.coinB);
+    if (object.CoinB !== undefined && object.CoinB !== null) {
+      message.CoinB = Coin.fromPartial(object.CoinB);
     } else {
-      message.coinB = undefined;
+      message.CoinB = undefined;
     }
-    if (object.multisigAddr !== undefined && object.multisigAddr !== null) {
-      message.multisigAddr = object.multisigAddr;
+    if (object.MultisigAddr !== undefined && object.MultisigAddr !== null) {
+      message.MultisigAddr = object.MultisigAddr;
     } else {
-      message.multisigAddr = "";
+      message.MultisigAddr = "";
     }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence;
+    if (object.Sequence !== undefined && object.Sequence !== null) {
+      message.Sequence = object.Sequence;
     } else {
-      message.sequence = "";
+      message.Sequence = "";
     }
     return message;
   },
 };
 
-const baseMsgOpenChannelResponse: object = { index: "" };
+const baseMsgOpenChannelResponse: object = { Index: "" };
 
 export const MsgOpenChannelResponse = {
   encode(
     message: MsgOpenChannelResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.index !== "") {
-      writer.uint32(10).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(10).string(message.Index);
     }
     return writer;
   },
@@ -1131,7 +1132,7 @@ export const MsgOpenChannelResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1143,17 +1144,17 @@ export const MsgOpenChannelResponse = {
 
   fromJSON(object: any): MsgOpenChannelResponse {
     const message = { ...baseMsgOpenChannelResponse } as MsgOpenChannelResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 
   toJSON(message: MsgOpenChannelResponse): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
+    message.Index !== undefined && (obj.Index = message.Index);
     return obj;
   },
 
@@ -1161,46 +1162,46 @@ export const MsgOpenChannelResponse = {
     object: DeepPartial<MsgOpenChannelResponse>
   ): MsgOpenChannelResponse {
     const message = { ...baseMsgOpenChannelResponse } as MsgOpenChannelResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 };
 
 const baseMsgFund: object = {
-  creator: "",
-  from: "",
-  channelid: "",
-  hashcode: "",
-  timelock: "",
-  multisig: "",
+  Creator: "",
+  From: "",
+  ChannelID: "",
+  Hashcode: "",
+  Timelock: "",
+  Multisig: "",
 };
 
 export const MsgFund = {
   encode(message: MsgFund, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.channelid !== "") {
-      writer.uint32(26).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(26).string(message.ChannelID);
     }
-    if (message.coinlock !== undefined) {
-      Coin.encode(message.coinlock, writer.uint32(34).fork()).ldelim();
+    if (message.CoinToHtlc !== undefined) {
+      Coin.encode(message.CoinToHtlc, writer.uint32(34).fork()).ldelim();
     }
-    if (message.hashcode !== "") {
-      writer.uint32(42).string(message.hashcode);
+    if (message.Hashcode !== "") {
+      writer.uint32(42).string(message.Hashcode);
     }
-    if (message.timelock !== "") {
-      writer.uint32(50).string(message.timelock);
+    if (message.Timelock !== "") {
+      writer.uint32(50).string(message.Timelock);
     }
-    if (message.multisig !== "") {
-      writer.uint32(58).string(message.multisig);
+    if (message.Multisig !== "") {
+      writer.uint32(58).string(message.Multisig);
     }
     return writer;
   },
@@ -1213,25 +1214,25 @@ export const MsgFund = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         case 4:
-          message.coinlock = Coin.decode(reader, reader.uint32());
+          message.CoinToHtlc = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.hashcode = reader.string();
+          message.Hashcode = reader.string();
           break;
         case 6:
-          message.timelock = reader.string();
+          message.Timelock = reader.string();
           break;
         case 7:
-          message.multisig = reader.string();
+          message.Multisig = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1243,106 +1244,106 @@ export const MsgFund = {
 
   fromJSON(object: any): MsgFund {
     const message = { ...baseMsgFund } as MsgFund;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.coinlock !== undefined && object.coinlock !== null) {
-      message.coinlock = Coin.fromJSON(object.coinlock);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromJSON(object.CoinToHtlc);
     } else {
-      message.coinlock = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = String(object.hashcode);
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = String(object.Hashcode);
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.timelock !== undefined && object.timelock !== null) {
-      message.timelock = String(object.timelock);
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = String(object.Timelock);
     } else {
-      message.timelock = "";
+      message.Timelock = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = String(object.multisig);
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = String(object.Multisig);
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 
   toJSON(message: MsgFund): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.from !== undefined && (obj.from = message.from);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.coinlock !== undefined &&
-      (obj.coinlock = message.coinlock
-        ? Coin.toJSON(message.coinlock)
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.From !== undefined && (obj.From = message.From);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
+    message.CoinToHtlc !== undefined &&
+      (obj.CoinToHtlc = message.CoinToHtlc
+        ? Coin.toJSON(message.CoinToHtlc)
         : undefined);
-    message.hashcode !== undefined && (obj.hashcode = message.hashcode);
-    message.timelock !== undefined && (obj.timelock = message.timelock);
-    message.multisig !== undefined && (obj.multisig = message.multisig);
+    message.Hashcode !== undefined && (obj.Hashcode = message.Hashcode);
+    message.Timelock !== undefined && (obj.Timelock = message.Timelock);
+    message.Multisig !== undefined && (obj.Multisig = message.Multisig);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgFund>): MsgFund {
     const message = { ...baseMsgFund } as MsgFund;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.coinlock !== undefined && object.coinlock !== null) {
-      message.coinlock = Coin.fromPartial(object.coinlock);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromPartial(object.CoinToHtlc);
     } else {
-      message.coinlock = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = object.hashcode;
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = object.Hashcode;
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.timelock !== undefined && object.timelock !== null) {
-      message.timelock = object.timelock;
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = object.Timelock;
     } else {
-      message.timelock = "";
+      message.Timelock = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = object.multisig;
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = object.Multisig;
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 };
 
-const baseMsgFundResponse: object = { index: "" };
+const baseMsgFundResponse: object = { Index: "" };
 
 export const MsgFundResponse = {
   encode(message: MsgFundResponse, writer: Writer = Writer.create()): Writer {
-    if (message.index !== "") {
-      writer.uint32(10).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(10).string(message.Index);
     }
     return writer;
   },
@@ -1355,7 +1356,7 @@ export const MsgFundResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1367,62 +1368,62 @@ export const MsgFundResponse = {
 
   fromJSON(object: any): MsgFundResponse {
     const message = { ...baseMsgFundResponse } as MsgFundResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 
   toJSON(message: MsgFundResponse): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
+    message.Index !== undefined && (obj.Index = message.Index);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgFundResponse>): MsgFundResponse {
     const message = { ...baseMsgFundResponse } as MsgFundResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 };
 
 const baseMsgAcceptfund: object = {
-  creator: "",
-  from: "",
-  channelid: "",
-  hashcode: "",
-  timelock: "",
-  multisig: "",
+  Creator: "",
+  From: "",
+  ChannelID: "",
+  Hashcode: "",
+  Timelock: "",
+  Multisig: "",
 };
 
 export const MsgAcceptfund = {
   encode(message: MsgAcceptfund, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.channelid !== "") {
-      writer.uint32(26).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(26).string(message.ChannelID);
     }
-    if (message.coin !== undefined) {
-      Coin.encode(message.coin, writer.uint32(34).fork()).ldelim();
+    if (message.CoinToAcceptSide !== undefined) {
+      Coin.encode(message.CoinToAcceptSide, writer.uint32(34).fork()).ldelim();
     }
-    if (message.hashcode !== "") {
-      writer.uint32(42).string(message.hashcode);
+    if (message.Hashcode !== "") {
+      writer.uint32(42).string(message.Hashcode);
     }
-    if (message.timelock !== "") {
-      writer.uint32(50).string(message.timelock);
+    if (message.Timelock !== "") {
+      writer.uint32(50).string(message.Timelock);
     }
-    if (message.multisig !== "") {
-      writer.uint32(58).string(message.multisig);
+    if (message.Multisig !== "") {
+      writer.uint32(58).string(message.Multisig);
     }
     return writer;
   },
@@ -1435,25 +1436,25 @@ export const MsgAcceptfund = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         case 4:
-          message.coin = Coin.decode(reader, reader.uint32());
+          message.CoinToAcceptSide = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.hashcode = reader.string();
+          message.Hashcode = reader.string();
           break;
         case 6:
-          message.timelock = reader.string();
+          message.Timelock = reader.string();
           break;
         case 7:
-          message.multisig = reader.string();
+          message.Multisig = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1465,107 +1466,115 @@ export const MsgAcceptfund = {
 
   fromJSON(object: any): MsgAcceptfund {
     const message = { ...baseMsgAcceptfund } as MsgAcceptfund;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromJSON(object.coin);
+    if (
+      object.CoinToAcceptSide !== undefined &&
+      object.CoinToAcceptSide !== null
+    ) {
+      message.CoinToAcceptSide = Coin.fromJSON(object.CoinToAcceptSide);
     } else {
-      message.coin = undefined;
+      message.CoinToAcceptSide = undefined;
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = String(object.hashcode);
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = String(object.Hashcode);
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.timelock !== undefined && object.timelock !== null) {
-      message.timelock = String(object.timelock);
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = String(object.Timelock);
     } else {
-      message.timelock = "";
+      message.Timelock = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = String(object.multisig);
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = String(object.Multisig);
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 
   toJSON(message: MsgAcceptfund): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.from !== undefined && (obj.from = message.from);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.coin !== undefined &&
-      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
-    message.hashcode !== undefined && (obj.hashcode = message.hashcode);
-    message.timelock !== undefined && (obj.timelock = message.timelock);
-    message.multisig !== undefined && (obj.multisig = message.multisig);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.From !== undefined && (obj.From = message.From);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
+    message.CoinToAcceptSide !== undefined &&
+      (obj.CoinToAcceptSide = message.CoinToAcceptSide
+        ? Coin.toJSON(message.CoinToAcceptSide)
+        : undefined);
+    message.Hashcode !== undefined && (obj.Hashcode = message.Hashcode);
+    message.Timelock !== undefined && (obj.Timelock = message.Timelock);
+    message.Multisig !== undefined && (obj.Multisig = message.Multisig);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgAcceptfund>): MsgAcceptfund {
     const message = { ...baseMsgAcceptfund } as MsgAcceptfund;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromPartial(object.coin);
+    if (
+      object.CoinToAcceptSide !== undefined &&
+      object.CoinToAcceptSide !== null
+    ) {
+      message.CoinToAcceptSide = Coin.fromPartial(object.CoinToAcceptSide);
     } else {
-      message.coin = undefined;
+      message.CoinToAcceptSide = undefined;
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = object.hashcode;
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = object.Hashcode;
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.timelock !== undefined && object.timelock !== null) {
-      message.timelock = object.timelock;
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = object.Timelock;
     } else {
-      message.timelock = "";
+      message.Timelock = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = object.multisig;
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = object.Multisig;
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 };
 
-const baseMsgAcceptfundResponse: object = { index: "" };
+const baseMsgAcceptfundResponse: object = { Index: "" };
 
 export const MsgAcceptfundResponse = {
   encode(
     message: MsgAcceptfundResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.index !== "") {
-      writer.uint32(10).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(10).string(message.Index);
     }
     return writer;
   },
@@ -1578,7 +1587,7 @@ export const MsgAcceptfundResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1590,17 +1599,17 @@ export const MsgAcceptfundResponse = {
 
   fromJSON(object: any): MsgAcceptfundResponse {
     const message = { ...baseMsgAcceptfundResponse } as MsgAcceptfundResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 
   toJSON(message: MsgAcceptfundResponse): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
+    message.Index !== undefined && (obj.Index = message.Index);
     return obj;
   },
 
@@ -1608,64 +1617,64 @@ export const MsgAcceptfundResponse = {
     object: DeepPartial<MsgAcceptfundResponse>
   ): MsgAcceptfundResponse {
     const message = { ...baseMsgAcceptfundResponse } as MsgAcceptfundResponse;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
     return message;
   },
 };
 
 const baseMsgSendercommit: object = {
-  creator: "",
-  from: "",
-  channelid: "",
-  hashcodehtlc: "",
-  timelockhtlc: "",
-  hashcodedest: "",
-  timelockreceiver: "",
-  timelocksender: "",
-  multisig: "",
+  Creator: "",
+  From: "",
+  ChannelID: "",
+  HashcodeHtlc: "",
+  TimelockHtlc: "",
+  HashcodeDest: "",
+  TimelockReceiver: "",
+  TimelockSender: "",
+  Multisig: "",
 };
 
 export const MsgSendercommit = {
   encode(message: MsgSendercommit, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.channelid !== "") {
-      writer.uint32(26).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(26).string(message.ChannelID);
     }
-    if (message.cointosender !== undefined) {
-      Coin.encode(message.cointosender, writer.uint32(34).fork()).ldelim();
+    if (message.CoinToSender !== undefined) {
+      Coin.encode(message.CoinToSender, writer.uint32(34).fork()).ldelim();
     }
-    if (message.cointohtlc !== undefined) {
-      Coin.encode(message.cointohtlc, writer.uint32(42).fork()).ldelim();
+    if (message.CoinToHtlc !== undefined) {
+      Coin.encode(message.CoinToHtlc, writer.uint32(42).fork()).ldelim();
     }
-    if (message.hashcodehtlc !== "") {
-      writer.uint32(50).string(message.hashcodehtlc);
+    if (message.HashcodeHtlc !== "") {
+      writer.uint32(50).string(message.HashcodeHtlc);
     }
-    if (message.timelockhtlc !== "") {
-      writer.uint32(58).string(message.timelockhtlc);
+    if (message.TimelockHtlc !== "") {
+      writer.uint32(58).string(message.TimelockHtlc);
     }
-    if (message.cointransfer !== undefined) {
-      Coin.encode(message.cointransfer, writer.uint32(66).fork()).ldelim();
+    if (message.CoinTransfer !== undefined) {
+      Coin.encode(message.CoinTransfer, writer.uint32(66).fork()).ldelim();
     }
-    if (message.hashcodedest !== "") {
-      writer.uint32(74).string(message.hashcodedest);
+    if (message.HashcodeDest !== "") {
+      writer.uint32(74).string(message.HashcodeDest);
     }
-    if (message.timelockreceiver !== "") {
-      writer.uint32(82).string(message.timelockreceiver);
+    if (message.TimelockReceiver !== "") {
+      writer.uint32(82).string(message.TimelockReceiver);
     }
-    if (message.timelocksender !== "") {
-      writer.uint32(90).string(message.timelocksender);
+    if (message.TimelockSender !== "") {
+      writer.uint32(90).string(message.TimelockSender);
     }
-    if (message.multisig !== "") {
-      writer.uint32(98).string(message.multisig);
+    if (message.Multisig !== "") {
+      writer.uint32(98).string(message.Multisig);
     }
     return writer;
   },
@@ -1678,40 +1687,40 @@ export const MsgSendercommit = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         case 4:
-          message.cointosender = Coin.decode(reader, reader.uint32());
+          message.CoinToSender = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.cointohtlc = Coin.decode(reader, reader.uint32());
+          message.CoinToHtlc = Coin.decode(reader, reader.uint32());
           break;
         case 6:
-          message.hashcodehtlc = reader.string();
+          message.HashcodeHtlc = reader.string();
           break;
         case 7:
-          message.timelockhtlc = reader.string();
+          message.TimelockHtlc = reader.string();
           break;
         case 8:
-          message.cointransfer = Coin.decode(reader, reader.uint32());
+          message.CoinTransfer = Coin.decode(reader, reader.uint32());
           break;
         case 9:
-          message.hashcodedest = reader.string();
+          message.HashcodeDest = reader.string();
           break;
         case 10:
-          message.timelockreceiver = reader.string();
+          message.TimelockReceiver = reader.string();
           break;
         case 11:
-          message.timelocksender = reader.string();
+          message.TimelockSender = reader.string();
           break;
         case 12:
-          message.multisig = reader.string();
+          message.Multisig = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1723,175 +1732,175 @@ export const MsgSendercommit = {
 
   fromJSON(object: any): MsgSendercommit {
     const message = { ...baseMsgSendercommit } as MsgSendercommit;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.cointosender !== undefined && object.cointosender !== null) {
-      message.cointosender = Coin.fromJSON(object.cointosender);
+    if (object.CoinToSender !== undefined && object.CoinToSender !== null) {
+      message.CoinToSender = Coin.fromJSON(object.CoinToSender);
     } else {
-      message.cointosender = undefined;
+      message.CoinToSender = undefined;
     }
-    if (object.cointohtlc !== undefined && object.cointohtlc !== null) {
-      message.cointohtlc = Coin.fromJSON(object.cointohtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromJSON(object.CoinToHtlc);
     } else {
-      message.cointohtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
-      message.hashcodehtlc = String(object.hashcodehtlc);
+    if (object.HashcodeHtlc !== undefined && object.HashcodeHtlc !== null) {
+      message.HashcodeHtlc = String(object.HashcodeHtlc);
     } else {
-      message.hashcodehtlc = "";
+      message.HashcodeHtlc = "";
     }
-    if (object.timelockhtlc !== undefined && object.timelockhtlc !== null) {
-      message.timelockhtlc = String(object.timelockhtlc);
+    if (object.TimelockHtlc !== undefined && object.TimelockHtlc !== null) {
+      message.TimelockHtlc = String(object.TimelockHtlc);
     } else {
-      message.timelockhtlc = "";
+      message.TimelockHtlc = "";
     }
-    if (object.cointransfer !== undefined && object.cointransfer !== null) {
-      message.cointransfer = Coin.fromJSON(object.cointransfer);
+    if (object.CoinTransfer !== undefined && object.CoinTransfer !== null) {
+      message.CoinTransfer = Coin.fromJSON(object.CoinTransfer);
     } else {
-      message.cointransfer = undefined;
+      message.CoinTransfer = undefined;
     }
-    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
-      message.hashcodedest = String(object.hashcodedest);
+    if (object.HashcodeDest !== undefined && object.HashcodeDest !== null) {
+      message.HashcodeDest = String(object.HashcodeDest);
     } else {
-      message.hashcodedest = "";
+      message.HashcodeDest = "";
     }
     if (
-      object.timelockreceiver !== undefined &&
-      object.timelockreceiver !== null
+      object.TimelockReceiver !== undefined &&
+      object.TimelockReceiver !== null
     ) {
-      message.timelockreceiver = String(object.timelockreceiver);
+      message.TimelockReceiver = String(object.TimelockReceiver);
     } else {
-      message.timelockreceiver = "";
+      message.TimelockReceiver = "";
     }
-    if (object.timelocksender !== undefined && object.timelocksender !== null) {
-      message.timelocksender = String(object.timelocksender);
+    if (object.TimelockSender !== undefined && object.TimelockSender !== null) {
+      message.TimelockSender = String(object.TimelockSender);
     } else {
-      message.timelocksender = "";
+      message.TimelockSender = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = String(object.multisig);
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = String(object.Multisig);
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 
   toJSON(message: MsgSendercommit): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.from !== undefined && (obj.from = message.from);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.cointosender !== undefined &&
-      (obj.cointosender = message.cointosender
-        ? Coin.toJSON(message.cointosender)
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.From !== undefined && (obj.From = message.From);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
+    message.CoinToSender !== undefined &&
+      (obj.CoinToSender = message.CoinToSender
+        ? Coin.toJSON(message.CoinToSender)
         : undefined);
-    message.cointohtlc !== undefined &&
-      (obj.cointohtlc = message.cointohtlc
-        ? Coin.toJSON(message.cointohtlc)
+    message.CoinToHtlc !== undefined &&
+      (obj.CoinToHtlc = message.CoinToHtlc
+        ? Coin.toJSON(message.CoinToHtlc)
         : undefined);
-    message.hashcodehtlc !== undefined &&
-      (obj.hashcodehtlc = message.hashcodehtlc);
-    message.timelockhtlc !== undefined &&
-      (obj.timelockhtlc = message.timelockhtlc);
-    message.cointransfer !== undefined &&
-      (obj.cointransfer = message.cointransfer
-        ? Coin.toJSON(message.cointransfer)
+    message.HashcodeHtlc !== undefined &&
+      (obj.HashcodeHtlc = message.HashcodeHtlc);
+    message.TimelockHtlc !== undefined &&
+      (obj.TimelockHtlc = message.TimelockHtlc);
+    message.CoinTransfer !== undefined &&
+      (obj.CoinTransfer = message.CoinTransfer
+        ? Coin.toJSON(message.CoinTransfer)
         : undefined);
-    message.hashcodedest !== undefined &&
-      (obj.hashcodedest = message.hashcodedest);
-    message.timelockreceiver !== undefined &&
-      (obj.timelockreceiver = message.timelockreceiver);
-    message.timelocksender !== undefined &&
-      (obj.timelocksender = message.timelocksender);
-    message.multisig !== undefined && (obj.multisig = message.multisig);
+    message.HashcodeDest !== undefined &&
+      (obj.HashcodeDest = message.HashcodeDest);
+    message.TimelockReceiver !== undefined &&
+      (obj.TimelockReceiver = message.TimelockReceiver);
+    message.TimelockSender !== undefined &&
+      (obj.TimelockSender = message.TimelockSender);
+    message.Multisig !== undefined && (obj.Multisig = message.Multisig);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgSendercommit>): MsgSendercommit {
     const message = { ...baseMsgSendercommit } as MsgSendercommit;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.cointosender !== undefined && object.cointosender !== null) {
-      message.cointosender = Coin.fromPartial(object.cointosender);
+    if (object.CoinToSender !== undefined && object.CoinToSender !== null) {
+      message.CoinToSender = Coin.fromPartial(object.CoinToSender);
     } else {
-      message.cointosender = undefined;
+      message.CoinToSender = undefined;
     }
-    if (object.cointohtlc !== undefined && object.cointohtlc !== null) {
-      message.cointohtlc = Coin.fromPartial(object.cointohtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromPartial(object.CoinToHtlc);
     } else {
-      message.cointohtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
-      message.hashcodehtlc = object.hashcodehtlc;
+    if (object.HashcodeHtlc !== undefined && object.HashcodeHtlc !== null) {
+      message.HashcodeHtlc = object.HashcodeHtlc;
     } else {
-      message.hashcodehtlc = "";
+      message.HashcodeHtlc = "";
     }
-    if (object.timelockhtlc !== undefined && object.timelockhtlc !== null) {
-      message.timelockhtlc = object.timelockhtlc;
+    if (object.TimelockHtlc !== undefined && object.TimelockHtlc !== null) {
+      message.TimelockHtlc = object.TimelockHtlc;
     } else {
-      message.timelockhtlc = "";
+      message.TimelockHtlc = "";
     }
-    if (object.cointransfer !== undefined && object.cointransfer !== null) {
-      message.cointransfer = Coin.fromPartial(object.cointransfer);
+    if (object.CoinTransfer !== undefined && object.CoinTransfer !== null) {
+      message.CoinTransfer = Coin.fromPartial(object.CoinTransfer);
     } else {
-      message.cointransfer = undefined;
+      message.CoinTransfer = undefined;
     }
-    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
-      message.hashcodedest = object.hashcodedest;
+    if (object.HashcodeDest !== undefined && object.HashcodeDest !== null) {
+      message.HashcodeDest = object.HashcodeDest;
     } else {
-      message.hashcodedest = "";
+      message.HashcodeDest = "";
     }
     if (
-      object.timelockreceiver !== undefined &&
-      object.timelockreceiver !== null
+      object.TimelockReceiver !== undefined &&
+      object.TimelockReceiver !== null
     ) {
-      message.timelockreceiver = object.timelockreceiver;
+      message.TimelockReceiver = object.TimelockReceiver;
     } else {
-      message.timelockreceiver = "";
+      message.TimelockReceiver = "";
     }
-    if (object.timelocksender !== undefined && object.timelocksender !== null) {
-      message.timelocksender = object.timelocksender;
+    if (object.TimelockSender !== undefined && object.TimelockSender !== null) {
+      message.TimelockSender = object.TimelockSender;
     } else {
-      message.timelocksender = "";
+      message.TimelockSender = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = object.multisig;
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = object.Multisig;
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 };
 
 const baseMsgSendercommitResponse: object = {
-  indexhtlc: "",
-  indextransfer: "",
+  IndexHtlc: "",
+  IndexTransfer: "",
 };
 
 export const MsgSendercommitResponse = {
@@ -1899,11 +1908,11 @@ export const MsgSendercommitResponse = {
     message: MsgSendercommitResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.indexhtlc !== "") {
-      writer.uint32(10).string(message.indexhtlc);
+    if (message.IndexHtlc !== "") {
+      writer.uint32(10).string(message.IndexHtlc);
     }
-    if (message.indextransfer !== "") {
-      writer.uint32(18).string(message.indextransfer);
+    if (message.IndexTransfer !== "") {
+      writer.uint32(18).string(message.IndexTransfer);
     }
     return writer;
   },
@@ -1918,10 +1927,10 @@ export const MsgSendercommitResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.indexhtlc = reader.string();
+          message.IndexHtlc = reader.string();
           break;
         case 2:
-          message.indextransfer = reader.string();
+          message.IndexTransfer = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1935,24 +1944,24 @@ export const MsgSendercommitResponse = {
     const message = {
       ...baseMsgSendercommitResponse,
     } as MsgSendercommitResponse;
-    if (object.indexhtlc !== undefined && object.indexhtlc !== null) {
-      message.indexhtlc = String(object.indexhtlc);
+    if (object.IndexHtlc !== undefined && object.IndexHtlc !== null) {
+      message.IndexHtlc = String(object.IndexHtlc);
     } else {
-      message.indexhtlc = "";
+      message.IndexHtlc = "";
     }
-    if (object.indextransfer !== undefined && object.indextransfer !== null) {
-      message.indextransfer = String(object.indextransfer);
+    if (object.IndexTransfer !== undefined && object.IndexTransfer !== null) {
+      message.IndexTransfer = String(object.IndexTransfer);
     } else {
-      message.indextransfer = "";
+      message.IndexTransfer = "";
     }
     return message;
   },
 
   toJSON(message: MsgSendercommitResponse): unknown {
     const obj: any = {};
-    message.indexhtlc !== undefined && (obj.indexhtlc = message.indexhtlc);
-    message.indextransfer !== undefined &&
-      (obj.indextransfer = message.indextransfer);
+    message.IndexHtlc !== undefined && (obj.IndexHtlc = message.IndexHtlc);
+    message.IndexTransfer !== undefined &&
+      (obj.IndexTransfer = message.IndexTransfer);
     return obj;
   },
 
@@ -1962,24 +1971,24 @@ export const MsgSendercommitResponse = {
     const message = {
       ...baseMsgSendercommitResponse,
     } as MsgSendercommitResponse;
-    if (object.indexhtlc !== undefined && object.indexhtlc !== null) {
-      message.indexhtlc = object.indexhtlc;
+    if (object.IndexHtlc !== undefined && object.IndexHtlc !== null) {
+      message.IndexHtlc = object.IndexHtlc;
     } else {
-      message.indexhtlc = "";
+      message.IndexHtlc = "";
     }
-    if (object.indextransfer !== undefined && object.indextransfer !== null) {
-      message.indextransfer = object.indextransfer;
+    if (object.IndexTransfer !== undefined && object.IndexTransfer !== null) {
+      message.IndexTransfer = object.IndexTransfer;
     } else {
-      message.indextransfer = "";
+      message.IndexTransfer = "";
     }
     return message;
   },
 };
 
 const baseMsgSenderwithdrawtimelock: object = {
-  creator: "",
-  transferindex: "",
-  to: "",
+  Creator: "",
+  TransferIndex: "",
+  To: "",
 };
 
 export const MsgSenderwithdrawtimelock = {
@@ -1987,14 +1996,14 @@ export const MsgSenderwithdrawtimelock = {
     message: MsgSenderwithdrawtimelock,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.transferindex !== "") {
-      writer.uint32(18).string(message.transferindex);
+    if (message.TransferIndex !== "") {
+      writer.uint32(18).string(message.TransferIndex);
     }
-    if (message.to !== "") {
-      writer.uint32(26).string(message.to);
+    if (message.To !== "") {
+      writer.uint32(26).string(message.To);
     }
     return writer;
   },
@@ -2012,13 +2021,13 @@ export const MsgSenderwithdrawtimelock = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.transferindex = reader.string();
+          message.TransferIndex = reader.string();
           break;
         case 3:
-          message.to = reader.string();
+          message.To = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2032,30 +2041,30 @@ export const MsgSenderwithdrawtimelock = {
     const message = {
       ...baseMsgSenderwithdrawtimelock,
     } as MsgSenderwithdrawtimelock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.transferindex !== undefined && object.transferindex !== null) {
-      message.transferindex = String(object.transferindex);
+    if (object.TransferIndex !== undefined && object.TransferIndex !== null) {
+      message.TransferIndex = String(object.TransferIndex);
     } else {
-      message.transferindex = "";
+      message.TransferIndex = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = String(object.to);
+    if (object.To !== undefined && object.To !== null) {
+      message.To = String(object.To);
     } else {
-      message.to = "";
+      message.To = "";
     }
     return message;
   },
 
   toJSON(message: MsgSenderwithdrawtimelock): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.transferindex !== undefined &&
-      (obj.transferindex = message.transferindex);
-    message.to !== undefined && (obj.to = message.to);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.TransferIndex !== undefined &&
+      (obj.TransferIndex = message.TransferIndex);
+    message.To !== undefined && (obj.To = message.To);
     return obj;
   },
 
@@ -2065,20 +2074,20 @@ export const MsgSenderwithdrawtimelock = {
     const message = {
       ...baseMsgSenderwithdrawtimelock,
     } as MsgSenderwithdrawtimelock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.transferindex !== undefined && object.transferindex !== null) {
-      message.transferindex = object.transferindex;
+    if (object.TransferIndex !== undefined && object.TransferIndex !== null) {
+      message.TransferIndex = object.TransferIndex;
     } else {
-      message.transferindex = "";
+      message.TransferIndex = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = object.to;
+    if (object.To !== undefined && object.To !== null) {
+      message.To = object.To;
     } else {
-      message.to = "";
+      message.To = "";
     }
     return message;
   },
@@ -2137,10 +2146,10 @@ export const MsgSenderwithdrawtimelockResponse = {
 };
 
 const baseMsgSenderwithdrawhashlock: object = {
-  creator: "",
-  transferindex: "",
-  to: "",
-  secret: "",
+  Creator: "",
+  TransferIndex: "",
+  To: "",
+  Secret: "",
 };
 
 export const MsgSenderwithdrawhashlock = {
@@ -2148,17 +2157,17 @@ export const MsgSenderwithdrawhashlock = {
     message: MsgSenderwithdrawhashlock,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.transferindex !== "") {
-      writer.uint32(18).string(message.transferindex);
+    if (message.TransferIndex !== "") {
+      writer.uint32(18).string(message.TransferIndex);
     }
-    if (message.to !== "") {
-      writer.uint32(26).string(message.to);
+    if (message.To !== "") {
+      writer.uint32(26).string(message.To);
     }
-    if (message.secret !== "") {
-      writer.uint32(34).string(message.secret);
+    if (message.Secret !== "") {
+      writer.uint32(34).string(message.Secret);
     }
     return writer;
   },
@@ -2176,16 +2185,16 @@ export const MsgSenderwithdrawhashlock = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.transferindex = reader.string();
+          message.TransferIndex = reader.string();
           break;
         case 3:
-          message.to = reader.string();
+          message.To = reader.string();
           break;
         case 4:
-          message.secret = reader.string();
+          message.Secret = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2199,36 +2208,36 @@ export const MsgSenderwithdrawhashlock = {
     const message = {
       ...baseMsgSenderwithdrawhashlock,
     } as MsgSenderwithdrawhashlock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.transferindex !== undefined && object.transferindex !== null) {
-      message.transferindex = String(object.transferindex);
+    if (object.TransferIndex !== undefined && object.TransferIndex !== null) {
+      message.TransferIndex = String(object.TransferIndex);
     } else {
-      message.transferindex = "";
+      message.TransferIndex = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = String(object.to);
+    if (object.To !== undefined && object.To !== null) {
+      message.To = String(object.To);
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.secret !== undefined && object.secret !== null) {
-      message.secret = String(object.secret);
+    if (object.Secret !== undefined && object.Secret !== null) {
+      message.Secret = String(object.Secret);
     } else {
-      message.secret = "";
+      message.Secret = "";
     }
     return message;
   },
 
   toJSON(message: MsgSenderwithdrawhashlock): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.transferindex !== undefined &&
-      (obj.transferindex = message.transferindex);
-    message.to !== undefined && (obj.to = message.to);
-    message.secret !== undefined && (obj.secret = message.secret);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.TransferIndex !== undefined &&
+      (obj.TransferIndex = message.TransferIndex);
+    message.To !== undefined && (obj.To = message.To);
+    message.Secret !== undefined && (obj.Secret = message.Secret);
     return obj;
   },
 
@@ -2238,25 +2247,25 @@ export const MsgSenderwithdrawhashlock = {
     const message = {
       ...baseMsgSenderwithdrawhashlock,
     } as MsgSenderwithdrawhashlock;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.transferindex !== undefined && object.transferindex !== null) {
-      message.transferindex = object.transferindex;
+    if (object.TransferIndex !== undefined && object.TransferIndex !== null) {
+      message.TransferIndex = object.TransferIndex;
     } else {
-      message.transferindex = "";
+      message.TransferIndex = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = object.to;
+    if (object.To !== undefined && object.To !== null) {
+      message.To = object.To;
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.secret !== undefined && object.secret !== null) {
-      message.secret = object.secret;
+    if (object.Secret !== undefined && object.Secret !== null) {
+      message.Secret = object.Secret;
     } else {
-      message.secret = "";
+      message.Secret = "";
     }
     return message;
   },
@@ -2315,10 +2324,10 @@ export const MsgSenderwithdrawhashlockResponse = {
 };
 
 const baseMsgReceiverwithdraw: object = {
-  creator: "",
-  transferindex: "",
-  to: "",
-  secret: "",
+  Creator: "",
+  TransferIndex: "",
+  To: "",
+  Secret: "",
 };
 
 export const MsgReceiverwithdraw = {
@@ -2326,17 +2335,17 @@ export const MsgReceiverwithdraw = {
     message: MsgReceiverwithdraw,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.transferindex !== "") {
-      writer.uint32(18).string(message.transferindex);
+    if (message.TransferIndex !== "") {
+      writer.uint32(18).string(message.TransferIndex);
     }
-    if (message.to !== "") {
-      writer.uint32(26).string(message.to);
+    if (message.To !== "") {
+      writer.uint32(26).string(message.To);
     }
-    if (message.secret !== "") {
-      writer.uint32(34).string(message.secret);
+    if (message.Secret !== "") {
+      writer.uint32(34).string(message.Secret);
     }
     return writer;
   },
@@ -2349,16 +2358,16 @@ export const MsgReceiverwithdraw = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.transferindex = reader.string();
+          message.TransferIndex = reader.string();
           break;
         case 3:
-          message.to = reader.string();
+          message.To = reader.string();
           break;
         case 4:
-          message.secret = reader.string();
+          message.Secret = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2370,60 +2379,60 @@ export const MsgReceiverwithdraw = {
 
   fromJSON(object: any): MsgReceiverwithdraw {
     const message = { ...baseMsgReceiverwithdraw } as MsgReceiverwithdraw;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.transferindex !== undefined && object.transferindex !== null) {
-      message.transferindex = String(object.transferindex);
+    if (object.TransferIndex !== undefined && object.TransferIndex !== null) {
+      message.TransferIndex = String(object.TransferIndex);
     } else {
-      message.transferindex = "";
+      message.TransferIndex = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = String(object.to);
+    if (object.To !== undefined && object.To !== null) {
+      message.To = String(object.To);
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.secret !== undefined && object.secret !== null) {
-      message.secret = String(object.secret);
+    if (object.Secret !== undefined && object.Secret !== null) {
+      message.Secret = String(object.Secret);
     } else {
-      message.secret = "";
+      message.Secret = "";
     }
     return message;
   },
 
   toJSON(message: MsgReceiverwithdraw): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.transferindex !== undefined &&
-      (obj.transferindex = message.transferindex);
-    message.to !== undefined && (obj.to = message.to);
-    message.secret !== undefined && (obj.secret = message.secret);
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.TransferIndex !== undefined &&
+      (obj.TransferIndex = message.TransferIndex);
+    message.To !== undefined && (obj.To = message.To);
+    message.Secret !== undefined && (obj.Secret = message.Secret);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgReceiverwithdraw>): MsgReceiverwithdraw {
     const message = { ...baseMsgReceiverwithdraw } as MsgReceiverwithdraw;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.transferindex !== undefined && object.transferindex !== null) {
-      message.transferindex = object.transferindex;
+    if (object.TransferIndex !== undefined && object.TransferIndex !== null) {
+      message.TransferIndex = object.TransferIndex;
     } else {
-      message.transferindex = "";
+      message.TransferIndex = "";
     }
-    if (object.to !== undefined && object.to !== null) {
-      message.to = object.to;
+    if (object.To !== undefined && object.To !== null) {
+      message.To = object.To;
     } else {
-      message.to = "";
+      message.To = "";
     }
-    if (object.secret !== undefined && object.secret !== null) {
-      message.secret = object.secret;
+    if (object.Secret !== undefined && object.Secret !== null) {
+      message.Secret = object.Secret;
     } else {
-      message.secret = "";
+      message.Secret = "";
     }
     return message;
   },
@@ -2482,50 +2491,50 @@ export const MsgReceiverwithdrawResponse = {
 };
 
 const baseMsgReceivercommit: object = {
-  creator: "",
-  from: "",
-  channelid: "",
-  hashcodehtlc: "",
-  timelockhtlc: "",
-  hashcodedest: "",
-  timelocksender: "",
-  multisig: "",
+  Creator: "",
+  From: "",
+  ChannelID: "",
+  HashcodeHtlc: "",
+  TimelockHtlc: "",
+  HashcodeDest: "",
+  TimelockSender: "",
+  Multisig: "",
 };
 
 export const MsgReceivercommit = {
   encode(message: MsgReceivercommit, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
+    if (message.Creator !== "") {
+      writer.uint32(10).string(message.Creator);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.channelid !== "") {
-      writer.uint32(26).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(26).string(message.ChannelID);
     }
-    if (message.cointoreceiver !== undefined) {
-      Coin.encode(message.cointoreceiver, writer.uint32(34).fork()).ldelim();
+    if (message.CoinToReceiver !== undefined) {
+      Coin.encode(message.CoinToReceiver, writer.uint32(34).fork()).ldelim();
     }
-    if (message.cointohtlc !== undefined) {
-      Coin.encode(message.cointohtlc, writer.uint32(42).fork()).ldelim();
+    if (message.CoinToHtlc !== undefined) {
+      Coin.encode(message.CoinToHtlc, writer.uint32(42).fork()).ldelim();
     }
-    if (message.hashcodehtlc !== "") {
-      writer.uint32(50).string(message.hashcodehtlc);
+    if (message.HashcodeHtlc !== "") {
+      writer.uint32(50).string(message.HashcodeHtlc);
     }
-    if (message.timelockhtlc !== "") {
-      writer.uint32(58).string(message.timelockhtlc);
+    if (message.TimelockHtlc !== "") {
+      writer.uint32(58).string(message.TimelockHtlc);
     }
-    if (message.cointransfer !== undefined) {
-      Coin.encode(message.cointransfer, writer.uint32(66).fork()).ldelim();
+    if (message.CoinTransfer !== undefined) {
+      Coin.encode(message.CoinTransfer, writer.uint32(66).fork()).ldelim();
     }
-    if (message.hashcodedest !== "") {
-      writer.uint32(74).string(message.hashcodedest);
+    if (message.HashcodeDest !== "") {
+      writer.uint32(74).string(message.HashcodeDest);
     }
-    if (message.timelocksender !== "") {
-      writer.uint32(82).string(message.timelocksender);
+    if (message.TimelockSender !== "") {
+      writer.uint32(82).string(message.TimelockSender);
     }
-    if (message.multisig !== "") {
-      writer.uint32(90).string(message.multisig);
+    if (message.Multisig !== "") {
+      writer.uint32(90).string(message.Multisig);
     }
     return writer;
   },
@@ -2538,37 +2547,37 @@ export const MsgReceivercommit = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.creator = reader.string();
+          message.Creator = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         case 4:
-          message.cointoreceiver = Coin.decode(reader, reader.uint32());
+          message.CoinToReceiver = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.cointohtlc = Coin.decode(reader, reader.uint32());
+          message.CoinToHtlc = Coin.decode(reader, reader.uint32());
           break;
         case 6:
-          message.hashcodehtlc = reader.string();
+          message.HashcodeHtlc = reader.string();
           break;
         case 7:
-          message.timelockhtlc = reader.string();
+          message.TimelockHtlc = reader.string();
           break;
         case 8:
-          message.cointransfer = Coin.decode(reader, reader.uint32());
+          message.CoinTransfer = Coin.decode(reader, reader.uint32());
           break;
         case 9:
-          message.hashcodedest = reader.string();
+          message.HashcodeDest = reader.string();
           break;
         case 10:
-          message.timelocksender = reader.string();
+          message.TimelockSender = reader.string();
           break;
         case 11:
-          message.multisig = reader.string();
+          message.Multisig = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2580,157 +2589,157 @@ export const MsgReceivercommit = {
 
   fromJSON(object: any): MsgReceivercommit {
     const message = { ...baseMsgReceivercommit } as MsgReceivercommit;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = String(object.Creator);
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.cointoreceiver !== undefined && object.cointoreceiver !== null) {
-      message.cointoreceiver = Coin.fromJSON(object.cointoreceiver);
+    if (object.CoinToReceiver !== undefined && object.CoinToReceiver !== null) {
+      message.CoinToReceiver = Coin.fromJSON(object.CoinToReceiver);
     } else {
-      message.cointoreceiver = undefined;
+      message.CoinToReceiver = undefined;
     }
-    if (object.cointohtlc !== undefined && object.cointohtlc !== null) {
-      message.cointohtlc = Coin.fromJSON(object.cointohtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromJSON(object.CoinToHtlc);
     } else {
-      message.cointohtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
-      message.hashcodehtlc = String(object.hashcodehtlc);
+    if (object.HashcodeHtlc !== undefined && object.HashcodeHtlc !== null) {
+      message.HashcodeHtlc = String(object.HashcodeHtlc);
     } else {
-      message.hashcodehtlc = "";
+      message.HashcodeHtlc = "";
     }
-    if (object.timelockhtlc !== undefined && object.timelockhtlc !== null) {
-      message.timelockhtlc = String(object.timelockhtlc);
+    if (object.TimelockHtlc !== undefined && object.TimelockHtlc !== null) {
+      message.TimelockHtlc = String(object.TimelockHtlc);
     } else {
-      message.timelockhtlc = "";
+      message.TimelockHtlc = "";
     }
-    if (object.cointransfer !== undefined && object.cointransfer !== null) {
-      message.cointransfer = Coin.fromJSON(object.cointransfer);
+    if (object.CoinTransfer !== undefined && object.CoinTransfer !== null) {
+      message.CoinTransfer = Coin.fromJSON(object.CoinTransfer);
     } else {
-      message.cointransfer = undefined;
+      message.CoinTransfer = undefined;
     }
-    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
-      message.hashcodedest = String(object.hashcodedest);
+    if (object.HashcodeDest !== undefined && object.HashcodeDest !== null) {
+      message.HashcodeDest = String(object.HashcodeDest);
     } else {
-      message.hashcodedest = "";
+      message.HashcodeDest = "";
     }
-    if (object.timelocksender !== undefined && object.timelocksender !== null) {
-      message.timelocksender = String(object.timelocksender);
+    if (object.TimelockSender !== undefined && object.TimelockSender !== null) {
+      message.TimelockSender = String(object.TimelockSender);
     } else {
-      message.timelocksender = "";
+      message.TimelockSender = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = String(object.multisig);
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = String(object.Multisig);
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 
   toJSON(message: MsgReceivercommit): unknown {
     const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.from !== undefined && (obj.from = message.from);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
-    message.cointoreceiver !== undefined &&
-      (obj.cointoreceiver = message.cointoreceiver
-        ? Coin.toJSON(message.cointoreceiver)
+    message.Creator !== undefined && (obj.Creator = message.Creator);
+    message.From !== undefined && (obj.From = message.From);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
+    message.CoinToReceiver !== undefined &&
+      (obj.CoinToReceiver = message.CoinToReceiver
+        ? Coin.toJSON(message.CoinToReceiver)
         : undefined);
-    message.cointohtlc !== undefined &&
-      (obj.cointohtlc = message.cointohtlc
-        ? Coin.toJSON(message.cointohtlc)
+    message.CoinToHtlc !== undefined &&
+      (obj.CoinToHtlc = message.CoinToHtlc
+        ? Coin.toJSON(message.CoinToHtlc)
         : undefined);
-    message.hashcodehtlc !== undefined &&
-      (obj.hashcodehtlc = message.hashcodehtlc);
-    message.timelockhtlc !== undefined &&
-      (obj.timelockhtlc = message.timelockhtlc);
-    message.cointransfer !== undefined &&
-      (obj.cointransfer = message.cointransfer
-        ? Coin.toJSON(message.cointransfer)
+    message.HashcodeHtlc !== undefined &&
+      (obj.HashcodeHtlc = message.HashcodeHtlc);
+    message.TimelockHtlc !== undefined &&
+      (obj.TimelockHtlc = message.TimelockHtlc);
+    message.CoinTransfer !== undefined &&
+      (obj.CoinTransfer = message.CoinTransfer
+        ? Coin.toJSON(message.CoinTransfer)
         : undefined);
-    message.hashcodedest !== undefined &&
-      (obj.hashcodedest = message.hashcodedest);
-    message.timelocksender !== undefined &&
-      (obj.timelocksender = message.timelocksender);
-    message.multisig !== undefined && (obj.multisig = message.multisig);
+    message.HashcodeDest !== undefined &&
+      (obj.HashcodeDest = message.HashcodeDest);
+    message.TimelockSender !== undefined &&
+      (obj.TimelockSender = message.TimelockSender);
+    message.Multisig !== undefined && (obj.Multisig = message.Multisig);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgReceivercommit>): MsgReceivercommit {
     const message = { ...baseMsgReceivercommit } as MsgReceivercommit;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
+    if (object.Creator !== undefined && object.Creator !== null) {
+      message.Creator = object.Creator;
     } else {
-      message.creator = "";
+      message.Creator = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
-    if (object.cointoreceiver !== undefined && object.cointoreceiver !== null) {
-      message.cointoreceiver = Coin.fromPartial(object.cointoreceiver);
+    if (object.CoinToReceiver !== undefined && object.CoinToReceiver !== null) {
+      message.CoinToReceiver = Coin.fromPartial(object.CoinToReceiver);
     } else {
-      message.cointoreceiver = undefined;
+      message.CoinToReceiver = undefined;
     }
-    if (object.cointohtlc !== undefined && object.cointohtlc !== null) {
-      message.cointohtlc = Coin.fromPartial(object.cointohtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromPartial(object.CoinToHtlc);
     } else {
-      message.cointohtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.hashcodehtlc !== undefined && object.hashcodehtlc !== null) {
-      message.hashcodehtlc = object.hashcodehtlc;
+    if (object.HashcodeHtlc !== undefined && object.HashcodeHtlc !== null) {
+      message.HashcodeHtlc = object.HashcodeHtlc;
     } else {
-      message.hashcodehtlc = "";
+      message.HashcodeHtlc = "";
     }
-    if (object.timelockhtlc !== undefined && object.timelockhtlc !== null) {
-      message.timelockhtlc = object.timelockhtlc;
+    if (object.TimelockHtlc !== undefined && object.TimelockHtlc !== null) {
+      message.TimelockHtlc = object.TimelockHtlc;
     } else {
-      message.timelockhtlc = "";
+      message.TimelockHtlc = "";
     }
-    if (object.cointransfer !== undefined && object.cointransfer !== null) {
-      message.cointransfer = Coin.fromPartial(object.cointransfer);
+    if (object.CoinTransfer !== undefined && object.CoinTransfer !== null) {
+      message.CoinTransfer = Coin.fromPartial(object.CoinTransfer);
     } else {
-      message.cointransfer = undefined;
+      message.CoinTransfer = undefined;
     }
-    if (object.hashcodedest !== undefined && object.hashcodedest !== null) {
-      message.hashcodedest = object.hashcodedest;
+    if (object.HashcodeDest !== undefined && object.HashcodeDest !== null) {
+      message.HashcodeDest = object.HashcodeDest;
     } else {
-      message.hashcodedest = "";
+      message.HashcodeDest = "";
     }
-    if (object.timelocksender !== undefined && object.timelocksender !== null) {
-      message.timelocksender = object.timelocksender;
+    if (object.TimelockSender !== undefined && object.TimelockSender !== null) {
+      message.TimelockSender = object.TimelockSender;
     } else {
-      message.timelocksender = "";
+      message.TimelockSender = "";
     }
-    if (object.multisig !== undefined && object.multisig !== null) {
-      message.multisig = object.multisig;
+    if (object.Multisig !== undefined && object.Multisig !== null) {
+      message.Multisig = object.Multisig;
     } else {
-      message.multisig = "";
+      message.Multisig = "";
     }
     return message;
   },
 };
 
 const baseMsgReceivercommitResponse: object = {
-  indexhtlc: "",
-  indextransfer: "",
+  IndexHtlc: "",
+  IndexTransfer: "",
 };
 
 export const MsgReceivercommitResponse = {
@@ -2738,11 +2747,11 @@ export const MsgReceivercommitResponse = {
     message: MsgReceivercommitResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.indexhtlc !== "") {
-      writer.uint32(10).string(message.indexhtlc);
+    if (message.IndexHtlc !== "") {
+      writer.uint32(10).string(message.IndexHtlc);
     }
-    if (message.indextransfer !== "") {
-      writer.uint32(18).string(message.indextransfer);
+    if (message.IndexTransfer !== "") {
+      writer.uint32(18).string(message.IndexTransfer);
     }
     return writer;
   },
@@ -2760,10 +2769,10 @@ export const MsgReceivercommitResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.indexhtlc = reader.string();
+          message.IndexHtlc = reader.string();
           break;
         case 2:
-          message.indextransfer = reader.string();
+          message.IndexTransfer = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2777,24 +2786,24 @@ export const MsgReceivercommitResponse = {
     const message = {
       ...baseMsgReceivercommitResponse,
     } as MsgReceivercommitResponse;
-    if (object.indexhtlc !== undefined && object.indexhtlc !== null) {
-      message.indexhtlc = String(object.indexhtlc);
+    if (object.IndexHtlc !== undefined && object.IndexHtlc !== null) {
+      message.IndexHtlc = String(object.IndexHtlc);
     } else {
-      message.indexhtlc = "";
+      message.IndexHtlc = "";
     }
-    if (object.indextransfer !== undefined && object.indextransfer !== null) {
-      message.indextransfer = String(object.indextransfer);
+    if (object.IndexTransfer !== undefined && object.IndexTransfer !== null) {
+      message.IndexTransfer = String(object.IndexTransfer);
     } else {
-      message.indextransfer = "";
+      message.IndexTransfer = "";
     }
     return message;
   },
 
   toJSON(message: MsgReceivercommitResponse): unknown {
     const obj: any = {};
-    message.indexhtlc !== undefined && (obj.indexhtlc = message.indexhtlc);
-    message.indextransfer !== undefined &&
-      (obj.indextransfer = message.indextransfer);
+    message.IndexHtlc !== undefined && (obj.IndexHtlc = message.IndexHtlc);
+    message.IndexTransfer !== undefined &&
+      (obj.IndexTransfer = message.IndexTransfer);
     return obj;
   },
 
@@ -2804,15 +2813,15 @@ export const MsgReceivercommitResponse = {
     const message = {
       ...baseMsgReceivercommitResponse,
     } as MsgReceivercommitResponse;
-    if (object.indexhtlc !== undefined && object.indexhtlc !== null) {
-      message.indexhtlc = object.indexhtlc;
+    if (object.IndexHtlc !== undefined && object.IndexHtlc !== null) {
+      message.IndexHtlc = object.IndexHtlc;
     } else {
-      message.indexhtlc = "";
+      message.IndexHtlc = "";
     }
-    if (object.indextransfer !== undefined && object.indextransfer !== null) {
-      message.indextransfer = object.indextransfer;
+    if (object.IndexTransfer !== undefined && object.IndexTransfer !== null) {
+      message.IndexTransfer = object.IndexTransfer;
     } else {
-      message.indextransfer = "";
+      message.IndexTransfer = "";
     }
     return message;
   },

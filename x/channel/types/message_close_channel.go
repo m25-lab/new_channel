@@ -17,7 +17,7 @@ func NewMsgCloseChannel(creator string, from string, toA string, coinA *sdk.Coin
 		CoinA:     coinA,
 		ToB:       toB,
 		CoinB:     coinB,
-		Channelid: channelid,
+		ChannelID: channelid,
 	}
 }
 

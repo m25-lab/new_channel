@@ -6,55 +6,55 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 export const protobufPackage = "channel.channel";
 
 export interface Commitment {
-  index: string;
-  from: string;
-  cointocreator: Coin | undefined;
-  toTimelock: string;
-  toHashlock: string;
-  coinhtlc: Coin | undefined;
-  blockheight: number;
-  hashcode: string;
-  channelid: string;
+  Index: string;
+  From: string;
+  CoinToCreator: Coin | undefined;
+  ToTimelockAddr: string;
+  ToHashlockAddr: string;
+  CoinToHtlc: Coin | undefined;
+  Timelock: number;
+  Hashcode: string;
+  ChannelID: string;
 }
 
 const baseCommitment: object = {
-  index: "",
-  from: "",
-  toTimelock: "",
-  toHashlock: "",
-  blockheight: 0,
-  hashcode: "",
-  channelid: "",
+  Index: "",
+  From: "",
+  ToTimelockAddr: "",
+  ToHashlockAddr: "",
+  Timelock: 0,
+  Hashcode: "",
+  ChannelID: "",
 };
 
 export const Commitment = {
   encode(message: Commitment, writer: Writer = Writer.create()): Writer {
-    if (message.index !== "") {
-      writer.uint32(10).string(message.index);
+    if (message.Index !== "") {
+      writer.uint32(10).string(message.Index);
     }
-    if (message.from !== "") {
-      writer.uint32(18).string(message.from);
+    if (message.From !== "") {
+      writer.uint32(18).string(message.From);
     }
-    if (message.cointocreator !== undefined) {
-      Coin.encode(message.cointocreator, writer.uint32(26).fork()).ldelim();
+    if (message.CoinToCreator !== undefined) {
+      Coin.encode(message.CoinToCreator, writer.uint32(26).fork()).ldelim();
     }
-    if (message.toTimelock !== "") {
-      writer.uint32(34).string(message.toTimelock);
+    if (message.ToTimelockAddr !== "") {
+      writer.uint32(34).string(message.ToTimelockAddr);
     }
-    if (message.toHashlock !== "") {
-      writer.uint32(42).string(message.toHashlock);
+    if (message.ToHashlockAddr !== "") {
+      writer.uint32(42).string(message.ToHashlockAddr);
     }
-    if (message.coinhtlc !== undefined) {
-      Coin.encode(message.coinhtlc, writer.uint32(50).fork()).ldelim();
+    if (message.CoinToHtlc !== undefined) {
+      Coin.encode(message.CoinToHtlc, writer.uint32(50).fork()).ldelim();
     }
-    if (message.blockheight !== 0) {
-      writer.uint32(56).uint64(message.blockheight);
+    if (message.Timelock !== 0) {
+      writer.uint32(56).uint64(message.Timelock);
     }
-    if (message.hashcode !== "") {
-      writer.uint32(66).string(message.hashcode);
+    if (message.Hashcode !== "") {
+      writer.uint32(66).string(message.Hashcode);
     }
-    if (message.channelid !== "") {
-      writer.uint32(74).string(message.channelid);
+    if (message.ChannelID !== "") {
+      writer.uint32(74).string(message.ChannelID);
     }
     return writer;
   },
@@ -67,31 +67,31 @@ export const Commitment = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
+          message.Index = reader.string();
           break;
         case 2:
-          message.from = reader.string();
+          message.From = reader.string();
           break;
         case 3:
-          message.cointocreator = Coin.decode(reader, reader.uint32());
+          message.CoinToCreator = Coin.decode(reader, reader.uint32());
           break;
         case 4:
-          message.toTimelock = reader.string();
+          message.ToTimelockAddr = reader.string();
           break;
         case 5:
-          message.toHashlock = reader.string();
+          message.ToHashlockAddr = reader.string();
           break;
         case 6:
-          message.coinhtlc = Coin.decode(reader, reader.uint32());
+          message.CoinToHtlc = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.blockheight = longToNumber(reader.uint64() as Long);
+          message.Timelock = longToNumber(reader.uint64() as Long);
           break;
         case 8:
-          message.hashcode = reader.string();
+          message.Hashcode = reader.string();
           break;
         case 9:
-          message.channelid = reader.string();
+          message.ChannelID = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -103,121 +103,122 @@ export const Commitment = {
 
   fromJSON(object: any): Commitment {
     const message = { ...baseCommitment } as Commitment;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = String(object.index);
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = String(object.Index);
     } else {
-      message.index = "";
+      message.Index = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
+    if (object.From !== undefined && object.From !== null) {
+      message.From = String(object.From);
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.cointocreator !== undefined && object.cointocreator !== null) {
-      message.cointocreator = Coin.fromJSON(object.cointocreator);
+    if (object.CoinToCreator !== undefined && object.CoinToCreator !== null) {
+      message.CoinToCreator = Coin.fromJSON(object.CoinToCreator);
     } else {
-      message.cointocreator = undefined;
+      message.CoinToCreator = undefined;
     }
-    if (object.toTimelock !== undefined && object.toTimelock !== null) {
-      message.toTimelock = String(object.toTimelock);
+    if (object.ToTimelockAddr !== undefined && object.ToTimelockAddr !== null) {
+      message.ToTimelockAddr = String(object.ToTimelockAddr);
     } else {
-      message.toTimelock = "";
+      message.ToTimelockAddr = "";
     }
-    if (object.toHashlock !== undefined && object.toHashlock !== null) {
-      message.toHashlock = String(object.toHashlock);
+    if (object.ToHashlockAddr !== undefined && object.ToHashlockAddr !== null) {
+      message.ToHashlockAddr = String(object.ToHashlockAddr);
     } else {
-      message.toHashlock = "";
+      message.ToHashlockAddr = "";
     }
-    if (object.coinhtlc !== undefined && object.coinhtlc !== null) {
-      message.coinhtlc = Coin.fromJSON(object.coinhtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromJSON(object.CoinToHtlc);
     } else {
-      message.coinhtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.blockheight !== undefined && object.blockheight !== null) {
-      message.blockheight = Number(object.blockheight);
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = Number(object.Timelock);
     } else {
-      message.blockheight = 0;
+      message.Timelock = 0;
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = String(object.hashcode);
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = String(object.Hashcode);
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = String(object.channelid);
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = String(object.ChannelID);
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
     return message;
   },
 
   toJSON(message: Commitment): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
-    message.from !== undefined && (obj.from = message.from);
-    message.cointocreator !== undefined &&
-      (obj.cointocreator = message.cointocreator
-        ? Coin.toJSON(message.cointocreator)
+    message.Index !== undefined && (obj.Index = message.Index);
+    message.From !== undefined && (obj.From = message.From);
+    message.CoinToCreator !== undefined &&
+      (obj.CoinToCreator = message.CoinToCreator
+        ? Coin.toJSON(message.CoinToCreator)
         : undefined);
-    message.toTimelock !== undefined && (obj.toTimelock = message.toTimelock);
-    message.toHashlock !== undefined && (obj.toHashlock = message.toHashlock);
-    message.coinhtlc !== undefined &&
-      (obj.coinhtlc = message.coinhtlc
-        ? Coin.toJSON(message.coinhtlc)
+    message.ToTimelockAddr !== undefined &&
+      (obj.ToTimelockAddr = message.ToTimelockAddr);
+    message.ToHashlockAddr !== undefined &&
+      (obj.ToHashlockAddr = message.ToHashlockAddr);
+    message.CoinToHtlc !== undefined &&
+      (obj.CoinToHtlc = message.CoinToHtlc
+        ? Coin.toJSON(message.CoinToHtlc)
         : undefined);
-    message.blockheight !== undefined &&
-      (obj.blockheight = message.blockheight);
-    message.hashcode !== undefined && (obj.hashcode = message.hashcode);
-    message.channelid !== undefined && (obj.channelid = message.channelid);
+    message.Timelock !== undefined && (obj.Timelock = message.Timelock);
+    message.Hashcode !== undefined && (obj.Hashcode = message.Hashcode);
+    message.ChannelID !== undefined && (obj.ChannelID = message.ChannelID);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Commitment>): Commitment {
     const message = { ...baseCommitment } as Commitment;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
+    if (object.Index !== undefined && object.Index !== null) {
+      message.Index = object.Index;
     } else {
-      message.index = "";
+      message.Index = "";
     }
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
+    if (object.From !== undefined && object.From !== null) {
+      message.From = object.From;
     } else {
-      message.from = "";
+      message.From = "";
     }
-    if (object.cointocreator !== undefined && object.cointocreator !== null) {
-      message.cointocreator = Coin.fromPartial(object.cointocreator);
+    if (object.CoinToCreator !== undefined && object.CoinToCreator !== null) {
+      message.CoinToCreator = Coin.fromPartial(object.CoinToCreator);
     } else {
-      message.cointocreator = undefined;
+      message.CoinToCreator = undefined;
     }
-    if (object.toTimelock !== undefined && object.toTimelock !== null) {
-      message.toTimelock = object.toTimelock;
+    if (object.ToTimelockAddr !== undefined && object.ToTimelockAddr !== null) {
+      message.ToTimelockAddr = object.ToTimelockAddr;
     } else {
-      message.toTimelock = "";
+      message.ToTimelockAddr = "";
     }
-    if (object.toHashlock !== undefined && object.toHashlock !== null) {
-      message.toHashlock = object.toHashlock;
+    if (object.ToHashlockAddr !== undefined && object.ToHashlockAddr !== null) {
+      message.ToHashlockAddr = object.ToHashlockAddr;
     } else {
-      message.toHashlock = "";
+      message.ToHashlockAddr = "";
     }
-    if (object.coinhtlc !== undefined && object.coinhtlc !== null) {
-      message.coinhtlc = Coin.fromPartial(object.coinhtlc);
+    if (object.CoinToHtlc !== undefined && object.CoinToHtlc !== null) {
+      message.CoinToHtlc = Coin.fromPartial(object.CoinToHtlc);
     } else {
-      message.coinhtlc = undefined;
+      message.CoinToHtlc = undefined;
     }
-    if (object.blockheight !== undefined && object.blockheight !== null) {
-      message.blockheight = object.blockheight;
+    if (object.Timelock !== undefined && object.Timelock !== null) {
+      message.Timelock = object.Timelock;
     } else {
-      message.blockheight = 0;
+      message.Timelock = 0;
     }
-    if (object.hashcode !== undefined && object.hashcode !== null) {
-      message.hashcode = object.hashcode;
+    if (object.Hashcode !== undefined && object.Hashcode !== null) {
+      message.Hashcode = object.Hashcode;
     } else {
-      message.hashcode = "";
+      message.Hashcode = "";
     }
-    if (object.channelid !== undefined && object.channelid !== null) {
-      message.channelid = object.channelid;
+    if (object.ChannelID !== undefined && object.ChannelID !== null) {
+      message.ChannelID = object.ChannelID;
     } else {
-      message.channelid = "";
+      message.ChannelID = "";
     }
     return message;
   },
