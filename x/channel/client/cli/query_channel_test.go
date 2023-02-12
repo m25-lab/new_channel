@@ -2,6 +2,8 @@ package cli_test
 
 import (
 	"fmt"
+	"github.com/AstraProtocol/channel/x/channel/client/cli"
+
 	"strconv"
 	"testing"
 
@@ -14,7 +16,6 @@ import (
 
 	"github.com/AstraProtocol/channel/testutil/network"
 	"github.com/AstraProtocol/channel/testutil/nullify"
-	"github.com/AstraProtocol/channel/x/channel/client/cli"
 	"github.com/AstraProtocol/channel/x/channel/types"
 )
 

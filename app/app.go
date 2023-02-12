@@ -2,11 +2,12 @@ package app
 
 import (
 	"fmt"
-	"github.com/cosmos/ibc-go/v3/modules/apps/transfer"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/cosmos/ibc-go/v3/modules/apps/transfer"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -95,6 +96,7 @@ import (
 	channelmodule "github.com/AstraProtocol/channel/x/channel"
 	channelmodulekeeper "github.com/AstraProtocol/channel/x/channel/keeper"
 	channelmoduletypes "github.com/AstraProtocol/channel/x/channel/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	porttypes "github.com/cosmos/ibc-go/v3/modules/core/05-port/types"
