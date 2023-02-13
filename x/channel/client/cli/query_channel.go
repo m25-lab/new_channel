@@ -3,9 +3,9 @@ package cli
 import (
 	"context"
 
-	"github.com/AstraProtocol/channel/x/channel/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/m25-lab/channel/x/channel/types"
 	"github.com/spf13/cobra"
 )
 

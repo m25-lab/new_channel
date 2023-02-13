@@ -92,10 +92,10 @@ import (
 	"github.com/ignite/cli/ignite/pkg/cosmoscmd"
 	"github.com/ignite/cli/ignite/pkg/openapiconsole"
 
-	"github.com/AstraProtocol/channel/docs"
-	channelmodule "github.com/AstraProtocol/channel/x/channel"
-	channelmodulekeeper "github.com/AstraProtocol/channel/x/channel/keeper"
-	channelmoduletypes "github.com/AstraProtocol/channel/x/channel/types"
+	"github.com/m25-lab/channel/docs"
+	channelmodule "github.com/m25-lab/channel/x/channel"
+	channelmodulekeeper "github.com/m25-lab/channel/x/channel/keeper"
+	channelmoduletypes "github.com/m25-lab/channel/x/channel/types"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 

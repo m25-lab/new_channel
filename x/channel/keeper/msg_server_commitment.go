@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/AstraProtocol/channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/m25-lab/channel/x/channel/types"
 )
 
 func (k msgServer) Commitment(goCtx context.Context, msg *types.MsgCommitment) (*types.MsgCommitmentResponse, error) {

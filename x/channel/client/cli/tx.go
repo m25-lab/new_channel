@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/AstraProtocol/channel/x/channel/types"
+	"github.com/m25-lab/channel/x/channel/types"
 )
 
 var (

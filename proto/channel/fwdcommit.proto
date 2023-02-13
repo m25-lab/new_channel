@@ -3,7 +3,7 @@ package channel.channel;
 
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/AstraProtocol/channel/x/channel/types";
+option go_package = "github.com/m25-lab/channel/x/channel/types";
 
 message Fwdcommit {
   string Index = 1;

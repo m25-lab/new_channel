@@ -13,14 +13,14 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/AstraProtocol/channel/x/channel/client/cli"
-	"github.com/AstraProtocol/channel/x/channel/keeper"
-	"github.com/AstraProtocol/channel/x/channel/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/m25-lab/channel/x/channel/client/cli"
+	"github.com/m25-lab/channel/x/channel/keeper"
+	"github.com/m25-lab/channel/x/channel/types"
 )
 
 var (

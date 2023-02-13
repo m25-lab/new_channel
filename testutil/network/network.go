@@ -19,7 +19,7 @@ import (
 
 	tmdb "github.com/tendermint/tm-db"
 
-	"github.com/AstraProtocol/channel/app"
+	"github.com/m25-lab/channel/app"
 )
 
 type (

@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/AstraProtocol/channel/x/channel/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/m25-lab/channel/x/channel/types"
 )
 
 func (k msgServer) WithdrawHashlock(goCtx context.Context, msg *types.MsgWithdrawHashlock) (*types.MsgWithdrawHashlockResponse, error) {

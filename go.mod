@@ -1,4 +1,4 @@
-module github.com/AstraProtocol/channel
+module github.com/m25-lab/channel
 
 go 1.18
 

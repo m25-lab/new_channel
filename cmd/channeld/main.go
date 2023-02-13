@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/AstraProtocol/channel/app"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/ignite/cli/ignite/pkg/cosmoscmd"
 	"github.com/ignite/cli/ignite/pkg/xstrings"
+	"github.com/m25-lab/channel/app"
 )
 
 func main() {
