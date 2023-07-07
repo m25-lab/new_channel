@@ -3,6 +3,8 @@ package keeper
 import (
 	"context"
 	"errors"
+	"fmt"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/m25-lab/channel/x/channel/types"
@@ -21,7 +23,9 @@ func (k msgServer) WithdrawTimelock(goCtx context.Context, msg *types.MsgWithdra
 	}
 
 	if val.Timelock > uint64(ctx.BlockHeight()) {
-		return nil, errors.New("wait until valid blokcheight")
+		errStr := fmt.Sprintf("Current block: %s. Timelock: %s", strconv.FormatInt(ctx.BlockHeight(), 10), strconv.FormatUint(val.Timelock, 10))
+		return nil, errors.New(errStr)
+
 	}
 
 	to, err := sdk.AccAddressFromBech32(msg.To)
